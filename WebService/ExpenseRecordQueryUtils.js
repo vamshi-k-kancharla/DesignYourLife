@@ -5,7 +5,7 @@
  **************************************************************************
  **************************************************************************
  * 
- * Module to retrieve budget records based on input queries
+ * Module to retrieve expense records based on input queries
  * 
  **************************************************************************
  **************************************************************************
@@ -14,7 +14,7 @@
 
 /*************************************************************************
  * 
- * Globals : Trade And LC Objects
+ * Globals : Import Modules
  * 
 *************************************************************************/
 
@@ -27,7 +27,7 @@ var RecordHelperUtilsModule = require('./RecordHelperUtils');
  **************************************************************************
  **************************************************************************
  * 
- * Budget Records : CRUD operations Wrappers Module for Queries
+ * Expense Records : CRUD operations Wrappers Module for Queries
  *                  DB Specific User Input/Output processing
  * 
  **************************************************************************
@@ -38,7 +38,6 @@ var RecordHelperUtilsModule = require('./RecordHelperUtils');
 /**
  * 
  * @param {Object} queryResult  : Result object of the Web Cient query
- * @param {XMLHttpRequest} http_request  : http request passed from web service handler
  * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
  *
  */
@@ -47,9 +46,9 @@ exports.handleQueryResults = function (queryResult, http_response) {
 
     if (err) {
 
-        console.error("BudgetRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution");
+        console.error("ExpenseRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution");
 
-        var failureMessage = "BudgetRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution";
+        var failureMessage = "ExpenseRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution";
         HelperUtilsModule.logInternalServerError("handleQueryResults", failureMessage, http_response);
 
         return;
@@ -66,7 +65,7 @@ exports.handleQueryResults = function (queryResult, http_response) {
     http_response.writeHead(200, { 'Content-Type': 'application/json' });
     http_response.end(queryResponse_JSON_String);
 
-    console.log("BudgetRecordQueryUtils.handleQueryResults: Written Success response for input query : Response => " +
+    console.log("ExpenseRecordQueryUtils.handleQueryResults: Written Success response for input query : Response => " +
         queryResponse_JSON_String);
 }
 
@@ -75,28 +74,28 @@ exports.handleQueryResults = function (queryResult, http_response) {
  * 
  * @param {Object} queryResult  : query Response received from Mongo DB
  * 
- * @returns {String} queryResponse_BudgetRecord_JSON_String  : JSON String of Retrieved Budget Record(s)
+ * @returns {String} queryResponse_ExpenseRecord_JSON_String  : JSON String of Retrieved Expense Record(s)
  *
  */
 
 function buildQueryResponse_JSON(queryResult) {
 
-    var queryResponse_BudgetRecord_JSON_String = "";
+    var queryResponse_ExpenseRecord_JSON_String = "";
 
     for (var i = 0; i < queryResult.length; i++) {
 
         var currentRecord = queryResult[i];
 
-        if (HelperUtilsModule.valueDefined(currentRecord.Budget_Id) ) {
+        if (HelperUtilsModule.valueDefined(currentRecord.Expense_Id) ) {
 
-            queryResponse_BudgetRecord_JSON_String += JSON.stringify(RecordHelperUtilsModule.buildJSONRecord(currentRecord,
-                GlobalsForServiceModule.budgetRecordRequiredFields));
-            queryResponse_BudgetRecord_JSON_String += "\n";
+            queryResponse_ExpenseRecord_JSON_String += JSON.stringify(RecordHelperUtilsModule.buildJSONRecord(currentRecord,
+                GlobalsForServiceModule.expenseRecordRequiredFields));
+            queryResponse_ExpenseRecord_JSON_String += "\n";
         }
 
     }
 
-    return queryResponse_BudgetRecord_JSON_String;
+    return queryResponse_ExpenseRecord_JSON_String;
 }
 
 
@@ -104,7 +103,7 @@ function buildQueryResponse_JSON(queryResult) {
  **************************************************************************
  **************************************************************************
  * 
- * Budget Details Record Query Processing & Response Building
+ * Expense Details Record Query Processing & Response Building
  * 
  **************************************************************************
  **************************************************************************
@@ -115,25 +114,26 @@ function buildQueryResponse_JSON(queryResult) {
  * @param {DbConnection} dbConnection  : Connection to database 
  * @param {String} collectionName  : Name of Table ( Collection )
  * 
- * @param {Map} clientRequestWithParamsMap : Map of <K,V> Pairs ( Record ) used to generate LC
- * @param {Function} handleQueryResults  : Call back function to handle the Query Results
- * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
+ * @param {Map} clientRequestWithParamsMap : Map of <K,V> Pairs ( Record ) used to Retrieve records
+ * @param {Function} handleQueryResults  : Callback function to handle the Query Results
+ * @param {XMLHttpRequestResponse} http_response : Http response to be filled while responding to web client request
  *
  */
 
-exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collectionName, clientRequestWithParamsMap,
+exports.retrieveRecordFromExpenseDetailsDatabase = function (dbConnection, collectionName, clientRequestWithParamsMap,
     handleQueryResults, http_response) {
 
-    // Expense Record Retrieval based on "Budget_Id || Name || Budget_Type || Place || StartDate || EndDate || Amount || UserName"
+    // Expense Record Retrieval based on "Expense_Id | Name | Expense_Type | Place | Expense_Category | Expense_SubCategory
+    //  | Date | Amount | AmountQuery | MerchantName | Expense_Id | UserName"
 
     var queryObject = new Object();
 
-    var budgetRecordDetails = GlobalsForServiceModule.budgetRecordRequiredFields;
+    var expenseRecordDetails = GlobalsForServiceModule.expenseRecordRequiredFields;
     var parameterList = " ";
 
     // Fill the record document object values
 
-    for (var currentDetailOfRecord of budgetRecordDetails) {
+    for (var currentDetailOfRecord of expenseRecordDetails) {
 
         if( HelperUtilsModule.valueDefined(clientRequestWithParamsMap.get(currentDetailOfRecord)) ) {
 
@@ -146,14 +146,14 @@ exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collec
         }
     }
 
-    console.log("BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase => collectionName :" + collectionName);
-    console.log("BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Called with Parameter List : " + parameterList);
+    console.log("ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase => collectionName :" + collectionName);
+    console.log("ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Called with Parameter List : " + parameterList);
 
     // Remove URL representation of spaces
 
     queryObject = HelperUtilsModule.removeUrlSpacesFromObjectValues(queryObject);
 
-    // Query for Budget Records
+    // Query for Expense Records
 
     if (queryObject.length > 0) {
 
@@ -161,19 +161,19 @@ exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collec
 
             if (err) {
 
-                var failureMessage = "BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Internal Server Error while querying for specific Records from BudgetDetails Database : " + err;
-                HelperUtilsModule.logInternalServerError("retrieveRecordFromBudgetDetailsDatabase", failureMessage, http_response);
+                var failureMessage = "ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Internal Server Error while querying for specific Records from ExpenseDetails Database : " + err;
+                HelperUtilsModule.logInternalServerError("retrieveRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
             }
 
-            console.log("BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Successfully retrieved queried records => ");
+            console.log("ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Successfully retrieved queried records => ");
             console.log(result);
 
-            if (result == null || result == undefined) {
+            if ( !HelperUtilsModule.valueDefined(result) ) {
 
-                var failureMessage = "BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Null Records returned for BudgetDetails Record query";
-                HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromBudgetDetailsDatabase", failureMessage, http_response);
+                var failureMessage = "ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Null Records returned for ExpenseDetails Record query";
+                HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
             }
@@ -187,19 +187,19 @@ exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collec
 
             if (err) {
 
-                var failureMessage = "BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Internal Server Error while querying for all the Records from BudgetDetails Database : " + err;
-                HelperUtilsModule.logInternalServerError("retrieveRecordFromBudgetDetailsDatabase", failureMessage, http_response);
+                var failureMessage = "ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Internal Server Error while querying for all the Records from ExpenseDetails Database : " + err;
+                HelperUtilsModule.logInternalServerError("retrieveRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
             }
 
-            console.log("BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Successfully retrieved all the records => ");
+            console.log("ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Successfully retrieved all the records => ");
             console.log(result);
 
-            if (result == null || result == undefined) {
+            if ( HelperUtilsModule.valueDefined(result) ) {
 
-                var failureMessage = "BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Null Records returned for BudgetDetails Record query For All Records";
-                HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromBudgetDetailsDatabase", failureMessage, http_response);
+                var failureMessage = "ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Null Records returned for ExpenseDetails Record query For All Records";
+                HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
             }
