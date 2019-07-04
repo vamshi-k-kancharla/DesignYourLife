@@ -44,16 +44,6 @@ var RecordHelperUtilsModule = require('./RecordHelperUtils');
 
 exports.handleQueryResults = function (queryResult, http_response) {
 
-    if (err) {
-
-        console.error("ExpenseRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution");
-
-        var failureMessage = "ExpenseRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution";
-        HelperUtilsModule.logInternalServerError("handleQueryResults", failureMessage, http_response);
-
-        return;
-    }
-
     console.log("Callback Function (handleQueryResults) : Successfully retrieved the records through function " +
         "(mongoDbCrudModule.retrieveRecordsFromDatabase) => ");
     console.log(queryResult);
@@ -196,7 +186,7 @@ exports.retrieveRecordFromExpenseDetailsDatabase = function (dbConnection, colle
             console.log("ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Successfully retrieved all the records => ");
             console.log(result);
 
-            if ( HelperUtilsModule.valueDefined(result) ) {
+            if ( !HelperUtilsModule.valueDefined(result) ) {
 
                 var failureMessage = "ExpenseRecordQueryUtils.retrieveRecordFromExpenseDetailsDatabase : Null Records returned for ExpenseDetails Record query For All Records";
                 HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromExpenseDetailsDatabase", failureMessage, http_response);

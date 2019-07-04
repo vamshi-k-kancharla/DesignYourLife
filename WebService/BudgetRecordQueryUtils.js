@@ -45,16 +45,6 @@ var RecordHelperUtilsModule = require('./RecordHelperUtils');
 
 exports.handleQueryResults = function (queryResult, http_response) {
 
-    if (err) {
-
-        console.error("BudgetRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution");
-
-        var failureMessage = "BudgetRecordQueryUtils.handleQueryResults : Internal Server Error during record retrieval query execution";
-        HelperUtilsModule.logInternalServerError("handleQueryResults", failureMessage, http_response);
-
-        return;
-    }
-
     console.log("Callback Function (handleQueryResults) : Successfully retrieved the records through function " +
         "(mongoDbCrudModule.retrieveRecordsFromDatabase) => ");
     console.log(queryResult);
@@ -196,7 +186,7 @@ exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collec
             console.log("BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Successfully retrieved all the records => ");
             console.log(result);
 
-            if (result == null || result == undefined) {
+            if ( !HelperUtilsModule.valueDefined(result) ) {
 
                 var failureMessage = "BudgetRecordQueryUtils.retrieveRecordFromBudgetDetailsDatabase : Null Records returned for BudgetDetails Record query For All Records";
                 HelperUtilsModule.logBadHttpRequestError("retrieveRecordFromBudgetDetailsDatabase", failureMessage, http_response);

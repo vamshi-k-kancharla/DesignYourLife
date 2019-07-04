@@ -45,6 +45,7 @@ var mongoUserDetailsDbUrl = 'mongodb://127.0.0.1:27017/' + userDetails_DatabaseN
 // Budget & Expense Details : Required Fields
 
 var budgetRecordRequiredFields = ["Budget_Id", "Name", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
+
 var expenseRecordRequiredFields = ["Expense_Id", "Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory", "Date",
     "Amount", "MerchantName", "Budget_Id", "UserName"];
 

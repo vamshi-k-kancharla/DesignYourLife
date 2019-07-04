@@ -26,12 +26,15 @@ var http = require('http');
 var url = require('url');
 
 var globalsForServiceModule = require('./GlobalsForService');
-
-var mongoDbCrudModule = require('./MongoDbCRUD');
 var HelperUtilsModule = require('./HelperUtils');
 
 var UserAuthenticationModule = require('./UserAuthentication');
 var UserRecordsQueryAndUpdatesModule = require('./UserRecordsQueryAndUpdates');
+
+var BudgetRecordsUpdateModule = require('./BudgetRecordUpdateUtils');
+var BudgetRecordsQueryModule = require('./BudgetRecordQueryUtils');
+var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
+var ExpenseRecordsQueryModule = require('./ExpenseRecordQueryUtils');
 
 
 /**************************************************************************
@@ -102,7 +105,7 @@ http.createServer(function (http_request, http_response) {
     if (webClientRequest == "UserRegistration" || webClientRequest == "UserAuthentication" ||
         webClientRequest == "RetrieveUserDetails") {
 
-        handleUserDatabaseRequests(http_response);
+        handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
 
     // Connect to "Budget Details" db for "Budget Related CRUD operations"
@@ -110,14 +113,15 @@ http.createServer(function (http_request, http_response) {
     if ( webClientRequest == "AddBudget" || webClientRequest == "UpdateBudget" ||
          webClientRequest == "RetrieveBudgetDetails" || webClientRequest == "RemoveBudget" ) {
 
-        handleBudgetDatabaseRequests(http_response);
+        handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
 
     // Connect to "Budget Details" db for "Budget Related CRUD operations"
 
-    if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails") {
+    if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails" ||
+        webClientRequest == "UpdateExpense" ) {
 
-        handleExpensesDatabaseRequests(http_response);
+        handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
 
     //  close the db connection
@@ -338,9 +342,10 @@ function handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsM
 
                     case "UpdateBudget":
 
-                        BudgetRecordsUpdateModule.updateBudgetRecordToDatabase(dbConnection_BudgetDetails_Database,
+                        BudgetRecordsUpdateModule.updateBudgetRecordInDatabase(dbConnection_BudgetDetails_Database,
                             globalsForServiceModule.budgetDetails_Table_Name,
                             clientRequestWithParamsMap,
+                            globalsForServiceModule.budgetRecordRequiredFields,
                             http_response);
 
                         console.log("DesignYourLifeWebService.createServer : Successfully placed Update Budget Record call");
@@ -350,35 +355,27 @@ function handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsM
                     case "RetrieveBudgetDetails":
 
                         console.log("DesignYourLifeWebService.createServer : Inside Budget Details Switch : " +
-                            "RetrieveBudetDetails : BudgetName : " + clientRequestWithParamsMap.get("BudgetName"));
-
-                        // Build Query
-
-                        var queryMap = new Map();
-
-                        if (HelperUtilsModule.valueDefined(budgetName)) {
-
-                            queryMap.set("BudgetName", budgetName);
-                        }
+                            "RetrieveBudetDetails : BudgetName : " + clientRequestWithParamsMap.get("Name"));
 
                         // DB query & Reponse Building
 
-                        BudgetRecordsUpdateModule.retrieveBudgetDetails(dbConnection_BudgetDetails_Database,
+                        BudgetRecordsQueryModule.retrieveRecordFromBudgetDetailsDatabase(dbConnection_BudgetDetails_Database,
                             globalsForServiceModule.budgetDetails_Table_Name,
-                            queryMap,
-                            BudgetRecordsQueryAndUpdatesModule.handleUserDatabaseQueryResults,
+                            clientRequestWithParamsMap,
+                            BudgetRecordsQueryModule.handleQueryResults,
                             http_response);
 
                         console.log("DesignYourLifeWebService.createServer : Switch Statement : " +
-                            "Failed to Retrieve the required Budget Details");
+                            "Successfully placed Retrieve_Budget_Records call");
 
                         break;
 
                     case "RemoveBudget":
 
-                        BudgetRecordsUpdateModule.removeBudgetRecordFromDatabase(dbConnection_BudgetDetails_Database,
+                        BudgetRecordsUpdateModule.removeBudgetRecordInDatabase(dbConnection_BudgetDetails_Database,
                             globalsForServiceModule.budgetDetails_Table_Name,
                             clientRequestWithParamsMap,
+                            globalsForServiceModule.budgetRecordRequiredFields,
                             http_response);
 
                         console.log("DesignYourLifeWebService.createServer : Successfully placed Remove Budget Record call");
@@ -414,7 +411,7 @@ function handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsM
  * 
 */
 
-function handleExpenseDetailsDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response) {
+function handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response) {
 
     var dbConnection_ExpenseDetails_Database;
 
@@ -466,7 +463,7 @@ function handleExpenseDetailsDatabaseRequests(webClientRequest, clientRequestWit
 
                     case "AddExpense":
 
-                        expenseRecordsUpdateModule.addExpenseRecordToDatabase(dbConnection_ExpenseDetails_Database,
+                        ExpenseRecordsUpdateModule.addExpenseRecordToDatabase(dbConnection_ExpenseDetails_Database,
                             globalsForServiceModule.expenseDetails_Table_Name,
                             clientRequestWithParamsMap,
                             globalsForServiceModule.expenseRecordRequiredFields,
@@ -476,30 +473,33 @@ function handleExpenseDetailsDatabaseRequests(webClientRequest, clientRequestWit
 
                         break;
 
+                    case "UpdateExpense":
+
+                        ExpenseRecordsUpdateModule.updateExpenseRecordInDatabase(dbConnection_ExpenseDetails_Database,
+                            globalsForServiceModule.expenseDetails_Table_Name,
+                            clientRequestWithParamsMap,
+                            globalsForServiceModule.expenseRecordRequiredFields,
+                            http_response);
+
+                        console.log("DesignYourLifeWebService.createServer : Successfully placed Update Expense Record call");
+
+                        break;
+
                     case "RetrieveExpenseDetails":
 
                         console.log("DesignYourLifeWebService.createServer : Inside Expense Details Switch : " +
-                            "RetrieveBudetDetails : ExpenseName : " + clientRequestWithParamsMap.get("ExpenseName"));
-
-                        // Build Query
-
-                        var queryMap = new Map();
-
-                        if (HelperUtilsModule.valueDefined(ExpenseName)) {
-
-                            queryMap.set("ExpenseName", ExpenseName);
-                        }
+                            "RetrieveBudetDetails : ExpenseName : " + clientRequestWithParamsMap.get("Name"));
 
                         // DB query & Reponse Building
 
-                        ExpenseRecordsUpdateModule.retrieveExpenseDetails(dbConnection_ExpenseDetails_Database,
+                        ExpenseRecordsQueryModule.retrieveRecordFromExpenseDetailsDatabase(dbConnection_ExpenseDetails_Database,
                             globalsForServiceModule.expenseDetails_Table_Name,
-                            queryMap,
-                            ExpenseRecordsQueryAndUpdatesModule.expenseRecordRequiredFields,
+                            clientRequestWithParamsMap,
+                            ExpenseRecordsQueryModule.handleQueryResults,
                             http_response);
 
                         console.log("DesignYourLifeWebService.createServer : Switch Statement : " +
-                            "Failed to Retrieve the required Expense Details");
+                            "Successfully placed Retrieve_Expense_Records call");
 
                         break;
 

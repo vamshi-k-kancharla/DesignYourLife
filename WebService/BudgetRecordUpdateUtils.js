@@ -61,7 +61,7 @@ exports.addBudgetRecordToDatabase = function (dbConnection, collectionName, reco
 
     }
 
-    console.log("addBudgetRecordToDatabase : All <K,V> pairs are present, Adding Trade Record of Num Of Pairs => " + budget_Object.length);
+    console.log("addBudgetRecordToDatabase : All <K,V> pairs are present, Adding Budget Record of Num Of Pairs => " + requiredDetailsCollection.length);
 
     // Prepare the Budget Object and add to the Budget Details Database
 
