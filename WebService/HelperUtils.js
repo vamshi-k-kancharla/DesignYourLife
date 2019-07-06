@@ -259,7 +259,7 @@ exports.removeStartingAndTrailingSpacesFromMapValues = function (inputMap) {
 
     if (bDebug == true) {
 
-        console.log("removeStartingAndTrailingSpacesFromMapValues of length => " + inputMap.length);
+        console.log("removeStartingAndTrailingSpacesFromMapValues of length => " + inputMap.keys().length);
     }
 
     // Modify the Values to remove URL Spaces
@@ -320,5 +320,4 @@ exports.parseWebClientRequest = function (clientRequestCollection) {
 
     return webClientRequestParamsMap;
 }
-
 

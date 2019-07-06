@@ -114,7 +114,7 @@ function buildQueryResponse_JSON(queryResult) {
 exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collectionName, clientRequestWithParamsMap,
     handleQueryResults, http_response) {
 
-    // Expense Record Retrieval based on "Budget_Id || Name || Budget_Type || Place || StartDate || EndDate || Amount || UserName"
+    // Budget Record Retrieval based on "Budget_Id || Name || Budget_Type || Place || StartDate || EndDate || Amount || UserName"
 
     var queryObject = new Object();
 
@@ -145,7 +145,7 @@ exports.retrieveRecordFromBudgetDetailsDatabase = function (dbConnection, collec
 
     // Query for Budget Records
 
-    if (queryObject.length > 0) {
+    if (Object.keys(queryObject).length > 0) {
 
         dbConnection.collection(collectionName).find(queryObject).toArray(function (err, result) {
 

@@ -164,7 +164,7 @@ exports.retrieveRecordsFromDatabase = function (dbConnection, collectionName, qu
 
     // Record Deletion
 
-    if (query.length > 0) {
+    if (Object.keys(query).length > 0) {
 
         dbConnection.collection(collectionName).find(query).toArray(function (err, result) {
 

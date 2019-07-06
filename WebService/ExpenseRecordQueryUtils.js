@@ -145,7 +145,7 @@ exports.retrieveRecordFromExpenseDetailsDatabase = function (dbConnection, colle
 
     // Query for Expense Records
 
-    if (queryObject.length > 0) {
+    if (Object.keys(queryObject).length > 0) {
 
         dbConnection.collection(collectionName).find(queryObject).toArray(function (err, result) {
 

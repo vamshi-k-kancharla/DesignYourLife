@@ -32,8 +32,8 @@ var expenseDetails_Table_Name = "expenseDetailsCollection";
 
 // Database & Table Names of "User Details"
 
-var userDetails_DatabaseName = "userDetailsDb";
-var userDetails_TableName = "userDetailsCollection";
+var userDetails_DatabaseName = "designUserLifeUserDetailsDb";
+var userDetails_TableName = "designUserLifeUserDetailsCollection";
 
 // Mongo DB Database connections
 
@@ -84,7 +84,4 @@ exports.mongoUserDetailsDbUrl = mongoUserDetailsDbUrl;
 exports.budgetRecordRequiredFields = budgetRecordRequiredFields;
 exports.expenseRecordRequiredFields = expenseRecordRequiredFields;
 exports.userRegistrationData_RequiredFields = userRegistrationData_RequiredFields;
-
-
-
 

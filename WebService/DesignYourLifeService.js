@@ -103,7 +103,7 @@ http.createServer(function (http_request, http_response) {
     // Connect to "User Details" db for "User Registration & Authentication"
 
     if (webClientRequest == "UserRegistration" || webClientRequest == "UserAuthentication" ||
-        webClientRequest == "RetrieveUserDetails") {
+        webClientRequest == "RetrieveUserDetails" || webClientRequest == "UpdateUserProfile") {
 
         handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
@@ -119,7 +119,7 @@ http.createServer(function (http_request, http_response) {
     // Connect to "Budget Details" db for "Budget Related CRUD operations"
 
     if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails" ||
-        webClientRequest == "UpdateExpense" ) {
+        webClientRequest == "UpdateExpense") {
 
         handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
@@ -201,7 +201,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
                         console.log("Adding User Registration Record to Database => clientRequestWithParamsMap.get(UserName) : ",
                             clientRequestWithParamsMap.get("UserName"));
 
-                        UserAuthenticationModule.addUserRegistrationRecordToDatabase(dbConnection_UserDetails_Database,
+                        UserRecordsQueryAndUpdatesModule.addUserRecordToDatabase(dbConnection_UserDetails_Database,
                             globalsForServiceModule.userDetails_TableName,
                             clientRequestWithParamsMap,
                             globalsForServiceModule.userRegistrationData_RequiredFields,
@@ -222,6 +222,21 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
 
                         break;
 
+                    case "UpdateUserProfile":
+
+                        console.log("Updating User Profile in User Details Database => clientRequestWithParamsMap.get(UserName) : ",
+                            clientRequestWithParamsMap.get("UserName"));
+
+                        UserRecordsQueryAndUpdatesModule.updateUserRecordInDatabase(dbConnection_UserDetails_Database,
+                            globalsForServiceModule.userDetails_TableName,
+                            clientRequestWithParamsMap,
+                            globalsForServiceModule.userRegistrationData_RequiredFields,
+                            http_response);
+
+                        console.log("DesignYourLifeWebService.createServer : Successfully placed UserProfile Update call");
+
+                        break;
+
                     case "RetrieveUserDetails":
 
                         console.log("DesignYourLifeWebService.createServer : Inside User Registration & Auth Switch : " +
@@ -230,6 +245,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
                         // Build Query
 
                         var queryMap = new Map();
+                        var userName = clientRequestWithParamsMap.get("UserName");
 
                         if (HelperUtilsModule.valueDefined(userName)) {
 
@@ -238,14 +254,14 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
 
                         // DB query & Reponse Building
 
-                        UserRecordsQueryAndUpdatesModule.retrieveUserDetails(dbConnection_UserDetails_Database,
+                        UserRecordsQueryAndUpdatesModule.retrieveRecordFromUserDetailsDatabase(dbConnection_UserDetails_Database,
                             globalsForServiceModule.userDetails_TableName,
                             queryMap,
-                            UserRecordsQueryAndUpdatesModule.handleUserDatabaseQueryResults,
+                            UserRecordsQueryAndUpdatesModule.handleQueryResults,
                             http_response);
 
                         console.log("DesignYourLifeWebService.createServer : Switch Statement : " +
-                            "Failed to Retrieve the required User Details");
+                            "Successfully placed RetrieveUserDetails call");
 
                         break;
 

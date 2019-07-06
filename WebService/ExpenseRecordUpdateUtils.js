@@ -61,7 +61,7 @@ exports.addExpenseRecordToDatabase = function (dbConnection, collectionName, rec
 
     }
 
-    console.log("addExpenseRecordToDatabase : All <K,V> pairs are present, Adding Trade Record of Num Of Pairs => " + requiredDetailsCollection.length);
+    console.log("addExpenseRecordToDatabase : All <K,V> pairs are present, Adding Expense Record of Num Of Pairs => " + requiredDetailsCollection.length);
 
     // Prepare the Expense Object and add to the Expense Details Database
 
