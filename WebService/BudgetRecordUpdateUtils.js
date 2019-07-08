@@ -15,6 +15,7 @@
 var HelperUtilsModule = require('./HelperUtils');
 var MongoDbCrudModule = require('./MongoDbCRUD');
 var RecordHelperUtilsModule = require('./RecordHelperUtils');
+var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 
 
 /**********************************************************************************
@@ -306,14 +307,14 @@ function removeRecordFromBudgetDetailsDatabase(dbConnection, collectionName, doc
 
     // Remove if Present ; Return Error response otherwise
 
-    var query = null;
+    var query = new Object();
 
     console.log("BudgetRecordRemoveUtils.removeRecordFromBudgetDetailsDatabase => collectionName :" + collectionName +
         ", Budget_Id :" + document_Object.Budget_Id);
 
     if (HelperUtilsModule.valueDefined(document_Object.Budget_Id)) {
 
-        query = { Budget_Id: document_Object.Budget_Id };
+        query.Budget_Id = document_Object.Budget_Id;
     }
 
     if (query == null) {
@@ -358,7 +359,9 @@ function removeRecordFromBudgetDetailsDatabase(dbConnection, collectionName, doc
                 // Record Present : Record Removal
 
                 console.log("Record Found, Removing the existing Record => " + " Budget_Id : " + document_Object.Budget_Id);
-                MongoDbCrudModule.removeRecordFromDatabase(dbConnection, collectionName, query, clientRequest, http_response);
+                MongoDbCrudModule.removeRecordFromDatabase(dbConnection, collectionName, query, clientRequest, http_response,
+                    ExpenseRecordsUpdateModule.removeExpenseRecordsForBudgetId, query);
+
             }
 
         });

@@ -321,3 +321,24 @@ exports.parseWebClientRequest = function (clientRequestCollection) {
     return webClientRequestParamsMap;
 }
 
+
+/**
+ * 
+ * @param {Object} inputObject  : Input Object which needs to be converted to Map
+ * 
+ * @returns {Map} outputMap  : Output Map of <K,V> pairs of input Object
+ * 
+ */
+
+exports.buildMapFromObject = function (inputObject) {
+
+    var outputMap = new Map();
+
+    for (var currentProperty in inputObject) {
+
+        outputMap.set(currentProperty, inputObject[currentProperty]);
+    }
+
+    return outputMap;
+}
+

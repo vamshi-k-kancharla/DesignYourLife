@@ -97,10 +97,7 @@ http.createServer(function (http_request, http_response) {
     var webClientRequest = clientRequestWithParamsMap.get("Client_Request");
 
 
-    // Connect to Mongo DB, Create Database & Collections, Retrieve Data
-
-
-    // Connect to "User Details" db for "User Registration & Authentication"
+    // Connect to "DesignYourLife" db for "User Registration & Authentication"
 
     if (webClientRequest == "UserRegistration" || webClientRequest == "UserAuthentication" ||
         webClientRequest == "RetrieveUserDetails" || webClientRequest == "UpdateUserProfile") {
@@ -108,7 +105,7 @@ http.createServer(function (http_request, http_response) {
         handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
 
-    // Connect to "Budget Details" db for "Budget Related CRUD operations"
+    // Connect to "DesignYourLife" db for "Budget Related CRUD operations"
 
     if ( webClientRequest == "AddBudget" || webClientRequest == "UpdateBudget" ||
          webClientRequest == "RetrieveBudgetDetails" || webClientRequest == "RemoveBudget" ) {
@@ -116,7 +113,7 @@ http.createServer(function (http_request, http_response) {
         handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
     }
 
-    // Connect to "Budget Details" db for "Budget Related CRUD operations"
+    // Connect to "DesignYourLife" db for "Expense Related CRUD operations"
 
     if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails" ||
         webClientRequest == "UpdateExpense") {
@@ -148,34 +145,34 @@ http.createServer(function (http_request, http_response) {
 
 function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response) {
 
-    var dbConnection_UserDetails_Database;
+    var designYourLife_Database_Name;
 
-    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoUserDetailsDbUrl, function (err, db) {
+    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoDesignYourLifeDbUrl, function (err, db) {
 
-        console.log("Inside the connection to User Details Mongo DB");
+        console.log("Inside the connection to DesignYourLife Mongo DB");
 
         if (err != null) {
 
-            console.error("DesignYourLifeWebService.createServer : Server Error while connecting to UserDetails mongo db on local server :"
-                + globalsForServiceModule.mongoUserDetailsDbUrl);
+            console.error("DesignYourLifeWebService.createServer : Server Error while connecting to DesignYourLife mongo db on local server :"
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
-            var failureMessage = "DesignYourLifeWebService.createServer : Server Error while connecting to UserDetails mongo db on local server :"
-                + globalsForServiceModule.mongoUserDetailsDbUrl;
+            var failureMessage = "DesignYourLifeWebService.createServer : Server Error while connecting to DesignYourLife mongo db on local server :"
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl;
             HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
 
         }
         else {
 
-            console.log("Successfully connected to UserDetails MongoDb : " + globalsForServiceModule.mongoUserDetailsDbUrl);
+            console.log("Successfully connected to DesignYourLife Details MongoDb : " + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
             // Database Creation
 
             console.log("Creating / Retrieving User Details Database : ");
-            dbConnection_UserDetails_Database = db.db(globalsForServiceModule.userDetails_DatabaseName);
+            designYourLife_Database_Name = db.db(globalsForServiceModule.designYourLife_Database_Name);
 
             // Table( Collection ) Creation
 
-            dbConnection_UserDetails_Database.createCollection(globalsForServiceModule.userDetails_TableName, function (err, result) {
+            designYourLife_Database_Name.createCollection(globalsForServiceModule.userDetails_TableName, function (err, result) {
 
                 if (err) {
 
@@ -201,7 +198,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
                         console.log("Adding User Registration Record to Database => clientRequestWithParamsMap.get(UserName) : ",
                             clientRequestWithParamsMap.get("UserName"));
 
-                        UserRecordsQueryAndUpdatesModule.addUserRecordToDatabase(dbConnection_UserDetails_Database,
+                        UserRecordsQueryAndUpdatesModule.addUserRecordToDatabase(designYourLife_Database_Name,
                             globalsForServiceModule.userDetails_TableName,
                             clientRequestWithParamsMap,
                             globalsForServiceModule.userRegistrationData_RequiredFields,
@@ -213,7 +210,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
 
                     case "UserAuthentication":
 
-                        UserAuthenticationModule.validateUserCredentials(dbConnection_UserDetails_Database,
+                        UserAuthenticationModule.validateUserCredentials(designYourLife_Database_Name,
                             globalsForServiceModule.userDetails_TableName,
                             clientRequestWithParamsMap,
                             http_response);
@@ -227,7 +224,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
                         console.log("Updating User Profile in User Details Database => clientRequestWithParamsMap.get(UserName) : ",
                             clientRequestWithParamsMap.get("UserName"));
 
-                        UserRecordsQueryAndUpdatesModule.updateUserRecordInDatabase(dbConnection_UserDetails_Database,
+                        UserRecordsQueryAndUpdatesModule.updateUserRecordInDatabase(designYourLife_Database_Name,
                             globalsForServiceModule.userDetails_TableName,
                             clientRequestWithParamsMap,
                             globalsForServiceModule.userRegistrationData_RequiredFields,
@@ -254,7 +251,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
 
                         // DB query & Reponse Building
 
-                        UserRecordsQueryAndUpdatesModule.retrieveRecordFromUserDetailsDatabase(dbConnection_UserDetails_Database,
+                        UserRecordsQueryAndUpdatesModule.retrieveRecordFromUserDetailsDatabase(designYourLife_Database_Name,
                             globalsForServiceModule.userDetails_TableName,
                             queryMap,
                             UserRecordsQueryAndUpdatesModule.handleQueryResults,
@@ -298,28 +295,28 @@ function handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsM
 
     var dbConnection_BudgetDetails_Database;
 
-    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoBudgetDetailsDbUrl, function (err, db) {
+    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoDesignYourLifeDbUrl, function (err, db) {
 
         console.log("Inside the connection to BudgetDetails Mongo DB");
 
         if (err != null) {
 
             console.error("DesignYourLifeWebService.createServer : Server Error while connecting to BudgetDetails mongo db on local server :"
-                + globalsForServiceModule.mongoBudgetDetailsDbUrl);
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
             var failureMessage = "DesignYourLifeWebService.createServer : Server Error while connecting to BudgetDetails mongo db on local server :"
-                + globalsForServiceModule.mongoBudgetDetailsDbUrl;
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl;
             HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
 
         }
         else {
 
-            console.log("Successfully connected to BudgetDetails MongoDb : " + globalsForServiceModule.mongoBudgetDetailsDbUrl);
+            console.log("Successfully connected to BudgetDetails MongoDb : " + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
             // Database Creation
 
             console.log("Creating / Retrieving BudgetDetails Database : ");
-            dbConnection_BudgetDetails_Database = db.db(globalsForServiceModule.budgetDetails_Database_Name);
+            dbConnection_BudgetDetails_Database = db.db(globalsForServiceModule.designYourLife_Database_Name);
 
             // Table( Collection ) Creation
 
@@ -431,28 +428,28 @@ function handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParam
 
     var dbConnection_ExpenseDetails_Database;
 
-    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoExpenseDetailsDbUrl, function (err, db) {
+    globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoDesignYourLifeDbUrl, function (err, db) {
 
         console.log("Inside the connection to ExpenseDetails Mongo DB");
 
         if (err != null) {
 
             console.error("DesignYourLifeWebService.createServer : Server Error while connecting to ExpenseDetails mongo db on local server :"
-                + globalsForServiceModule.mongoExpenseDetailsDbUrl);
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
             var failureMessage = "DesignYourLifeWebService.createServer : Server Error while connecting to ExpenseDetails mongo db on local server :"
-                + globalsForServiceModule.mongoExpenseDetailsDbUrl;
+                + globalsForServiceModule.mongoDesignYourLifeDbUrl;
             HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
 
         }
         else {
 
-            console.log("Successfully connected to ExpenseDetails MongoDb : " + globalsForServiceModule.mongoExpenseDetailsDbUrl);
+            console.log("Successfully connected to ExpenseDetails MongoDb : " + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
             // Database Creation
 
             console.log("Creating / Retrieving ExpenseDetails Database : ");
-            dbConnection_ExpenseDetails_Database = db.db(globalsForServiceModule.ExpenseDetails_Database_Name);
+            dbConnection_ExpenseDetails_Database = db.db(globalsForServiceModule.designYourLife_Database_Name);
 
             // Table( Collection ) Creation
 
@@ -516,6 +513,18 @@ function handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParam
 
                         console.log("DesignYourLifeWebService.createServer : Switch Statement : " +
                             "Successfully placed Retrieve_Expense_Records call");
+
+                        break;
+
+                    case "RemoveExpense":
+
+                        ExpenseRecordsUpdateModule.removeExpenseRecordInDatabase(dbConnection_ExpenseDetails_Database,
+                            globalsForServiceModule.expenseDetails_Table_Name,
+                            clientRequestWithParamsMap,
+                            globalsForServiceModule.expenseRecordRequiredFields,
+                            http_response);
+
+                        console.log("DesignYourLifeWebService.createServer : Successfully placed Remove Expense Record call");
 
                         break;
 

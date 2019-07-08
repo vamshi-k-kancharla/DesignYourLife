@@ -112,6 +112,8 @@ exports.directUpdationOfRecordToDatabase = function (dbConnection, collectionNam
  * @param {String} collectionName  : Name of Table ( Collection )
  * @param {Map} query : Query to identify the record to be updated
  * @param {String} clientRequest : Request from Web Client
+ * @param {Function} removeRelatedCollectionRecordCallback : Callback function to remove records from related collections
+ * @param {Function} removeQueryObject : Query to be used while calling multi level remove record query
  *
  * @returns {XMLHttpRequestResponse} http_response : HTTP Response to be formulated based on DB operations
  *
@@ -119,7 +121,22 @@ exports.directUpdationOfRecordToDatabase = function (dbConnection, collectionNam
 
 exports.removeRecordFromDatabase = function (dbConnection, collectionName, query, clientRequest, http_response) {
 
-    console.log("removeRecordFromDatabase => collectionName :" + collectionName);
+    removeRecordFromDatabase(dbConnection, collectionName, query, clientRequest, http_response, null, null);
+}
+
+exports.removeRecordFromDatabase = function (dbConnection, collectionName, query, clientRequest, http_response,
+    removeRelatedCollectionRecordCallback, removeQueryObject) {
+
+    if (HelperUtilsModule.removeQueryObject != null) {
+
+        console.log("MongoDbCRUD.removeRecordFromDatabase => collectionName :" + collectionName + "removeQueryObject.length = " +
+            Object.keys(removeQueryObject).length);
+
+    } else {
+
+        console.log("MongoDbCRUD.removeRecordFromDatabase => collectionName :" + collectionName);
+
+    }
 
     // Record Deletion
 
@@ -137,13 +154,25 @@ exports.removeRecordFromDatabase = function (dbConnection, collectionName, query
             return;
         }
 
-        console.log("MongoDbCRUD.removeRecordFromDatabase : Successfully deleted the record from Database : ");
-        var successMessage = "MongoDbCRUD.removeRecordFromDatabase : Successfully deleted the record from Database : ";
-        HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+        // Budet Record Removed : Remove Corresponding Expense Records ( Based on Callback function )
+
+        if (removeRelatedCollectionRecordCallback != null) {
+
+            console.log("Removed Budget Record => " + "Remove Corresponding Expense Records for Budget_Id : " + removeQueryObject.Budget_Id);
+            return removeRelatedCollectionRecordCallback(dbConnection, removeQueryObject, http_response);
+
+        } else {
+
+            // Return Success Response
+
+            console.log("MongoDbCRUD.removeRecordFromDatabase : Successfully deleted the record from Database : ");
+            var successMessage = "MongoDbCRUD.removeRecordFromDatabase : Successfully deleted the record from Database : ";
+            HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+
+        }
 
         console.log(result);
     });
-
 }
 
 

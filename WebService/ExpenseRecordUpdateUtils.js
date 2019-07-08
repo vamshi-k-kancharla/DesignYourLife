@@ -15,6 +15,8 @@
 var HelperUtilsModule = require('./HelperUtils');
 var MongoDbCrudModule = require('./MongoDbCRUD');
 var RecordHelperUtilsModule = require('./RecordHelperUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
+var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 
 
 /**********************************************************************************
@@ -291,7 +293,6 @@ exports.removeExpenseRecordInDatabase = function (dbConnection, collectionName, 
     console.log("Web Service: Switch Statement : Successfully launched the Remove Record DB API Request : ");
 }
 
-
 /**
  * 
  * @param {DbConnection} dbConnection  : Connection to database
@@ -306,14 +307,19 @@ function removeRecordFromExpenseDetailsDatabase(dbConnection, collectionName, do
 
     // Remove if Present ; Return Error response otherwise
 
-    var query = null;
+    var query = new Object();
 
     console.log("ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase => collectionName :" + collectionName +
         ", Expense_Id :" + document_Object.Expense_Id);
 
     if (HelperUtilsModule.valueDefined(document_Object.Expense_Id)) {
 
-        query = { Expense_Id: document_Object.Expense_Id };
+        query.Expense_Id = document_Object.Expense_Id;
+    }
+
+    if (HelperUtilsModule.valueDefined(document_Object.Budget_Id)) {
+
+        query.Budget_Id = document_Object.Budget_Id;
     }
 
     if (query == null) {
@@ -368,4 +374,31 @@ function removeRecordFromExpenseDetailsDatabase(dbConnection, collectionName, do
 }
 
 
+/**
+ * 
+ * @param {DbConnection} dbConnection  : Connection to database
+ * @param {Object} queryObject : query consisting of Budget_Id
+ * @param {XMLHttpRequestResponse} http_response : Http response to be filled while responding to web client request
+ *
+ */
+
+exports.removeExpenseRecordsForBudgetId = function (dbConnection, queryObject, http_response) {
+
+    console.log("ExpenseRecordUpdateUtils.removeExpenseRecordsForBudgetId : Related table Data call from another DB CRUD operation : "
+        + " Budget_Id : " + queryObject.Budget_Id);
+
+    var recordObjectMap = HelperUtilsModule.buildMapFromObject(queryObject);
+
+    for (var currentKey of recordObjectMap.keys()) {
+
+        console.log("currentKey : " + currentKey);
+        console.log("currentValue : " + recordObjectMap.get(currentKey));
+    }
+
+    var collectionName = GlobalsForServiceModule.expenseDetails_Table_Name;
+
+    ExpenseRecordsUpdateModule.removeExpenseRecordInDatabase(dbConnection, collectionName, recordObjectMap,
+        GlobalsForServiceModule.expenseRecordRequiredFields, http_response);
+
+}
 

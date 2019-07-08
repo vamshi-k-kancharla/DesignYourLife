@@ -361,6 +361,12 @@ function updateRecordInUserDetailsDatabase(dbConnection, collectionName, documen
         query = { UserName: document_Object.UserName };
     }
 
+    // Encrypt Password before Registering/Updating User registration record
+
+    document_Object.Password = cryptoModule.createHash('md5').update(document_Object.Password).digest('hex');
+
+    // Update Record
+
     if (query == null) {
 
         // UserName not present in input : Return "Record Not present" Error
