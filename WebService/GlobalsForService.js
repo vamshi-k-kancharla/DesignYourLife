@@ -37,11 +37,16 @@ var mongoDesignYourLifeDbUrl = 'mongodb://127.0.0.1:27017/' + designYourLife_Dat
 // Budget & Expense Details : Required Fields
 
 var budgetRecordRequiredFields = ["Budget_Id", "Name", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
+var budgetRecordData_UniqueFields = ["Budget_Id"];
+var budgetRecordData_NameFileds = ["Name", "UserName"];
+var budgetRecordData_SubGroupFileds = ["Budget_Type", "Place", "StartDate", "EndDate"];
+var budgetRecordData_AtleastOneValueShouldBeDifferent = ["Name", "UserName","Budget_Type", "Place", "StartDate", "EndDate"];
 
 var expenseRecordRequiredFields = ["Expense_Id", "Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory", "Date",
     "Amount", "MerchantName", "Budget_Id", "UserName"];
 
 var userRegistrationData_RequiredFields = ["UserType", "User_Id", "Name", "Email", "Location", "Address", "UserName", "Password"];
+var userRegistrationData_UniqueFields = ["User_Id", "Email", "UserName"];
 
 
 // Global variables
@@ -59,6 +64,8 @@ var bDebug = true;
  **************************************************************************
  */
 
+exports.bDebug = bDebug;
+
 exports.periodicPollingInterval_DisjointDatabase = periodicPollingInterval_DisjointDatabase;
 exports.port = port;
 exports.mongoDbConnection = mongoDbConnection;
@@ -73,6 +80,14 @@ exports.userDetails_TableName = userDetails_TableName;
 exports.mongoDesignYourLifeDbUrl = mongoDesignYourLifeDbUrl;
 
 exports.budgetRecordRequiredFields = budgetRecordRequiredFields;
+
 exports.expenseRecordRequiredFields = expenseRecordRequiredFields;
+
 exports.userRegistrationData_RequiredFields = userRegistrationData_RequiredFields;
+exports.userRegistrationData_UniqueFields = userRegistrationData_UniqueFields;
+
+exports.budgetRecordData_UniqueFields = budgetRecordData_UniqueFields;
+exports.budgetRecordData_NameFileds = budgetRecordData_NameFileds;
+exports.budgetRecordData_SubGroupFileds = budgetRecordData_SubGroupFileds;
+exports.budgetRecordData_AtleastOneValueShouldBeDifferent = budgetRecordData_AtleastOneValueShouldBeDifferent;
 

@@ -16,6 +16,8 @@ var HelperUtilsModule = require('./HelperUtils');
 var MongoDbCrudModule = require('./MongoDbCRUD');
 var RecordHelperUtilsModule = require('./RecordHelperUtils');
 var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
+var QueryBuilderModule = require('./QueryBuilder');
 
 
 /**********************************************************************************
@@ -72,7 +74,8 @@ exports.addBudgetRecordToDatabase = function (dbConnection, collectionName, reco
 
     budgetRecordObject = HelperUtilsModule.removeUrlSpacesFromObjectValues(budgetRecordObject);
 
-    addRecordToBudgetDetailsDatabase(dbConnection,
+    //addRecordToBudgetDetailsDatabase(dbConnection,
+    checkUniquenessAndAddBudgetRecord(dbConnection,
         collectionName,
         budgetRecordObject,
         "AddBudgetRecord",
@@ -143,6 +146,85 @@ function addRecordToBudgetDetailsDatabase(dbConnection, collectionName, document
         console.log("No Budget_Id in input Object, Adding New Record without primary keys");
         MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object, clientRequest, http_response);
     }
+
+}
+
+
+/**
+ * 
+ * @param {DbConnection} dbConnection  : Connection to database
+ * @param {String} collectionName  : Name of Table ( Collection )
+ * @param {Object} document_Object : Document object to be added ( Record, Row in Table )
+ * @param {String} clientRequest : Client Request from Web client
+ * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
+ *
+ */
+
+function checkUniquenessAndAddBudgetRecord(dbConnection, collectionName, document_Object, clientRequest, http_response) {
+
+    // Update if Present ; Add Otherwise
+
+    console.log("BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord => collectionName :" + collectionName +
+        ", Budget_Id :" + document_Object.Budget_Id);
+
+    // Build Uniqueness Query
+    
+    var queryObjectForUniqueBudgetId = { Budget_Id: document_Object.Budget_Id };
+    var queryObjectForGroupValueChecks = QueryBuilderModule.buildQuery_MatchAllFields(GlobalsForServiceModule.budgetRecordData_AtleastOneValueShouldBeDifferent,
+        document_Object);
+    var queryObjectForSameNameChecks = QueryBuilderModule.buildQuery_MatchAllFields(GlobalsForServiceModule.budgetRecordData_NameFileds,
+        document_Object);
+
+    var queryObjectLogicalIntermediate = QueryBuilderModule.buildSpecificLogicalQueryBasedOnQueryObjects(queryObjectForGroupValueChecks,
+        queryObjectForUniqueBudgetId, "$or");
+    var checkUniquenessQuery = QueryBuilderModule.buildSpecificLogicalQueryBasedOnQueryObjects(queryObjectLogicalIntermediate,
+        queryObjectForSameNameChecks, "$or");
+
+    // Add Budget Record after uniqueness checks
+
+    if (checkUniquenessQuery) {
+
+        dbConnection.collection(collectionName).findOne(checkUniquenessQuery, function (err, result) {
+
+            if (err) {
+
+                console.error("BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+                    " Internal Server Error while querying for uniqueness of budget Record");
+
+                var failureMessage = "BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+                    " Internal Server Error while querying for uniqueness of budget Record";
+                HelperUtilsModule.logInternalServerError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
+
+                return;
+            }
+
+            var recordPresent = (result) ? "true" : "false";
+            if (recordPresent == "false") {
+
+                // Record Addition
+
+                console.log("Uniqueness checks passed, Adding New Record => " + " Budget_Id : " + document_Object.Budget_Id);
+                MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object, clientRequest, http_response);
+            }
+            else {
+
+                // Uniqueness checks failed. Returning Error
+
+                console.error("BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+                    " User Record already exists with current record values : uniqueness of budget record was not satisfied => " + 
+                    " Budget_Id, BudgetName_For_User must be unique. For a particular budget name atleast one of other record values must be different");
+
+                var failureMessage = "BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+                    " User Record already exists with current record values : uniqueness of budget record was not satisfied => " +
+                    " Budget_Id, BudgetName_For_User must be unique. For a particular budget name atleast one of other record values must be different";
+                HelperUtilsModule.logBadHttpRequestError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
+
+                return;
+            }
+
+        });
+
+    } 
 
 }
 

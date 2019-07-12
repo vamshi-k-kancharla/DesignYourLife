@@ -6,6 +6,7 @@ var GlobalsForServiceModule = require('./GlobalsForService');
 var RecordHelperUtilsModule = require('./RecordHelperUtils');
 var MongoDbCrudModule = require('./MongoDbCRUD')
 var cryptoModule = require('crypto');
+var QueryBuilderModule = require('./QueryBuilder');
 
 
 /**************************************************************************
@@ -200,9 +201,9 @@ exports.addUserRecordToDatabase = function (dbConnection, collectionName, record
 
         if (recordObjectMap.get(currentKey) == null) {
 
-            console.error("UserRecordUpdateUtils.addUserRecordToDatabase : Value corresponding to required Key doesn't exist => Required Key : " + currentKey);
+            console.error("UserRecordsQueryAndUpdates.addUserRecordToDatabase : Value corresponding to required Key doesn't exist => Required Key : " + currentKey);
 
-            var failureMessage = "UserRecordUpdateUtils.addUserRecordToDatabase : Value corresponding to required Key doesn't exist => Required Key : " + currentKey;
+            var failureMessage = "UserRecordsQueryAndUpdates.addUserRecordToDatabase : Value corresponding to required Key doesn't exist => Required Key : " + currentKey;
             HelperUtilsModule.logBadHttpRequestError("addUserRecordToDatabase", failureMessage, http_response);
 
             return;
@@ -220,7 +221,8 @@ exports.addUserRecordToDatabase = function (dbConnection, collectionName, record
 
     userRecordObject = HelperUtilsModule.removeUrlSpacesFromObjectValues(userRecordObject);
 
-    addRecordToUserDetailsDatabase(dbConnection,
+    //addRecordToUserDetailsDatabase(dbConnection,
+    checkUniquenessAndAddUserRecord(dbConnection,
         collectionName,
         userRecordObject,
         "UserRegistration",
@@ -265,9 +267,9 @@ function addRecordToUserDetailsDatabase(dbConnection, collectionName, document_O
 
             if (err) {
 
-                console.error("UserRecordUpdateUtils.addRecordToUserDetailsDatabase : Internal Server Error while querying for record to be inserted");
+                console.error("UserRecordsQueryAndUpdates.addRecordToUserDetailsDatabase : Internal Server Error while querying for record to be inserted");
 
-                var failureMessage = "UserRecordUpdateUtils.addRecordToUserDetailsDatabase : Internal Server Error while querying for record to be inserted";
+                var failureMessage = "UserRecordsQueryAndUpdates.addRecordToUserDetailsDatabase : Internal Server Error while querying for record to be inserted";
                 HelperUtilsModule.logInternalServerError("addRecordToUserDetailsDatabase", failureMessage, http_response);
 
                 return;
@@ -306,6 +308,76 @@ function addRecordToUserDetailsDatabase(dbConnection, collectionName, document_O
  * 
  * @param {DbConnection} dbConnection  : Connection to database
  * @param {String} collectionName  : Name of Table ( Collection )
+ * @param {Object} document_Object : Document object to be added ( Record, Row in Table )
+ * @param {String} clientRequest : Client Request from Web client
+ * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
+ *
+ */
+
+function checkUniquenessAndAddUserRecord(dbConnection, collectionName, document_Object, clientRequest, http_response) {
+
+    console.log("checkUniquenessOfUserRecord => collectionName :" + collectionName);
+
+    var queryObject = QueryBuilderModule.buildQuery_MatchAnyField(GlobalsForServiceModule.userRegistrationData_UniqueFields,
+        document_Object);
+
+    // Register User Record
+
+    if (queryObject) {
+
+        dbConnection.collection(collectionName).findOne(queryObject, function (err, result) {
+
+            if (err) {
+
+                console.error("UserRecordsQueryAndUpdates.checkUniquenessOfUserRecord : " +
+                    "Internal Server Error while checking uniqueness of input Record");
+
+                var failureMessage = "UserRecordsQueryAndUpdates.checkUniquenessOfUserRecord : " +
+                    "Internal Server Error while checking uniqueness of input Record";
+                HelperUtilsModule.logInternalServerError("checkUniquenessOfUserRecord", failureMessage, http_response);
+
+                return;
+            }
+
+            var recordPresent = (result) ? "true" : "false";
+
+            if (recordPresent == "false") {
+
+                // Record Not Present. Add Record during last uniqueness check
+
+                // Encrypt Password before Registering/Updating User registration record
+
+                document_Object.Password = cryptoModule.createHash('md5').update(document_Object.Password).digest('hex');
+
+                // Record Addition
+
+                console.log("Entered User Data is unique, Adding New Record => " + " User_Id : " + document_Object.User_Id);
+                MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object, clientRequest, http_response);
+
+            }
+            else {
+
+                console.error("UserRecordsQueryAndUpdates.checkUniquenessOfUserRecord : " +
+                    " User Record already exists with current unique field values : ");
+
+                var failureMessage = "UserRecordsQueryAndUpdates.checkUniquenessOfUserRecord : " +
+                    " User Record already exists with current unique field values : ";
+                HelperUtilsModule.logBadHttpRequestError("checkUniquenessOfUserRecord", failureMessage, http_response);
+
+                return;
+            }
+
+        });
+
+    } 
+
+}
+
+
+/**
+ * 
+ * @param {DbConnection} dbConnection  : Connection to database
+ * @param {String} collectionName  : Name of Table ( Collection )
  * @param {Map} recordObjectMap : Map of <K,V> Pairs ( Record ), to be updated in User Details database
  * @param {Collection} updateRecordKeys : Required keys for record updation
  * @param {XMLHttpRequestResponse} http_response : Http response to be filled while responding to web client request
@@ -317,7 +389,7 @@ exports.updateUserRecordInDatabase = function (dbConnection, collectionName, rec
     // Replace the "URL Space" with regular space in Query Object Map Values
 
     recordObjectMap = HelperUtilsModule.removeUrlSpacesFromMapValues(recordObjectMap);
-    console.log("UserRecordUpdateUtils.updateUserRecordInDatabase : Update record based on input <k,v> pairs of Client Request : ");
+    console.log("UserRecordsQueryAndUpdates.updateUserRecordInDatabase : Update record based on input <k,v> pairs of Client Request : ");
 
     // Prepare the User Object and update it in the User Details Database
 
@@ -353,7 +425,7 @@ function updateRecordInUserDetailsDatabase(dbConnection, collectionName, documen
 
     var query = null;
 
-    console.log("UserRecordUpdateUtils.updateRecordInUserDetailsDatabase => collectionName :" + collectionName +
+    console.log("UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase => collectionName :" + collectionName +
         ", UserName :" + document_Object.UserName);
 
     if (HelperUtilsModule.valueDefined(document_Object.UserName)) {
@@ -371,10 +443,10 @@ function updateRecordInUserDetailsDatabase(dbConnection, collectionName, documen
 
         // UserName not present in input : Return "Record Not present" Error
 
-        console.error("UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : " +
+        console.error("UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : " +
             " UserName must be present in input request to update user details in database");
 
-        var failureMessage = "UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : " +
+        var failureMessage = "UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : " +
             " UserName must be present in input request to update user details in database";
         HelperUtilsModule.logBadHttpRequestError("updateRecordInUserDetailsDatabase", failureMessage, http_response);
 
@@ -386,9 +458,9 @@ function updateRecordInUserDetailsDatabase(dbConnection, collectionName, documen
 
             if (err) {
 
-                console.error("UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : Internal Server Error while querying for record to be updated");
+                console.error("UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : Internal Server Error while querying for record to be updated");
 
-                var failureMessage = "UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : Internal Server Error while querying for record to be updated";
+                var failureMessage = "UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : Internal Server Error while querying for record to be updated";
                 HelperUtilsModule.logInternalServerError("updateRecordInUserDetailsDatabase", failureMessage, http_response);
 
                 return;
@@ -399,9 +471,9 @@ function updateRecordInUserDetailsDatabase(dbConnection, collectionName, documen
 
                 // Record Not Present : Return Record Not present Error
 
-                console.error("UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : Requested Record is not present in user details database");
+                console.error("UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : Requested Record is not present in user details database");
 
-                var failureMessage = "UserRecordUpdateUtils.updateRecordInUserDetailsDatabase : Requested Record is not present in user details database";
+                var failureMessage = "UserRecordsQueryAndUpdates.updateRecordInUserDetailsDatabase : Requested Record is not present in user details database";
                 HelperUtilsModule.logBadHttpRequestError("updateRecordInUserDetailsDatabase", failureMessage, http_response);
             }
             else {

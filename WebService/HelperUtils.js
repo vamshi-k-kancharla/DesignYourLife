@@ -7,21 +7,8 @@
  * 
  *************************************************************************/
 
-// Generic Variables Global
-
-var bDebug = false;
-
-/**************************************************************************
- **************************************************************************
- **************************************************************************
- * 
- * Module to handle => All the Helper Util Functions
- * 
- **************************************************************************
- **************************************************************************
- */
-
 var HelperUtilsModule = require('./HelperUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
 
 /**
  * 
@@ -200,7 +187,7 @@ exports.removeStartingAndTrailingSpacesFromObjectValues = function (inputObject)
 
 function removeStartingAndTrailingSpacesFromString(currentValue) {
 
-    if (bDebug == true) {
+    if (GlobalsForServiceModule.bDebug == true) {
 
         console.log("removeStartingAndTrailingSpacesFromString => CurrentValue : " + currentValue);
     }
@@ -226,7 +213,7 @@ function removeStartingAndTrailingSpacesFromString(currentValue) {
         }
     }
 
-    if (bDebug == true) {
+    if (GlobalsForServiceModule.bDebug == true) {
 
         console.log("startPointer : " + startPointer + ", endPointer : " + endPointer);
     }
@@ -238,7 +225,7 @@ function removeStartingAndTrailingSpacesFromString(currentValue) {
         newValueWithoutSpaces = newValueWithoutSpaces + currentValue.substring(j, j + 1);
     }
 
-    if (bDebug == true) {
+    if (GlobalsForServiceModule.bDebug == true) {
 
         console.log("removeStartingAndTrailingSpacesFromString => newValueWithoutSpaces : " + newValueWithoutSpaces);
     }
@@ -257,7 +244,7 @@ function removeStartingAndTrailingSpacesFromString(currentValue) {
 
 exports.removeStartingAndTrailingSpacesFromMapValues = function (inputMap) {
 
-    if (bDebug == true) {
+    if (GlobalsForServiceModule.bDebug == true) {
 
         console.log("removeStartingAndTrailingSpacesFromMapValues of length => " + inputMap.keys().length);
     }
