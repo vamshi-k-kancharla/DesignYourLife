@@ -211,11 +211,11 @@ function checkUniquenessAndAddBudgetRecord(dbConnection, collectionName, documen
                 // Uniqueness checks failed. Returning Error
 
                 console.error("BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
-                    " User Record already exists with current record values : uniqueness of budget record was not satisfied => " + 
+                    " Record already exists with current record values : uniqueness of budget record was not satisfied => " +
                     " Budget_Id, BudgetName_For_User must be unique. For a particular budget name atleast one of other record values must be different");
 
                 var failureMessage = "BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
-                    " User Record already exists with current record values : uniqueness of budget record was not satisfied => " +
+                    " Record already exists with current record values : uniqueness of budget record was not satisfied => " +
                     " Budget_Id, BudgetName_For_User must be unique. For a particular budget name atleast one of other record values must be different";
                 HelperUtilsModule.logBadHttpRequestError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
 
@@ -224,7 +224,16 @@ function checkUniquenessAndAddBudgetRecord(dbConnection, collectionName, documen
 
         });
 
-    } 
+    } else {
+
+        console.error("BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+            " Internal Server Error while building uniqueness query of budget Record");
+
+        var failureMessage = "BudgetRecordUpdateUtils.checkUniquenessAndAddBudgetRecord : " +
+            " Internal Server Error while building uniqueness query of budget Record";
+        HelperUtilsModule.logInternalServerError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
+
+    }
 
 }
 

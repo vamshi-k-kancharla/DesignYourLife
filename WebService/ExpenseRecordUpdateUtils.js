@@ -17,6 +17,8 @@ var MongoDbCrudModule = require('./MongoDbCRUD');
 var RecordHelperUtilsModule = require('./RecordHelperUtils');
 var GlobalsForServiceModule = require('./GlobalsForService');
 var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
+var QueryBuilderModule = require('./QueryBuilder');
+
 
 
 /**********************************************************************************
@@ -73,7 +75,8 @@ exports.addExpenseRecordToDatabase = function (dbConnection, collectionName, rec
 
     expenseRecordObject = HelperUtilsModule.removeUrlSpacesFromObjectValues(expenseRecordObject);
 
-    addRecordToExpenseDetailsDatabase(dbConnection,
+    //addRecordToExpenseDetailsDatabase(dbConnection,
+    chequeUniquenessAndAddExpenseRecord(dbConnection,
         collectionName,
         expenseRecordObject,
         "AddExpenseRecord",
@@ -152,6 +155,93 @@ function addRecordToExpenseDetailsDatabase(dbConnection, collectionName, documen
  * 
  * @param {DbConnection} dbConnection  : Connection to database
  * @param {String} collectionName  : Name of Table ( Collection )
+ * @param {Object} document_Object : Document object to be added ( Record, Row in Table )
+ * @param {String} clientRequest : Client Request from Web client
+ * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
+ *
+ */
+
+function chequeUniquenessAndAddExpenseRecord(dbConnection, collectionName, document_Object, clientRequest, http_response) {
+
+    // Build Query for Uniqueness check
+
+    console.log("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord => collectionName :" + collectionName +
+        ", Expense_Id :" + document_Object.Expense_Id);
+
+
+    // Build Uniqueness Query
+
+    var queryObjectForUniqueExpenseId = QueryBuilderModule.buildQuery_MatchAllFields(
+        GlobalsForServiceModule.expenseRecordData_UniqueFields,
+        document_Object);
+    var queryObjectForDuplicateExpenseCheck = QueryBuilderModule.buildQuery_MatchAllFields(
+        GlobalsForServiceModule.expenseRecordData_AtleastOneValueShouldBeDifferent,
+        document_Object);
+
+    var checkUniquenessQuery = QueryBuilderModule.buildSpecificLogicalQueryBasedOnQueryObjects(queryObjectForUniqueExpenseId,
+        queryObjectForDuplicateExpenseCheck, "$or");
+
+
+    // Add Expense Record after uniqueness checks
+
+    if (checkUniquenessQuery) {
+
+        dbConnection.collection(collectionName).findOne(checkUniquenessQuery, function (err, result) {
+
+            if (err) {
+
+                console.error("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord : " +
+                    "Internal Server Error while checking for uniqueness of record to be inserted");
+
+                var failureMessage = "Internal Server Error while checking for uniqueness of record to be inserted";
+                HelperUtilsModule.logInternalServerError("chequeUniquenessAndAddExpenseRecord", failureMessage, http_response);
+
+                return;
+            }
+
+            var recordPresent = (result) ? "true" : "false";
+            if (recordPresent == "false") {
+
+                // Record Addition
+
+                console.log("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord : " +
+                    "Uniqueness checks passed, Adding New Record => " + " Expense_Id : " + document_Object.Expense_Id);
+                MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object,
+                    clientRequest, http_response);
+
+            }
+            else {
+
+                // Uniqueness checks failed. Returning Error
+
+                console.error("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord : " +
+                    " Record already exists with current values : Expense_Id Should be unique & No duplicate expense");
+
+                var failureMessage = " Record already exists with current values : Expense_Id Should be unique & No duplicate expense";
+                HelperUtilsModule.logBadHttpRequestError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
+
+                return;
+            }
+
+        });
+
+    } else {
+
+        console.error("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord : " +
+            " Internal Server Error while building uniqueness query of expense Record");
+
+        var failureMessage = " Internal Server Error while building uniqueness query of expense Record";
+        HelperUtilsModule.logInternalServerError("checkUniquenessAndAddBudgetRecord", failureMessage, http_response);
+
+    }
+
+}
+
+
+/**
+ * 
+ * @param {DbConnection} dbConnection  : Connection to database
+ * @param {String} collectionName  : Name of Table ( Collection )
  * @param {Map} recordObjectMap : Map of <K,V> Pairs ( Record ), to be updated in Expense Details database
  * @param {Collection} updateRecordKeys : Required keys for record updation
  * @param {XMLHttpRequestResponse} http_response : Http response to be filled while responding to web client request
@@ -214,8 +304,7 @@ function updateRecordInExpenseDetailsDatabase(dbConnection, collectionName, docu
         console.error("ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : " +
             " Expense_Id must be present in input request to update expense details in database");
 
-        var failureMessage = "ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : " +
-            " Expense_Id must be present in input request to update expense details in database";
+        var failureMessage = " Expense_Id must be present in input request to update expense details in database";
         HelperUtilsModule.logBadHttpRequestError("updateRecordToExpenseDetailsDatabase", failureMessage, http_response);
 
     } else {
@@ -228,7 +317,7 @@ function updateRecordInExpenseDetailsDatabase(dbConnection, collectionName, docu
 
                 console.error("ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : Internal Server Error while querying for record to be updated");
 
-                var failureMessage = "ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : Internal Server Error while querying for record to be updated";
+                var failureMessage = "Internal Server Error while querying for record to be updated";
                 HelperUtilsModule.logInternalServerError("updateRecordToExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
@@ -241,7 +330,7 @@ function updateRecordInExpenseDetailsDatabase(dbConnection, collectionName, docu
 
                 console.error("ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : Requested Record is not present in expense details database");
 
-                var failureMessage = "ExpenseRecordUpdateUtils.updateRecordToExpenseDetailsDatabase : Requested Record is not present in expense details database";
+                var failureMessage = "Requested Record is not present in expense details database";
                 HelperUtilsModule.logBadHttpRequestError("updateRecordToExpenseDetailsDatabase", failureMessage, http_response);
             }
             else {
@@ -329,8 +418,7 @@ function removeRecordFromExpenseDetailsDatabase(dbConnection, collectionName, do
         console.error("ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : " +
             " Expense_Id must be present in input request to remove expense details in database");
 
-        var failureMessage = "ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : " +
-            " Expense_Id must be present in input request to remove expense details in database";
+        var failureMessage = " Expense_Id must be present in input request to remove expense details in database";
         HelperUtilsModule.logBadHttpRequestError("removeRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
     } else {
@@ -343,7 +431,7 @@ function removeRecordFromExpenseDetailsDatabase(dbConnection, collectionName, do
 
                 console.error("ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : Internal Server Error while querying for record to be removed");
 
-                var failureMessage = "ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : Internal Server Error while querying for record to be removed";
+                var failureMessage = "Internal Server Error while querying for record to be removed";
                 HelperUtilsModule.logInternalServerError("removeRecordFromExpenseDetailsDatabase", failureMessage, http_response);
 
                 return;
@@ -356,7 +444,7 @@ function removeRecordFromExpenseDetailsDatabase(dbConnection, collectionName, do
 
                 console.error("ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : Requested Record is not present in expense details database");
 
-                var failureMessage = "ExpenseRecordRemoveUtils.removeRecordFromExpenseDetailsDatabase : Requested Record is not present in expense details database";
+                var failureMessage = "Requested Record is not present in expense details database";
                 HelperUtilsModule.logBadHttpRequestError("removeRecordFromExpenseDetailsDatabase", failureMessage, http_response);
             }
             else {

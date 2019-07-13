@@ -44,6 +44,9 @@ var budgetRecordData_AtleastOneValueShouldBeDifferent = ["Name", "UserName","Bud
 
 var expenseRecordRequiredFields = ["Expense_Id", "Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory", "Date",
     "Amount", "MerchantName", "Budget_Id", "UserName"];
+var expenseRecordData_UniqueFields = ["UserName", " Budget_Id", "Expense_Id"];
+var expenseRecordData_AtleastOneValueShouldBeDifferent = ["Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory",
+    "Date", "Amount", "MerchantName", "Budget_Id", "UserName"];
 
 var userRegistrationData_RequiredFields = ["UserType", "User_Id", "Name", "Email", "Location", "Address", "UserName", "Password"];
 var userRegistrationData_UniqueFields = ["User_Id", "Email", "UserName"];
@@ -82,6 +85,8 @@ exports.mongoDesignYourLifeDbUrl = mongoDesignYourLifeDbUrl;
 exports.budgetRecordRequiredFields = budgetRecordRequiredFields;
 
 exports.expenseRecordRequiredFields = expenseRecordRequiredFields;
+exports.expenseRecordData_UniqueFields = expenseRecordData_UniqueFields;
+exports.expenseRecordData_AtleastOneValueShouldBeDifferent = expenseRecordData_AtleastOneValueShouldBeDifferent;
 
 exports.userRegistrationData_RequiredFields = userRegistrationData_RequiredFields;
 exports.userRegistrationData_UniqueFields = userRegistrationData_UniqueFields;
