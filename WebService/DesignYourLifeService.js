@@ -35,6 +35,7 @@ var BudgetRecordsUpdateModule = require('./BudgetRecordUpdateUtils');
 var BudgetRecordsQueryModule = require('./BudgetRecordQueryUtils');
 var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 var ExpenseRecordsQueryModule = require('./ExpenseRecordQueryUtils');
+var BudgetAnalyticsQueryModule = require('./BudgetAnalyticsQueryUtils');
 
 
 /**************************************************************************
@@ -96,29 +97,67 @@ http.createServer(function (http_request, http_response) {
 
     var webClientRequest = clientRequestWithParamsMap.get("Client_Request");
 
-
     // Connect to "DesignYourLife" db for "User Registration & Authentication"
 
     if (webClientRequest == "UserRegistration" || webClientRequest == "UserAuthentication" ||
         webClientRequest == "RetrieveUserDetails" || webClientRequest == "UpdateUserProfile") {
 
         handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
-    }
 
-    // Connect to "DesignYourLife" db for "Budget Related CRUD operations"
+    } else if (webClientRequest == "AddBudget" || webClientRequest == "UpdateBudget" ||
+        webClientRequest == "RetrieveBudgetDetails" || webClientRequest == "RemoveBudget") {
 
-    if ( webClientRequest == "AddBudget" || webClientRequest == "UpdateBudget" ||
-         webClientRequest == "RetrieveBudgetDetails" || webClientRequest == "RemoveBudget" ) {
+        // Connect to "DesignYourLife" db for "Budget Related CRUD operations"
 
         handleBudgetDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
-    }
 
-    // Connect to "DesignYourLife" db for "Expense Related CRUD operations"
-
-    if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails" ||
+    } else if (webClientRequest == "AddExpense" || webClientRequest == "RetrieveExpenseDetails" ||
         webClientRequest == "UpdateExpense") {
 
+        // Connect to "DesignYourLife" db for "Expense Related CRUD operations"
+
         handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
+
+    } else if (webClientRequest == "RetrieveBudgetAnalytics") {
+
+        // Connect to "DesignYourLife" db for "Budget Analytics CRUD Operations"
+
+        globalsForServiceModule.mongoClient.connect(globalsForServiceModule.mongoDesignYourLifeDbUrl, function (err, db) {
+
+            console.log("Inside the connection to DesignYourLife Mongo DB");
+
+            if (err != null) {
+
+                console.error("DesignYourLifeWebService.createServer : " +
+                    "Server Error while connecting to DesignYourLife mongo db :" + globalsForServiceModule.mongoDesignYourLifeDbUrl);
+
+                var failureMessage = "DesignYourLifeWebService.createServer : " +
+                    "Server Error while connecting to DesignYourLife mongo db :" + globalsForServiceModule.mongoDesignYourLifeDbUrl;
+                HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
+
+            } else {
+
+                // Accessing Database for further exploration 
+
+                console.log("Connecting to database for Budget Analytics: ");
+                globalsForServiceModule.designYourLifeDbConnection = db.db(globalsForServiceModule.designYourLife_Database_Name);
+
+                handleBudgetAnalyticsDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
+
+                console.log("Successfully connected to DesignYourLife Details MongoDb : " +
+                    globalsForServiceModule.mongoDesignYourLifeDbUrl);
+
+            }
+
+        });
+
+    } else {
+
+        console.error("DesignYourLifeWebService.createServer : Inappropriate/Unsupported WebClient Request received...exiting");
+
+        var failureMessage = "DesignYourLifeWebService.createServer : Inappropriate/Unsupported WebClient Request received...exiting";
+        HelperUtilsModule.logBadHttpRequestError("DesignYourLifeWebService", failureMessage, http_response);
+
     }
 
     //  close the db connection
@@ -160,8 +199,7 @@ function handleUserDatabaseRequests(webClientRequest, clientRequestWithParamsMap
                 + globalsForServiceModule.mongoDesignYourLifeDbUrl;
             HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
 
-        }
-        else {
+        } else {
 
             console.log("Successfully connected to DesignYourLife Details MongoDb : " + globalsForServiceModule.mongoDesignYourLifeDbUrl);
 
@@ -451,7 +489,7 @@ function handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParam
             console.log("Creating / Retrieving ExpenseDetails Database : ");
             dbConnection_ExpenseDetails_Database = db.db(globalsForServiceModule.designYourLife_Database_Name);
 
-            // Table( Collection ) Creation
+            // Table( Collection ) Creation / Access
 
             dbConnection_ExpenseDetails_Database.createCollection(globalsForServiceModule.expenseDetails_Table_Name, function (err, result) {
 
@@ -540,6 +578,78 @@ function handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParam
                 }
 
             });
+
+        }
+
+    });
+
+}
+
+
+/**
+ * 
+ * @param {String} webClientRequest  : http client request 
+ * @param {Map} clientRequestWithParamsMap  : Map of <K,V> pairs corresponding to query of Web Client Request
+ *
+ * @returns {HTTPResponse} http_response  : http_response to be formulated with respective status codes
+ * 
+*/
+
+function handleBudgetAnalyticsDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response) {
+
+
+    // Budget Analytics Table( Collection ) Creation / Access
+
+    globalsForServiceModule.designYourLifeDbConnection.createCollection(globalsForServiceModule.budgetAnalytics_TableName,
+        function (err, result) {
+
+        if (err) {
+
+            console.error("DesignYourLifeWebService.createServer : " +
+                "Error while creating / retrieving Budget Analytics Collection(Table) from mongoDb: "
+                + globalsForServiceModule.budgetAnalytics_TableName);
+
+            var failureMessage = "DesignYourLifeWebService.createServer : " +
+                "Error while creating / retrieving Budget Analytics Collection(Table) from mongoDb: "
+                + globalsForServiceModule.budgetAnalytics_TableName;
+            HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.createServer", failureMessage, http_response);
+
+            return;
+        }
+
+        console.log("Successfully created / retrieved collection (BudgetAnalyticsCollection)");
+        console.log("Created / retrieved Collection ( Table ) : Now taking care of Analytics CRUD operations");
+
+        // Redirect the web Requests based on Query => Client_Request
+
+        switch (webClientRequest) {
+
+            case "RetrieveBudgetAnalytics":
+
+                console.log("DesignYourLifeWebService.createServer : Inside Budget Analytics Switch : " +
+                    "RetrieveBudgetAnalytics : Budget_Id : " + clientRequestWithParamsMap.get("Budget_Id"));
+
+                // DB query & Reponse Building
+
+                BudgetAnalyticsQueryModule.retrieveRecordFromBudgetAnalyticsDatabase(globalsForServiceModule.designYourLifeDbConnection,
+                    globalsForServiceModule.budgetAnalytics_TableName,
+                    clientRequestWithParamsMap,
+                    BudgetAnalyticsQueryModule.handleQueryResults,
+                    http_response);
+
+                console.log("DesignYourLifeWebService.createServer : Switch Statement : " +
+                    "Successfully placed Retrieve_Budget_Analytics_Record call");
+
+                break;
+
+            default:
+
+                console.error("DesignYourLifeWebService.createServer : Inappropriate WebClient Request received...exiting");
+
+                var failureMessage = "DesignYourLifeWebService : Inappropriate WebClient Request received...exiting";
+                HelperUtilsModule.logBadHttpRequestError("DesignYourLifeWebService", failureMessage, http_response);
+
+                break;
 
         }
 

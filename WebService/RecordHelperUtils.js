@@ -19,6 +19,8 @@
 *************************************************************************/
 
 var HelperUtilsModule = require('./HelperUtils');
+var RecordHelperUtilsModule = require('./RecordHelperUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
 
 
 /**************************************************************************
@@ -91,4 +93,47 @@ exports.buildJSONRecord = function (queryResult, requiredDetailsOfRecord) {
     return record_JSON;
 }
 
+
+/**
+ * 
+ * @param {Object} queryResult : query Result from mongo DB
+ * 
+ * @returns {JSON} record_JSON : Record in JSON format ( Builds JSON Record without any validation of required Fields )
+ * 
+ */
+
+exports.buildJSONRecord = function (queryResult) {
+
+    var record_JSON = new Object();
+
+    queryResult = HelperUtilsModule.removeUrlSpacesFromObjectValues(queryResult);
+
+    for (var currentRequiredDetail in queryResult) {
+
+        // Exclude identifier while sending data to client
+
+        if (currentRequiredDetail == "_id") {
+
+            continue;
+        }
+
+        // Parse all other values including category object values
+
+        if (HelperUtilsModule.valueDefined(queryResult[currentRequiredDetail])) {
+
+            if (HelperUtilsModule.doesValueExistInArray(GlobalsForServiceModule.budgetLevelAnalyticsRecord_CategoryFields,
+                currentRequiredDetail)) {
+
+                console.log("RecordHelperUtils.buildJSONRecord : value is categories object: convert object to string format.");
+                record_JSON[currentRequiredDetail] = JSON.stringify(queryResult[currentRequiredDetail]);
+
+            } else {
+
+                record_JSON[currentRequiredDetail] = queryResult[currentRequiredDetail];
+            }
+        }
+    }
+
+    return record_JSON;
+}
 

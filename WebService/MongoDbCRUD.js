@@ -33,6 +33,12 @@ var HelperUtilsModule = require('./HelperUtils');
 
 exports.directAdditionOfRecordToDatabase = function (dbConnection, collectionName, document_Object, clientRequest, http_response) {
 
+    directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object, clientRequest, http_response, null);
+}
+
+exports.directAdditionOfRecordToDatabase = function (dbConnection, collectionName, document_Object, clientRequest, http_response,
+    postAdditionCallbackFunc) {
+
     // Record Addition
 
     dbConnection.collection(collectionName).insertOne(document_Object, function (err, result) {
@@ -41,21 +47,38 @@ exports.directAdditionOfRecordToDatabase = function (dbConnection, collectionNam
             console.error("MongoDbCRUD.directAdditionOfRecordToDatabase : Error while adding the Record to Database collection => " +
                 collectionName);
 
-            var failureMessage = "MongoDbCRUD.directAdditionOfRecordToDatabase : Internal Server Error adding the Record to Database collection => " +
-                collectionName;
-            HelperUtilsModule.logInternalServerError("directAdditionOfRecordToDatabase", failureMessage, http_response);
+            if (HelperUtilsModule.valueDefined(http_response)) {
 
+                var failureMessage = "MongoDbCRUD.directAdditionOfRecordToDatabase : Internal Server Error adding the Record to Database collection => " +
+                    collectionName;
+                HelperUtilsModule.logInternalServerError("directAdditionOfRecordToDatabase", failureMessage, http_response);
+
+            }
             return;
         }
 
         console.log("MongoDbCRUD.directAdditionOfRecordToDatabase : Successfully added the record to the Collection : " + collectionName);
 
-        var successMessage = "Successfully added the record to the Collection : " + collectionName;
-        HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+        if (HelperUtilsModule.valueDefined(http_response)) {
 
-        console.log(result);
+            var successMessage = "Successfully added the record to the Collection : " + collectionName;
+            HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+
+            console.log(result);
+        }
+
+        // Post Addition Callback Function
+
+        console.log("MongoDbCRUD.directAdditionOfRecordToDatabase : Post Addition Callback Function : For Client Request : " + clientRequest);
+
+        if (HelperUtilsModule.valueDefined(postAdditionCallbackFunc)) {
+
+            console.log("MongoDbCRUD.directAdditionOfRecordToDatabase : Placed the call for Post Addition Callback Function");
+            return postAdditionCallbackFunc(document_Object, dbConnection);
+        }
 
     });
+
 }
 
 /**
@@ -85,18 +108,25 @@ exports.directUpdationOfRecordToDatabase = function (dbConnection, collectionNam
             console.error("MongoDbCRUD.directUpdationOfRecordToDatabase : Error while updating the Record to Database collection => " +
                 collectionName);
 
-            var failureMessage = "MongoDbCRUD.directUpdationOfRecordToDatabase : Internal Server Error updating the Record to Database collection => " +
-                collectionName;
-            HelperUtilsModule.logInternalServerError("directUpdationOfRecordToDatabase", failureMessage, http_response);
+            if (HelperUtilsModule.valueDefined(http_response)) {
+
+                var failureMessage = "MongoDbCRUD.directUpdationOfRecordToDatabase : Internal Server Error updating the Record to Database collection => " +
+                    collectionName;
+                HelperUtilsModule.logInternalServerError("directUpdationOfRecordToDatabase", failureMessage, http_response);
+            }
 
             return;
         }
 
         console.log("MongoDbCRUD.directUpdationOfRecordToDatabase : Successfully updated the record in database : Trade Id => " +
             document_Object.Trade_Id);
-        var successMessage = "MongoDbCRUD.directUpdationOfRecordToDatabase : Successfully updated the record to the Collection : " +
-            collectionName;
-        HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+
+        if (HelperUtilsModule.valueDefined(http_response)) {
+
+            var successMessage = "MongoDbCRUD.directUpdationOfRecordToDatabase : Successfully updated the record to the Collection : " +
+                collectionName;
+            HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+        }
 
         console.log(result);
     });

@@ -80,6 +80,7 @@ exports.validateUserCredentials = function (dbConnection, collectionName, record
         var failureMessage = "Failure: Blank UserName || Password in input Request";
 
         buildErrorResponse_ForUserAuthentication(failureMessage, http_Response);
+        return;
     }
 
     // DB Query

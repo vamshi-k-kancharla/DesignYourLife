@@ -103,6 +103,12 @@ exports.removeUrlSpacesFromObjectValues = function (queryResult) {
     for (var i = 0; i < values.length; i++) {
 
         var currentValue = String(values[i]);
+
+        if (currentValue.includes("object")) {
+
+            continue;
+        }
+
         var regExpr = /%20/gi;
         currentValue = currentValue.replace(regExpr, " ");
 
@@ -327,5 +333,27 @@ exports.buildMapFromObject = function (inputObject) {
     }
 
     return outputMap;
+}
+
+
+/**
+ * 
+ * @param {any} inputValue : Value whose definition needs to be verified
+ * 
+ * @returns {boolean}  true/false  : True if value is defined, false otherwise
+ * 
+*/
+
+exports.doesValueExistInArray = function (inputArray, findValue) {
+
+    for (var currentValue of inputArray) {
+
+        if (currentValue == findValue) {
+
+            return true;
+        }
+    }
+
+    return false;
 }
 

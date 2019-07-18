@@ -29,10 +29,12 @@ var designYourLife_Database_Name = "designYourLifeDb";
 var budgetDetails_Table_Name = "budgetDetailsCollection";
 var expenseDetails_Table_Name = "expenseDetailsCollection";
 var userDetails_TableName = "designUserLifeUserDetailsCollection";
+var budgetAnalytics_TableName = "budgetAnalyticsCollection";
 
 // Mongo DB Database connections
 
 var mongoDesignYourLifeDbUrl = 'mongodb://127.0.0.1:27017/' + designYourLife_Database_Name;
+var designYourLifeDbConnection;
 
 // Budget & Expense Details : Required Fields
 
@@ -51,6 +53,12 @@ var expenseRecordData_AtleastOneValueShouldBeDifferent = ["Name", "Expense_Type"
 var userRegistrationData_RequiredFields = ["UserType", "User_Id", "Name", "Email", "Location", "Address", "UserName", "Password"];
 var userRegistrationData_UniqueFields = ["User_Id", "Email", "UserName"];
 
+var budgetLevelAnalyticsRecord_RequiredFields = ["AnalyticsRecord_Id", "Budget_Id", "UserName", "Expenditure", "NumOfExpenses", "NumOfPlaces",
+    "NumOfMerchants", "NumOfCategories", "NumOfSubCategories", "Categories"];
+var budgetLevelAnalyticsRecord_CategoryFields = ["Food", "Accommodation", "Entertainment", "Familycare", "MedicalAndFitness",
+    "Miscellaneous", "Shopping", "Transportation", "Vacation"];
+
+var budgetAnalyticsRecord_RequiredQueryFields = ["Budget_Id", "UserName"];
 
 // Global variables
 
@@ -69,6 +77,8 @@ var bDebug = true;
 
 exports.bDebug = bDebug;
 
+exports.designYourLifeDbConnection = designYourLifeDbConnection;
+
 exports.periodicPollingInterval_DisjointDatabase = periodicPollingInterval_DisjointDatabase;
 exports.port = port;
 exports.mongoDbConnection = mongoDbConnection;
@@ -79,6 +89,7 @@ exports.designYourLife_Database_Name = designYourLife_Database_Name;
 exports.budgetDetails_Table_Name = budgetDetails_Table_Name;
 exports.expenseDetails_Table_Name = expenseDetails_Table_Name;
 exports.userDetails_TableName = userDetails_TableName;
+exports.budgetAnalytics_TableName = budgetAnalytics_TableName;
 
 exports.mongoDesignYourLifeDbUrl = mongoDesignYourLifeDbUrl;
 
@@ -95,4 +106,9 @@ exports.budgetRecordData_UniqueFields = budgetRecordData_UniqueFields;
 exports.budgetRecordData_NameFileds = budgetRecordData_NameFileds;
 exports.budgetRecordData_SubGroupFileds = budgetRecordData_SubGroupFileds;
 exports.budgetRecordData_AtleastOneValueShouldBeDifferent = budgetRecordData_AtleastOneValueShouldBeDifferent;
+
+exports.budgetLevelAnalyticsRecord_CategoryFields = budgetLevelAnalyticsRecord_CategoryFields;
+exports.budgetAnalyticsRecord_RequiredQueryFields = budgetAnalyticsRecord_RequiredQueryFields;
+
+
 

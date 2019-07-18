@@ -5,7 +5,7 @@
  **************************************************************************
  **************************************************************************
  * 
- * All CRUD Operations of Expense Records
+ * Update Operations ( Create, Update & Remove ) of Expense Records
  * 
  **************************************************************************
  **************************************************************************
@@ -18,7 +18,7 @@ var RecordHelperUtilsModule = require('./RecordHelperUtils');
 var GlobalsForServiceModule = require('./GlobalsForService');
 var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 var QueryBuilderModule = require('./QueryBuilder');
-
+var BudgetAnalyticsUpdateModule = require('./BudgetAnalyticsUpdateUtils');
 
 
 /**********************************************************************************
@@ -207,7 +207,7 @@ function chequeUniquenessAndAddExpenseRecord(dbConnection, collectionName, docum
                 console.log("ExpenseRecordUpdateUtils.chequeUniquenessAndAddExpenseRecord : " +
                     "Uniqueness checks passed, Adding New Record => " + " Expense_Id : " + document_Object.Expense_Id);
                 MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object,
-                    clientRequest, http_response);
+                    clientRequest, http_response, BudgetAnalyticsUpdateModule.updateExpenseData);
 
             }
             else {
