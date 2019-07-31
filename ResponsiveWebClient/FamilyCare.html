@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+  
+  <html lang="en">
+    
+    <head>
+      
+      <title>FamilyCare</title>
+  
+      <meta charset="utf-8">
+  
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        <style>
+          
+          .text-left {
+            
+            padding-bottom: 1000px;
+            height: 100%;
+          
+          }
+          
+          .navbar {
+              
+              margin-bottom: 0;
+              border-radius: 0;
+              background-color: #80B1F6;
+              color: black;
+          
+          }
+          
+          .row.content {height: auto;}
+          
+          .sidenav {
+              
+              padding-top: 1100px;
+              height: auto;
+
+          }
+          
+          footer {
+              
+              background-color: #555;
+              color: white;
+              padding: 15px;
+          
+          }
+          
+          @media screen and (max-width: 767px) {
+            
+              .sidenav {
+
+                height: auto;
+                padding: 15px;
+            
+                }
+            
+                .row.content {height:auto;}
+
+          }
+
+        </style>
+    
+    </head>
+    
+    <body>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="./JavaScripts/UserAuthentication.js"></script>
+      <script src="./JavaScripts/GlobalsWebClient.js"></script>
+      <script src="./JavaScripts/Key_Value_Map.js"></script>   
+      
+      <nav class="navbar navbar-inverse ">
+  
+          <div class="container-fluid">
+            
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" style="color:black" href="HomePage.html">DesignYourLife</a>
+            
+            </div>
+            
+            <ul class="nav navbar-nav">
+                
+                <li><a href="Categories.html" style="color:black">Home</a></li>
+                
+                <li><a href="#" style="color:black"> Page 1 </a></li>
+                
+            </ul>
+            
+            <form class="navbar-form navbar-left" action="/action.html">
+                
+                <div class="input-group">
+                
+                  <input type="text" class="form-control" placeholder="Search" name="search">
+                  
+                  <div class="input-group-btn">
+                      
+                      <button class="btn btn-default" type="submit">
+                        
+                        <i class="glyphicon glyphicon-search"></i>
+                      
+                      </button>
+                  
+                  </div>
+                
+                </div>
+            
+            </form>
+            
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+
+        </div>
+
+      </nav>
+      
+      <div class="container-fluid text-center">    
+          
+          <div class="row content">
+            
+            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            
+            <div class="col-sm-8 ">
+              <div style="background-color: #4B5246;" >
+                <h1 style="text-align: center;color: white>FAMILYCARE</a></h1>
+              </div>
+                <div style="padding: 10px" ></div>
+
+               <div class="col-sm-6">
+                   
+                    <div class="col-sm-6">
+                    
+                      <a href="Expense_Info.html">
+
+                      <img style="float: left" src=".\Resources\Pictures\childcare.png" class="img-rounded" width="200" height="176" id="childcare" onclick="expenseFamilycareDetails1()">
+
+                    </a>
+                    
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      
+                      <p id="childcare" onclick="expenseFamilycareDetails1()"><a href="Expense_Info.html"> ChildCdare</a></p>
+                      <p> <span id="childcare_row1_id1"></span>: <span id="childcare_row1_id2"></span></p>
+                      <p> <span id="childcare_row2_id1"></span>: <span id="childcare_row2_id2"></span></p>
+                      <p> <span id="childcare_row3_id1"></span>: <span id="childcare_row3_id2"></span></p>
+
+                    </div>
+                  
+                    <div style="padding: 100px" ></div>
+                  
+                    <div class="col-sm-6">
+                    
+                      <p id="education" onclick="expenseFamilycareDetails2()"><a href="Expense_Info.html"> Education</a></p>
+                      <p> <span id="education_row1_id1"></span>: <span id="education_row1_id2"></span></p>
+                      <p> <span id="education_row2_id1"></span>: <span id="education_row2_id2"></span></p>
+                      <p> <span id="education_row3_id1"></span>: <span id="education_row3_id2"></span></p>
+
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      
+                      <a href="Expense_Info.html">
+
+                      <img style="float: right;" src=".\Resources\Pictures\education.jpg"  class="img-rounded" width="200" height="176" id="education" onclick="expenseFamilycareDetails2()">
+                    
+                    </a>
+
+                    </div>
+                  
+                </div>
+              
+                <div class="col-sm-6">
+
+                    <div class="col-sm-6">
+                      
+                      <p id="gifts" onclick="expenseFamilycareDetails3()"><a href="Expense_Info.html"> Gifts</a></p>
+                      <p> <span id="gifts_row1_id1"></span>: <span id="gifts_row1_id2"></span></p>
+                      <p> <span id="gifts_row2_id1"></span>: <span id="gifts_row2_id2"></span></p>
+                      <p> <span id="gifts_row3_id1"></span>: <span id="gifts_row3_id2"></span></p>
+                    
+                    </div>
+                    
+                    <div class="col-sm-6">
+                      
+                      <a href="Expense_Info.html">
+
+                        <img style="float: right;" src=".\Resources\Pictures\gifts.jpeg"  class="img-rounded" width="200" height="176" id="gifts" onclick="expenseFamilycareDetails3()">
+                    
+                      </a>
+
+                    </div>
+                  
+                    
+
+                </div>    
+
+            </div>
+
+            <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
+          
+            </div>
+        
+        </div>
+      
+      </div>
+    
+      <footer class="container-fluid ">
+        
+        <div class="row">
+          
+            <div class="col-sm-4"  >
+              
+              <p>Contact us :</p>
+              <p>Phno : </p>
+              <p>E-mail : </p>
+          
+            </div>
+            
+            <div class="col-sm-8" class="text-center">
+              
+              <p>Address :</p>
+              <p>Vindhya c4</p>
+              <p>IIIT Gachibowli campus,hyd<p>
+              <p>Pin code : 500032</p>
+            
+            </div>
+        
+        </div>
+      
+      </footer> 
+
+      <script type="text/javascript">
+
+       window.onload = function (event) {
+
+          displayContainerValues();
+       }
+
+
+        function displayContainerValues(){
+
+
+          var keyIdArray = ["childcare_row1_id1","childcare_row2_id1","childcare_row3_id1",
+                            "education_row1_id1","education_row2_id1","education_row3_id1",
+                            "gifts_row1_id1","gifts_row2_id1","gifts_row3_id1",
+                            ];
+
+          var valueIdArray = ["childcare_row1_id2","childcare_row2_id2","childcare_row3_id2",
+                              "education_row1_id2","education_row2_id2","education_row3_id2",
+                              "gifts_row1_id2","gifts_row2_id2","gifts_row3_id2",
+                              ];
+      
+          var keyValueMap = new Map();
+
+          // Container 1 Display
+
+          keyValueMap.set ("childcare_row1_id1","name1");
+          keyValueMap.set ("childcare_row2_id1","name2");
+          keyValueMap.set ("childcare_row3_id1","name3");
+          keyValueMap.set ("childcare_row1_id2","value1");
+          keyValueMap.set ("childcare_row2_id2","value2");
+          keyValueMap.set ("childcare_row3_id2","value3");
+
+          // Container 2 Display
+
+          keyValueMap.set ("education_row1_id1","name1");
+          keyValueMap.set ("education_row2_id1","name2");
+          keyValueMap.set ("education_row3_id1","name3");
+          keyValueMap.set ("education_row1_id2","value1");
+          keyValueMap.set ("education_row2_id2","value2");
+          keyValueMap.set ("education_row3_id2","value3");
+
+          // Container 3 Display
+
+          keyValueMap.set ("gifts_row1_id1","name1");
+          keyValueMap.set ("gifts_row2_id1","name2");
+          keyValueMap.set ("gifts_row3_id1","name3");
+          keyValueMap.set ("gifts_row1_id2","value1");
+          keyValueMap.set ("gifts_row2_id2","value2");
+          keyValueMap.set ("gifts_row3_id2","value3");
+ 
+          keyValueMapModule.displaySingleContainerValues( keyIdArray, valueIdArray, keyValueMap);
+
+
+        }
+
+
+        function expenseFamilycareDetails1(){
+
+          document.getElementById('childcare').value =window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "childcare");
+
+        }
+
+
+        function expenseFamilycareDetails2(){
+
+          document.getElementById('education').value =window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "education");
+
+        }
+
+
+        function expenseFamilycareDetails3(){
+
+          document.getElementById('gifts').value =window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "gifts");
+          
+        }
+       
+      </script>
+      
+    </body>
+
+</html>

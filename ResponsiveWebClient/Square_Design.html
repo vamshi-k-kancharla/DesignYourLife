@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+  
+  <html lang="en">
+    
+    <head>
+      
+      <title>Square_Design</title>
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        <style>
+
+          .table.table-border > tbody > tr > td{
+
+            border: 1px solid black;
+            height: 80px;
+          }
+          
+          .text-left {
+            
+            padding-bottom: 1000px;
+            height: 100%;
+          
+          }
+          
+          .navbar {
+              
+              margin-bottom: 0;
+              border-radius: 0;
+              background-color: #80B1F6;
+              color: black;
+          
+          }
+          
+          .row.content {height: auto;}
+          
+          .sidenav {
+              
+              padding-top: 1251px;
+              height: 100%;
+
+          }
+          
+          footer {
+              
+              background-color: #555;
+              color: white;
+              padding: 15px;
+          
+          }
+          
+          @media screen and (max-width: 767px) {
+            
+              .sidenav {
+
+                height: auto;
+                padding: 15px;
+            
+                }
+            
+                .row.content {height:auto;} 
+
+          }
+
+          .text-left{
+
+            height: 1251px;
+            padding: 15px;
+
+          }
+
+        </style>
+    
+    </head>
+    
+    <body>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>  
+      <script src="./JavaScript/SummaryGridHelper.js"></script> 
+      <script src="./JavaScript/Key_Value_Map.js"></script>
+      
+      <nav class="navbar navbar-inverse ">
+  
+          <div class="container-fluid">
+            
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" href="HomePage.html" style="color:black">DesignYourLife</a>
+            
+            </div>
+            
+            <ul class="nav navbar-nav">
+                
+                <li><a href="#" style="color:black">Home</a></li>
+                
+                <li><a href="#" style="color:black"> Page 1 </a></li>
+                
+                <li><a href="#" style="color:black">Page 2</a></li>
+                
+                <li><a href="#" style="color:black">page 3</a></li>
+            </ul>
+            
+            <form class="navbar-form navbar-left" action="/action.html">
+                
+                <div class="input-group">
+                
+                  <input type="text" class="form-control" placeholder="Search" name="search">
+                  
+                  <div class="input-group-btn">
+                      
+                      <button class="btn btn-default" type="submit">
+                        
+                        <i class="glyphicon glyphicon-search"></i>
+                      
+                      </button>
+                  
+                  </div>
+                
+                </div>
+            
+            </form>
+            
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li><a  style="color:black"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                
+                <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+
+        </div>
+
+      </nav>
+      
+      <div class="container-fluid text-center">    
+          
+          <div class="row content">
+            
+            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            
+            <div class="col-sm-8 text-left" style="background-color: #D5D9D3;" > 
+
+              <table class="table table-border" id="mytable">
+
+                <tbody>
+                    <tr>
+                      <td></td>
+                      <td class="col-sm-1"><img src="img1.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img1.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img1.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img1.jpg" height="100px" width="100%"></td>
+                      <td></td>
+
+                    </tr>
+                   
+                    <tr>
+                      <td></td>
+                      <td>
+                        <p><span id="img1_id1"></span>:<span id="img1_value1"></span></p>
+                        <p><span id="img1_id2"></span>:<span id="img1_value2"></span></p>
+                        <p><span id="img1_id3"></span>:<span id="img1_value3"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img1_id4"></span>:<span id="img1_value4"></span></p>
+                        <p><span id="img1_id5"></span>:<span id="img1_value5"></span></p>
+                        <p><span id="img1_id6"></span>:<span id="img1_value6"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img1_id7"></span>:<span id="img1_value7"></span></p>
+                        <p><span id="img1_id8"></span>:<span id="img1_value8"></span></p>
+                        <p><span id="img1_id9"></span>:<span id="img1_value9"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img1_id10"></span>:<span id="img1_value10"></span></p>
+                        <p><span id="img1_id11"></span>:<span id="img1_value11"></span></p>
+                        <p><span id="img1_id12"></span>:<span id="img1_value12"></span></p>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td class="col-sm-1"><img src="img2.jpg" height="100px" width="100%"></td>
+                      <td>
+                        <p><span id="img2_id1"></span>:<span id="img2_value1"></span></p>
+                        <p><span id="img2_id2"></span>:<span id="img2_value2"></span></p>
+                        <p><span id="img2_id3"></span>:<span id="img2_value3"></span></p>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <p><span id="img4_id1"></span>:<span id="img4_value1"></span></p>
+                        <p><span id="img4_id2"></span>:<span id="img4_value2"></span></p>
+                        <p><span id="img4_id3"></span>:<span id="img4_value3"></span></p>
+                      </td>
+                       <td class="col-sm-1"><img src="img4.jpg" height="100px" width="100%"></td>
+                    </tr>
+                    <tr>
+                      <td class="col-sm-1"><img src="img2.jpg" height="100px" width="100%"></td>
+                      <td>
+                        <p><span id="img2_id4"></span>:<span id="img2_value4"></span></p>
+                        <p><span id="img2_id5"></span>:<span id="img2_value5"></span></p>
+                        <p><span id="img2_id6"></span>:<span id="img2_value6"></span></p>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td>
+                        <p><span id="img4_id4"></span>:<span id="img4_value4"></span></p>
+                        <p><span id="img4_id5"></span>:<span id="img4_value5"></span></p>
+                        <p><span id="img4_id6"></span>:<span id="img4_value6"></span></p>
+                      </td>
+                       <td class="col-sm-1"><img src="img4.jpg" height="100px" width="100%"></td>
+                    </tr>
+                    
+                    <tr>
+                      <td></td>
+                      <td>
+                        <p><span id="img3_id1"></span>:<span id="img3_value1"></span></p>
+                        <p><span id="img3_id2"></span>:<span id="img3_value2"></span></p>
+                        <p><span id="img3_id3"></span>:<span id="img3_value3"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img3_id4"></span>:<span id="img3_value4"></span></p>
+                        <p><span id="img3_id5"></span>:<span id="img3_value5"></span></p>
+                        <p><span id="img3_id6"></span>:<span id="img3_value6"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img3_id7"></span>:<span id="img3_value7"></span></p>
+                        <p><span id="img3_id8"></span>:<span id="img3_value8"></span></p>
+                        <p><span id="img3_id9"></span>:<span id="img3_value9"></span></p>
+                      </td>
+                      <td>
+                        <p><span id="img3_id10"></span>:<span id="img3_value10"></span></p>
+                        <p><span id="img3_id11"></span>:<span id="img3_value11"></span></p>
+                        <p><span id="img3_id12"></span>:<span id="img3_value12"></span></p>
+                      </td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td class="col-sm-1"><img src="img3.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img3.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img3.jpg" height="100px" width="100%"></td>
+                      <td class="col-sm-1"><img src="img3.jpg" height="100px" width="100%"></td>
+                      <td></td>
+                    </tr>
+
+
+                  </tbody>
+
+                
+              </table>
+              <div>
+                <button type="button" class="btn btn-default" onclick="table_info()">add</button>
+                <button type="button" class="btn btn-default" onclick="table_delete()">delete</button>
+              </div>
+            
+            </div>
+            
+            <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8  ;">
+          
+          </div>
+        
+        </div>
+      
+      </div>
+    
+      <footer class="container-fluid ">
+        
+        <div class="row">
+          
+            <div class="col-sm-4"  >
+              
+              <p>Contact us :</p>
+              <p>Phno : </p>
+              <p>E-mail : </p>
+          
+          </div>
+            
+            <div class="col-sm-8" class="text-center">
+              
+              <p>Address :</p>
+              <p>Vindhya c4</p>
+              <p>IIIT Gachibowli campus,hyd<p>
+              <p>Pin code : 500032</p>
+            
+            </div>
+        
+        </div>
+      
+      </footer> 
+
+       <script >
+
+         window.onload = function (event) {
+
+        display_table_info();
+
+       }
+       
+
+       function display_table_info(){
+
+        var keyIdArray = ["img1_id1","img1_id2","img1_id3","img1_id4","img1_id5","img1_id6","img1_id7","img1_id8","img1_id9","img1_id10","img1_id11",                 "img1_id12",
+                          "img2_id1","img2_id2","img2_id3","img2_id4","img2_id5","img2_id6",
+                          "img3_id1","img3_id2","img3_id3","img3_id4","img3_id5","img3_id6","img3_id7","img3_id8","img3_id9","img3_id10","img3_id11","img3_id12",
+                          "img4_id1","img4_id2","img4_id3","img4_id4","img4_id5","img4_id6"];
+
+        var valueIdArray = ["img1_value1","img1_value2","img1_value3","img1_value4","img1_value5","img1_value6","img1_value7","img1_value8",
+                            "img1_value9","img1_value10","img1_value11","img1_value12",
+                            "img2_value1","img2_value2","img2_value3","img2_value4","img2_value5","img2_value6",
+                            "img3_value1","img3_value2","img3_value3","img3_value4","img3_value5","img3_value6","img3_value7","img3_value8",
+                            "img3_value9","img3_value10","img3_value11","img3_value12",
+                            "img4_value1","img4_value2","img4_value3","img4_value4","img4_value5","img4_value6"];
+
+         var keyValueMap = new Map();
+
+        keyValueMap.set("img1_id1","name1");
+        keyValueMap.set("img1_id2","name2");
+        keyValueMap.set("img1_id3","name3");
+        keyValueMap.set("img1_id4","name1");
+        keyValueMap.set("img1_id5","name2");
+        keyValueMap.set("img1_id6","name3");
+        keyValueMap.set("img1_id7","name1");
+        keyValueMap.set("img1_id8","name2");
+        keyValueMap.set("img1_id9","name3");
+        keyValueMap.set("img1_id10","name1");
+        keyValueMap.set("img1_id11","name2");
+        keyValueMap.set("img1_id12","name3");
+        keyValueMap.set("img1_value1","value1");
+        keyValueMap.set("img1_value2","value2");
+        keyValueMap.set("img1_value3","value3");
+        keyValueMap.set("img1_value4","value1");
+        keyValueMap.set("img1_value5","value2");
+        keyValueMap.set("img1_value6","value3");
+        keyValueMap.set("img1_value7","value1");
+        keyValueMap.set("img1_value8","value2");
+        keyValueMap.set("img1_value9","value3");
+        keyValueMap.set("img1_value10","value1");
+        keyValueMap.set("img1_value11","value2");
+        keyValueMap.set("img1_value12","value3");
+
+
+        keyValueMap.set("img2_id1","name1");
+        keyValueMap.set("img2_id2","name2");
+        keyValueMap.set("img2_id3","name3");
+        keyValueMap.set("img2_id4","name1");
+        keyValueMap.set("img2_id5","name2");
+        keyValueMap.set("img2_id6","name3");
+        keyValueMap.set("img2_value1","value1");
+        keyValueMap.set("img2_value2","value2");
+        keyValueMap.set("img2_value3","value3");
+        keyValueMap.set("img2_value4","value1");
+        keyValueMap.set("img2_value5","value2");
+        keyValueMap.set("img2_value6","value3");
+
+
+        keyValueMap.set("img3_id1","name1");
+        keyValueMap.set("img3_id2","name2");
+        keyValueMap.set("img3_id3","name3");
+        keyValueMap.set("img3_id4","name1");
+        keyValueMap.set("img3_id5","name2");
+        keyValueMap.set("img3_id6","name3");
+        keyValueMap.set("img3_id7","name1");
+        keyValueMap.set("img3_id8","name2");
+        keyValueMap.set("img3_id9","name3");
+        keyValueMap.set("img3_id10","name1");
+        keyValueMap.set("img3_id11","name2");
+        keyValueMap.set("img3_id12","name3");
+        keyValueMap.set("img3_value1","value1");
+        keyValueMap.set("img3_value2","value2");
+        keyValueMap.set("img3_value3","value3");
+        keyValueMap.set("img3_value4","value1");
+        keyValueMap.set("img3_value5","value2");
+        keyValueMap.set("img3_value6","value3");
+        keyValueMap.set("img3_value7","value1");
+        keyValueMap.set("img3_value8","value2");
+        keyValueMap.set("img3_value9","value3");
+        keyValueMap.set("img3_value10","value1");
+        keyValueMap.set("img3_value11","value2");
+        keyValueMap.set("img3_value12","value3");
+
+
+
+        keyValueMap.set("img4_id1","name1");
+        keyValueMap.set("img4_id2","name2");
+        keyValueMap.set("img4_id3","name3");
+        keyValueMap.set("img4_id4","name1");
+        keyValueMap.set("img4_id5","name2");
+        keyValueMap.set("img4_id6","name3");
+        keyValueMap.set("img4_value1","value1");
+        keyValueMap.set("img4_value2","value2");
+        keyValueMap.set("img4_value3","value3");
+        keyValueMap.set("img4_value4","value1");
+        keyValueMap.set("img4_value5","value2");
+        keyValueMap.set("img4_value6","value3");
+
+
+         keyValueMapModule.displaySingleContainerValues(keyIdArray,valueIdArray,keyValueMap);
+
+        }
+
+         function table_info(){
+
+          SummaryGridHelperModule.tableData();
+
+        }
+
+        function table_delete(){
+
+          SummaryGridHelperModule.delete_table_data();
+
+        }
+        
+       </script>
+      
+    </body>
+
+</html>

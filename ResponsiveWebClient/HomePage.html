@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+	
+	<html lang="en">
+		
+		<head>
+			
+			<title>homePage</title>
+	
+			<meta charset="utf-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+  			
+  			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  			
+  			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  			
+  			<style>
+  				
+  				.text-left {
+  					
+  					padding-bottom: 1000px
+  					height: 100%;
+  				
+  				}
+  				
+  				.navbar {
+      				
+      				margin-bottom: 0;
+      				border-radius: 0;
+      				background-color: #80B1F6;
+      				color: black;
+    			
+    			}
+     			
+     			.row.content {height: auto;}
+    			
+    			.sidenav {
+      				
+      				padding-top: 1000px;
+      				height: 100%;
+    			}
+     			
+     			footer {
+      				
+      				background-color: #555;
+      				color: white;
+      				padding: 15px;
+    			
+    			}
+     			
+     			@media screen and (max-width: 767px) {
+      			
+      				.sidenav {
+
+        				height: auto;
+        				padding: 15px;
+      			
+      					}
+      			
+      					.row.content {height:auto;} 
+    			}
+
+  			</style>
+		
+		</head>
+		
+		<body>
+
+       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="./JavaScripts/UserAuthentication.js"></script>
+
+			<nav class="navbar navbar-inverse ">
+	
+  				<div class="container-fluid">
+    				
+    				<div class="navbar-header">
+      					
+      					<a class="navbar-brand" href="homepage.html" style="color:black">DesignYourLife</a>
+    				
+    				</div>
+    				
+    				<ul class="nav navbar-nav">
+      					
+      					<li><a href="categories.html" style="color:black">Home</a></li>
+      					
+      					<li><a href="#" style="color:black"> Page 1 </a></li>
+      					
+    				</ul>
+    				
+    				<form class="navbar-form navbar-left" action="/action.html">
+      					
+      					<div class="input-group">
+        				
+        					<input type="text" class="form-control" placeholder="Search" name="search">
+        					
+        					<div class="input-group-btn">
+          						
+          						<button class="btn btn-default" type="submit">
+            						
+            						<i class="glyphicon glyphicon-search"></i>
+          						
+          						</button>
+        					
+        					</div>
+      					
+      					</div>
+    				
+    				</form>
+   					
+   					<ul class="nav navbar-nav navbar-right">
+      					
+      					<li><a  style="color:black" href="signuppage.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      					
+      					<li><a href="#" style="color:black" class="btn btn-link" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-log-in" ></span> Login</a>
+                  
+                  <div class="modal" id="myModal">
+                  
+                    <div class="modal-dialog">
+                  
+                    <div class="modal-content">
+      
+                      <div class="modal-header" >
+                        
+                        <h4 class="modal-title" style="text-align: center;font: bold;">login</h4>
+                        
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      
+                      </div>
+        
+                      <div class="modal-body">
+                        
+                        <form class="form-horizontal" style="align-items: center;" name="details" >
+                          
+                          <div class="form-group">
+                  
+                            <label class="control-label col-sm-2" for="validationDefault" >UserName:</label>
+
+                            <div class="col-sm-6">
+                    
+                            <input type="text" class="form-control" id="username" placeholder="Usename" name="UserName" required>
+                  
+                            </div>
+
+                          </div>  
+
+                          <div class="form-group">
+
+                            <label class="control-label col-sm-2" for="pwd">Password:</label>
+
+                            <div class="col-sm-6">
+                    
+                              <input type="Password" class="form-control" id="pwd" placeholder="enter password" name="Password" required>
+                  
+                            </div>
+
+                          </div>
+
+                        </form>
+                   
+                      </div>
+                      
+                      <div class="modal-footer">
+                         
+                         <div class="col-sm-12">
+                            
+                            <div class="col-sm-4" >
+                              
+                              <p>ForgotPassword?</p>
+                            
+                            </div>
+                         
+                            <div class="col-sm-4" style="padding-left: 100px">
+                              
+                               <p><a href="homepage3.html">NewUser</a></p>
+                            
+                            </div>          
+                          
+                          </div>
+                       
+                          <div style="padding-bottom: 10px"></div>
+                        
+                          <div class="col-sm-4">
+                         
+                            <button type="submit" class="btn " data-submit="modal" onclick='userAuthenticationModule.processUserLogin()'>LOGIN</button>
+                          
+                          </div>
+                          
+                          <div class="col-sm-4">
+                            
+                            <button type="cancel" class="btn btn-danger"  data-dismiss="modal">cancel</button>
+                          
+                          </div>
+                      
+                      </div>
+                
+                </li>
+    				
+            </ul>
+
+				</div>
+
+			</nav>
+			
+			<div class="container-fluid text-center">    
+  				
+  				<div class="row content">
+    				
+    				<div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+    				
+    				<div class="col-sm-8 text-left" style="background-color: #D5D9D3;" > 
+    					
+    					<div class="jumbotron">
+                
+      						
+      						<h1>Welcome</h1>
+      						
+      						<h4> LIFE def:</h4>
+      						
+      						<p style="font-style: oblique">The condition that distinguishes animals and plants from inorganic matter, including the capacity for growth, reproduction, functional activity, and continual change preceding death.</p>
+
+
+      					</div>
+      
+      					<div style="padding-bottom: 672px"></div>
+					</div>
+   					
+   					<div  class="col-sm-2 sidenav" style="background-color: #8EEEE8  ;">
+					
+					</div>
+				
+				</div>
+			
+			</div>
+		
+			<footer class="container-fluid ">
+        
+        <div class="row">
+          
+            <div class="col-sm-4"  >
+              
+              <p>Contact us :</p>
+              <p>Phno : </p>
+              <p>E-mail : </p>
+          
+            </div>
+            
+            <div class="col-sm-8" class="text-center">
+              
+              <p>Address :</p>
+              <p>Vindhya c4</p>
+              <p>IIIT Gachibowli campus,hyd<p>
+              <p>Pin code : 500032</p>
+            
+            </div>
+        
+        </div>
+      
+      </footer> 
+    
+		</body>
+
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+  
+  <html lang="en">
+    
+    <head>
+      
+      <title>Expense_Info</title>
+  
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        
+        <style>
+          
+          .text-left {
+            
+            padding-bottom: 1000px;
+            height: 100%;
+          
+          }
+          
+          .navbar {
+              
+              margin-bottom: 0;
+              border-radius: 0;
+              background-color: #80B1F6;
+              color: black;
+          
+          }
+          
+          .row.content {height: 1000px;}
+          
+          .sidenav {
+              
+              padding-top: 1069px;
+              height: 100%;
+          }
+          
+          footer {
+              
+              background-color: #555;
+              color: white;
+              padding: 15px;
+          
+          }
+          
+          @media screen and (max-width: 767px) {
+            
+              .sidenav {
+
+                height: auto;
+                padding: 15px;
+            
+                }
+            
+                .row.content {height: auto;} 
+
+          }
+
+          .text-left{
+            
+            height: auto;
+            padding: 15px ;
+          
+          }
+
+        </style>
+    
+    </head>
+    
+    <body>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      <script src="./JavaScripts/Key_Value_Map.js"></script>
+      
+      <nav class="navbar navbar-inverse ">
+  
+          <div class="container-fluid">
+            
+            <div class="navbar-header">
+                
+                <a class="navbar-brand" href="HomePage.html" style="color:black">DesignYourLife</a>
+            
+            </div>
+            
+            <ul class="nav navbar-nav">
+                
+                <li><a href="#" style="color:black">Home</a></li>
+                
+                <li><a href="#" style="color:black"> Page 1 </a></li>
+                
+                <li><a href="#" style="color:black">Page 2</a></li>
+                
+                <li><a href="#" style="color:black">page 3</a></li>
+            </ul>
+            
+            <form class="navbar-form navbar-left" action="/action.html">
+                
+                <div class="input-group">
+                
+                  <input type="text" class="form-control" placeholder="Search" name="search">
+                  
+                  <div class="input-group-btn">
+                      
+                      <button class="btn btn-default" type="submit">
+                        
+                        <i class="glyphicon glyphicon-search"></i>
+                      
+                      </button>
+                  
+                  </div>
+                
+                </div>
+            
+            </form>
+            
+            <ul class="nav navbar-nav navbar-right">
+                
+                <li><a  style="color:black"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                
+                <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+
+            </ul>
+
+        </div>
+
+      </nav>
+      
+      <div class="container-fluid text-center">    
+          
+          <div class="row content">
+            
+            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            
+            <div class="col-sm-8 text-left" style="background-color: #D5D9D3;" > 
+
+              <div class="navbar navbar-inverse" style="background-color:#35433A">
+                
+                <div class="navbar-header">
+                  
+                  <h2 style="text-align: center; padding-left: 350px ; color: white">IMAGE INFO</h2>
+
+                </div>
+                
+              </div>
+
+              <div style="padding: 20px"></div>
+              
+              <div class="col-sm-12" >
+
+                <div class="col-sm-2">
+
+                <p id="img1"> </p>
+
+              </div>
+
+              <div class="col-sm-10">
+
+                <div style="padding: 10px" ></div>
+
+                <p style="text-align: left;"><span id="img1_id1"></span> : <span id="img1_value1"></span>,
+                <span id="img1_id2"></span> : <span id="img1_value2"></span>,
+                <span id="img1_id3"></span> : <span id="img1_value3"></span></p>
+
+              </div>
+
+              </div>
+
+              <div style="padding: 75px"></div>
+
+              <div class="col-sm-12" >
+
+              <div class="col-sm-10">
+
+                <div style="padding: 10px" ></div>
+
+                <p style="text-align: right;"><span id="img2_id1"></span> : <span id="img2_value1"></span>,
+                <span id="img2_id2"></span> : <span id="img2_value2"></span>,
+                <span id="img2_id3"></span> : <span id="img2_value3"></span></p>
+                
+              </div>
+
+              <div class="col-sm-2">
+
+                <p id="img2"></p>
+
+              </div>
+
+              </div> 
+
+              <div style="padding: 75px"></div>
+
+
+              <div class="col-sm-12" >
+
+                <div class="col-sm-2">
+
+                <p id="img3"> </p>
+
+              </div>
+
+              <div class="col-sm-10">
+
+                <div style="padding: 10px" ></div>
+
+                <p style="text-align: left;"><span id="img3_id1"></span> : <span id="img3_value1"></span>,
+                <span id="img3_id2"></span> : <span id="img3_value2"></span>,
+                <span id="img3_id3"></span> : <span id="img3_value3"></span></p>
+
+              </div>
+
+              </div>
+
+              <div style="padding: 75px"></div>
+
+              <div class="col-sm-12" >
+
+              <div class="col-sm-10">
+
+                <div style="padding: 10px" ></div>
+
+                <p style="text-align: right;"><span id="img4_id1"></span> : <span id="img4_value1"></span>,
+                <span id="img4_id2"></span> : <span id="img4_value2"></span>,
+                <span id="img4_id3"></span> : <span id="img4_value3"></span></p>
+                
+              </div>
+
+              <div class="col-sm-2">
+
+                <p id="img4"></p>
+
+              </div>
+
+              </div> 
+
+              <div style="padding: 75px"></div>
+
+
+              <div class="col-sm-12" >
+
+                <div class="col-sm-2">
+
+                <p id="img5"> </p>
+
+              </div>
+
+              <div class="col-sm-10">
+
+                <div style="padding: 10px" ></div>
+
+                  <p style="text-align: left;"><span id="img5_id1"></span> : <span id="img5_value1"></span>,
+                  <span id="img5_id2"></span> : <span id="img5_value2"></span>,
+                  <span id="img5_id3"></span> : <span id="img5_value3"></span></p>
+
+                </div>
+
+              </div>
+
+              <div style="padding: 75px"></div>
+
+              <div class="col-sm-12" >
+
+                <div class="col-sm-10">
+
+                  <div style="padding: 10px" ></div>
+
+                  <p style="text-align: right;"><span id="img6_id1"></span> : <span id="img6_value1"></span>,
+                  <span id="img6_id2"></span> : <span id="img6_value2"></span>,
+                  <span id="img6_id3"></span> : <span id="img6_value3"></span></p>
+                
+                </div>
+
+                <div class="col-sm-2">
+
+                  <p id="img6"></p>
+
+                </div>
+
+              </div> 
+
+              <div style="padding: 75px"></div>
+
+              <div class="col-sm-12">
+                
+                <button type="submit" class="btn btn-default" style="float: left;" onclick="window.open('./addbudget.html','_self')">Add Budget</button>
+                <button type="submit" class="btn btn-default" style="float: right;" onclick="window.open('./addexpense.html','_self')">Add Expense</button>
+
+              </div>
+
+
+
+             </div>
+            
+            <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8  ;">
+          
+          </div>
+        
+        </div>
+      
+      </div>
+    
+      <footer class="container-fluid ">
+        
+        <div class="row">
+          
+            <div class="col-sm-4"  >
+              
+              <p>Contact us :</p>
+              <p>Phno : </p>
+              <p>E-mail : </p>
+          
+            </div>
+            
+            <div class="col-sm-8" class="text-center">
+              
+              <p>Address :</p>
+              <p>Vindhya c4</p>
+              <p>IIIT Gachibowli campus,hyd<p>
+              <p>Pin code : 500032</p>
+            
+            </div>
+        
+        </div>
+      
+      </footer> 
+
+      <script> 
+
+      window.onload = function (event) {
+
+        display_container_info();
+
+       }
+       
+
+       function display_container_info(){
+
+
+         var path = ["img1","img2","img3","img4","img5","img6"];
+
+
+        var keyIdArray = ["img1_id1","img1_id2","img1_id3",
+                       "img2_id1","img2_id2","img2_id3",
+                       "img3_id1","img3_id2","img3_id3",
+                       "img4_id1","img4_id2","img4_id3",
+                       "img5_id1","img5_id2","img5_id3",
+                       "img6_id1","img6_id2","img6_id3"];
+
+        var valueIdArray = ["img1_value1","img1_value2","img1_value3",
+                         "img2_value1","img2_value2","img2_value3",
+                         "img3_value1","img3_value2","img3_value3",
+                         "img4_value1","img4_value2","img4_value3",
+                         "img5_value1","img5_value2","img5_value3",
+                         "img6_value1","img6_value2","img6_value3"];
+
+        var keyValueMap = new Map();
+
+        keyValueMap.set("img1","<img src='img1.jpg' width='140px'/>");
+        keyValueMap.set("img1_id1","name1");
+        keyValueMap.set("img1_id2","name2");
+        keyValueMap.set("img1_id3","name3");
+        keyValueMap.set("img1_value1","value1");
+        keyValueMap.set("img1_value2","value2");
+        keyValueMap.set("img1_value3","value3");
+
+        keyValueMap.set("img2","<img src='img2.jpg' width='140px'/>");
+        keyValueMap.set("img2_id1","name1");
+        keyValueMap.set("img2_id2","name2");
+        keyValueMap.set("img2_id3","name3");
+        keyValueMap.set("img2_value1","value1");
+        keyValueMap.set("img2_value2","value2");
+        keyValueMap.set("img2_value3","value3");
+
+        keyValueMap.set("img3","<img src='img3.jpg' width='140px'/>");
+        keyValueMap.set("img3_id1","name1");
+        keyValueMap.set("img3_id2","name2");
+        keyValueMap.set("img3_id3","name3");
+        keyValueMap.set("img3_value1","value1");
+        keyValueMap.set("img3_value2","value2");
+        keyValueMap.set("img3_value3","value3");
+
+        keyValueMap.set("img4","<img src='img4.jpg' width='140px'/>");
+        keyValueMap.set("img4_id1","name1");
+        keyValueMap.set("img4_id2","name2");
+        keyValueMap.set("img4_id3","name3");
+        keyValueMap.set("img4_value1","value1");
+        keyValueMap.set("img4_value2","value2");
+        keyValueMap.set("img4_value3","value3");
+
+        keyValueMap.set("img5","<img src='img5.jpg' width='140px'/>");
+        keyValueMap.set("img5_id1","name1");
+        keyValueMap.set("img5_id2","name2");
+        keyValueMap.set("img5_id3","name3");
+        keyValueMap.set("img5_value1","value1");
+        keyValueMap.set("img5_value2","value2");
+        keyValueMap.set("img5_value3","value3");
+
+        keyValueMap.set("img6","<img src='img6.jpg' width='140px'/>");
+        keyValueMap.set("img6_id1","name1");
+        keyValueMap.set("img6_id2","name2");
+        keyValueMap.set("img6_id3","name3");
+        keyValueMap.set("img6_value1","value1");
+        keyValueMap.set("img6_value2","value2");
+        keyValueMap.set("img6_value3","value3");
+
+        keyValueMapModule.displayimageContainerValues(path,keyIdArray,valueIdArray,keyValueMap);
+
+       }
+ 
+     </script>
+
+     </body>
+
+</html>
