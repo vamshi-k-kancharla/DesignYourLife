@@ -1,79 +1,75 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
   
-  <html lang="en">
+<html lang="en">
     
-    <head>
+<head>
       
-      <title>Categories</title>
+    <title>Categories</title>
   
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
-        <style>
+    <style>
           
-          .text-left {
+        .text-left {
             
             padding-bottom: 1000px;
             height: 100%;
+        }
           
-          }
-          
-          .navbar {
+        .navbar {
               
-              margin-bottom: 0;
-              border-radius: 0;
-              background-color: #80B1F6;
-              color: black;
+            margin-bottom: 0;
+            border-radius: 0;
+            background-color: #80B1F6;
+            color: black;
+        }
           
-          }
+        .row.content {height: auto;}
           
-          .row.content {height: auto;}
-          
-          .sidenav {
+        .sidenav {
               
-              padding-top: 1100px;
-              height: auto;
-          }
+            padding-top: 1100px;
+            height: auto;
+        }
           
-          footer {
+        footer {
               
-              background-color: #555;
-              color: white;
-              padding: 15px;
+            background-color: #555;
+            color: white;
+            padding: 15px;
+        }
           
-          }
-          
-          @media screen and (max-width: 767px) {
+        @media screen and (max-width: 767px) {
             
-              .sidenav {
+            .sidenav {
 
                 height: auto;
                 padding: 15px;
+            }
             
-                }
-            
-                .row.content {height:auto;} 
-          }
+            .row.content {height:auto;} 
+        }
 
-        </style>
+    </style>
     
-    </head>
+</head>
     
-    <body>
+<body>
       
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="./JavaScripts/UserAuthentication.js"></script>
-      <script src="./JavaScripts/GlobalsWebClient.js"></script>
-      <script src="./JavaScripts/Key_Value_Map.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="./JavaScripts/UserAuthentication.js"></script>
+    <script src="./JavaScripts/GlobalsWebClient.js"></script>
+    <script src="./JavaScripts/Key_Value_Map.js"></script> 
       
-      <nav class="navbar navbar-inverse ">
+    <nav class="navbar navbar-inverse">
   
-          <div class="container-fluid">
+        <div class="container-fluid">
             
             <div class="navbar-header">
                 
@@ -84,7 +80,6 @@
             <ul class="nav navbar-nav">
                 
                 <li><a href="Categories.html" style="color:black">Home</a></li>
-                
                 <li><a href="#" style="color:black"> Page 1 </a></li>
                 
             </ul>
@@ -93,17 +88,17 @@
                 
                 <div class="input-group">
                 
-                  <input type="text" class="form-control" placeholder="Search" name="search">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
                   
-                  <div class="input-group-btn">
+                    <div class="input-group-btn">
                       
-                      <button class="btn btn-default" type="submit">
+                        <button class="btn btn-default" type="submit">
                         
-                        <i class="glyphicon glyphicon-search"></i>
+                            <i class="glyphicon glyphicon-search"></i>
                       
-                      </button>
+                        </button>
                   
-                  </div>
+                    </div>
                 
                 </div>
             
@@ -112,46 +107,47 @@
             <ul class="nav navbar-nav navbar-right">
                 
                 <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+
             </ul>
 
         </div>
 
-      </nav>
+    </nav>
       
-      <div class="container-fluid text-center">    
+    <div class="container-fluid text-center">    
           
-          <div class="row content">
+        <div class="row content">
             
             <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
             
             <div class="col-sm-8 ">
 
-              <div style="background-color: #4B5246;" >
+                <div style="background-color: #4B5246;" >
                 
-                <h1 style="text-align: center;color: white">CATEGORIES </h1>
+                    <h1 style="text-align: center;color: white">CATEGORIES </h1>
               
-              </div>
+                </div>
                 
                 <div style="padding: 10px" ></div>
 
-               <div class="col-sm-6">
+                <div class="col-sm-6">
                    
                     <div class="col-sm-6" >
 
-                      <a href="Food.html">
+                        <a href="Food.html">
                     
-                      <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="expenseDetails1()" >
+                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="expenseDetails1()" >
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <p id="food" onclick="expenseDetails1()" ><a href="Food.html">Food</a> </p>
-                      <p> <span id="food_row1_id1"></span>: <span id="food_row1_id2"></span></p>
-                      <p> <span id="food_row2_id1"></span>: <span id="food_row2_id2"></span></p>
-                      <p> <span id="food_row3_id1"></span>: <span id="food_row3_id2"></span></p>
+                        <p id="food" onclick="expenseDetails1()" ><a href="Food.html">Food</a> </p>
+                        <p> <span id="food_row1_id1"></span>: <span id="food_row1_id2"></span></p>
+                        <p> <span id="food_row2_id1"></span>: <span id="food_row2_id2"></span></p>
+                        <p> <span id="food_row3_id1"></span>: <span id="food_row3_id2"></span></p>
 
                     </div>
                   
@@ -159,20 +155,20 @@
                   
                     <div class="col-sm-6">
                     
-                      <p id="accommodation" onclick="expenseDetails2()" ><a href="Accommodation.html"> Accommodation</a></p>
-                      <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
-                      <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
-                      <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
+                        <p id="accommodation" onclick="expenseDetails2()" ><a href="Accommodation.html"> Accommodation</a></p>
+                        <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
+                        <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
+                        <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <a href="Accommodation.html">
+                        <a href="Accommodation.html">
 
-                      <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg"  class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg"  class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseDetails2()">
 
-                    </a>
+                        </a>
                     
                     </div>
                   
@@ -180,20 +176,20 @@
 
                     <div class="col-sm-6" >
                       
-                      <a href="Entertainment.html">
+                        <a href="Entertainment.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\entertainment.jpg" style="background-color: #9FF2BD" class="img-rounded" width="200" height="176" id="entertainment" onclick="expenseDetails3()">
+                            <img style="float:left; background-color: #9FF2BD" src=".\Resources\Pictures\entertainment.jpg" class="img-rounded" width="200" height="176" id="entertainment" onclick="expenseDetails3()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <p id="entertainment" onclick="expenseDetails3()" ><a href="Entertainment.html"> Entertainment</a></p>
-                      <p> <span id="entertainment_row1_id1"></span>: <span id="entertainment_row1_id2"></span></p>
-                      <p> <span id="entertainment_row2_id1"></span>: <span id="entertainment_row2_id2"></span></p>
-                      <p> <span id="entertainment_row3_id1"></span>: <span id="entertainment_row3_id2"></span></p>
+                        <p id="entertainment" onclick="expenseDetails3()" ><a href="Entertainment.html"> Entertainment</a></p>
+                        <p> <span id="entertainment_row1_id1"></span>: <span id="entertainment_row1_id2"></span></p>
+                        <p> <span id="entertainment_row2_id1"></span>: <span id="entertainment_row2_id2"></span></p>
+                        <p> <span id="entertainment_row3_id1"></span>: <span id="entertainment_row3_id2"></span></p>
                     
                     </div>
                   
@@ -201,62 +197,64 @@
 
                     <div class="col-sm-6">
                       
-                      <p id="familycare" onclick="expenseDetails4()"><a href="FamilyCare.html">FamilyCare</a></p>
-                      <p> <span id="familycare_row1_id1"></span>: <span id="familycare_row1_id2"></span></p>
-                      <p> <span id="familycare_row2_id1"></span>: <span id="familycare_row2_id2"></span></p>
-                      <p> <span id="familycare_row3_id1"></span>: <span id="familycare_row3_id2"></span></p>
+                        <p id="familycare" onclick="expenseDetails4()"><a href="FamilyCare.html">FamilyCare</a></p>
+                        <p> <span id="familycare_row1_id1"></span>: <span id="familycare_row1_id2"></span></p>
+                        <p> <span id="familycare_row2_id1"></span>: <span id="familycare_row2_id2"></span></p>
+                        <p> <span id="familycare_row3_id1"></span>: <span id="familycare_row3_id2"></span></p>
                     
                     </div>
                     
                     <div class="col-sm-6" >
 
-                     <a href="FamilyCare.html">
+                        <a href="FamilyCare.html">
                       
-                      <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="expenseDetails4()" >
+                            <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="expenseDetails4()">
 
-                    </a>
+                        </a>
                     
                     </div>
                   
                     <div style="padding: 100px" ></div>
 
                     <div class="col-sm-6">
-                    
-                      <a href="Movie.html">
 
-                      <img style="float: left" src=".\Resources\Pictures\movie.jpg"  class="img-rounded" width="200" height="176" id="Movie" onclick="expenseDetails5()" >
-                    
+                        <a href="Movie.html">
+
+                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="Movie" onclick="expenseDetails5()">
+
+                        </a>
+
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <p id="movie" onclick="expenseDetails5()" ><a href="Movie.html"> Movie</a></p>
-                      <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
-                      <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
-                      <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
+                        <p id="movie" onclick="expenseDetails5()" ><a href="Movie.html"> Movie</a></p>
+                        <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
+                        <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
+                        <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
                     
                     </div>
               
-              </div>
+                </div>
               
-              <div class="col-sm-6">
+                <div class="col-sm-6">
 
                     <div class="col-sm-6">
                       
-                      <p id="medicalandfitness" onclick="expenseDetails6()" ><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
-                      <p> <span id="medicalandfitness_row1_id1"></span>: <span id="medicalandfitness_row1_id2"></span></p>
-                      <p> <span id="medicalandfitness_row2_id1"></span>: <span id="medicalandfitness_row2_id2"></span></p>
-                      <p> <span id="medicalandfitness_row3_id1"></span>: <span id="medicalandfitness_row3_id2"></span></p>
+                        <p id="medicalandfitness" onclick="expenseDetails6()" ><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
+                        <p> <span id="medicalandfitness_row1_id1"></span>: <span id="medicalandfitness_row1_id2"></span></p>
+                        <p> <span id="medicalandfitness_row2_id1"></span>: <span id="medicalandfitness_row2_id2"></span></p>
+                        <p> <span id="medicalandfitness_row3_id1"></span>: <span id="medicalandfitness_row3_id2"></span></p>
                     
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <a href="MedicalAndFitness.html">
+                        <a href="MedicalAndFitness.html">
 
-                      <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="expenseDetails6()">
+                            <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="expenseDetails6()">
 
-                    </a>
+                        </a>
 
                     </div>
                   
@@ -264,20 +262,20 @@
 
                     <div class="col-sm-6">
                       
-                      <a href="Miscellaneous.html">
+                        <a href="Miscellaneous.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg"  class="img-rounded" width="200" height="176" id="miscellaneous" onclick="expenseDetails7()">
+                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg"  class="img-rounded" width="200" height="176" id="miscellaneous" onclick="expenseDetails7()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6" >
                       
-                      <p id="miscellaneous" onclick="expenseDetails7()"><a href="Miscellaneous.html"> Miscellaneous</a></p>
-                      <p> <span id="miscellaneous_row1_id1"></span>: <span id="miscellaneous_row1_id2"></span></p>
-                      <p> <span id="miscellaneous_row2_id1"></span>: <span id="miscellaneous_row2_id2"></span></p>
-                      <p> <span id="miscellaneous_row3_id1"></span>: <span id="miscellaneous_row3_id2"></span></p>
+                        <p id="miscellaneous" onclick="expenseDetails7()"><a href="Miscellaneous.html"> Miscellaneous</a></p>
+                        <p> <span id="miscellaneous_row1_id1"></span>: <span id="miscellaneous_row1_id2"></span></p>
+                        <p> <span id="miscellaneous_row2_id1"></span>: <span id="miscellaneous_row2_id2"></span></p>
+                        <p> <span id="miscellaneous_row3_id1"></span>: <span id="miscellaneous_row3_id2"></span></p>
                     
                     </div>
 
@@ -285,20 +283,20 @@
 
                     <div class="col-sm-6">
                       
-                      <p id="shopping" onclick="expenseDetails8()"><a href="Shopping.html"> Shopping</a></p>
-                      <p> <span id="shopping_row1_id1"></span>: <span id="shopping_row1_id2"></span></p>
-                      <p> <span id="shopping_row2_id1"></span>: <span id="shopping_row2_id2"></span></p>
-                      <p> <span id="shopping_row3_id1"></span>: <span id="shopping_row3_id2"></span></p>
+                        <p id="shopping" onclick="expenseDetails8()"><a href="Shopping.html"> Shopping</a></p>
+                        <p> <span id="shopping_row1_id1"></span>: <span id="shopping_row1_id2"></span></p>
+                        <p> <span id="shopping_row2_id1"></span>: <span id="shopping_row2_id2"></span></p>
+                        <p> <span id="shopping_row3_id1"></span>: <span id="shopping_row3_id2"></span></p>
                     
                     </div>
                     
                     <div class="col-sm-6" >
                         
-                      <a href="Shopping.html">
+                        <a href="Shopping.html">
 
-                      <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="expenseDetails8()">
+                            <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="expenseDetails8()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
@@ -306,20 +304,20 @@
 
                     <div class="col-sm-6" >
                      
-                      <a href="Transportation.html">
+                        <a href="Transportation.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="expenseDetails9()">
+                            <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="expenseDetails9()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6" >
                       
-                      <p id="transportation" onclick="expenseDetails9()"><a href="Transportation.html"> Transportation</a></p>
-                      <p> <span id="transportation_row1_id1"></span>: <span id="transportation_row1_id2"></span></p>
-                      <p> <span id="transportation_row2_id1"></span>: <span id="transportation_row2_id2"></span></p>
-                      <p> <span id="transportation_row3_id1"></span>: <span id="transportation_row3_id2"></span></p>
+                        <p id="transportation" onclick="expenseDetails9()"><a href="Transportation.html"> Transportation</a></p>
+                        <p> <span id="transportation_row1_id1"></span>: <span id="transportation_row1_id2"></span></p>
+                        <p> <span id="transportation_row2_id1"></span>: <span id="transportation_row2_id2"></span></p>
+                        <p> <span id="transportation_row3_id1"></span>: <span id="transportation_row3_id2"></span></p>
                     
                     </div>
 
@@ -327,189 +325,84 @@
 
                     <div class="col-sm-6" >
                       
-                      <p id="vacation" onclick="expenseDetails10()"><a href="Vacation.html"> Vacation</a></p>
-                      <p> <span id="vacation_row1_id1"></span>: <span id="vacation_row1_id2"></span></p>
-                      <p> <span id="vacation_row2_id1"></span>: <span id="vacation_row2_id2"></span></p>
-                      <p> <span id="vacation_row3_id1"></span>: <span id="vacation_row3_id2"></span></p>
+                        <p id="vacation" onclick="expenseDetails10()"><a href="Vacation.html"> Vacation</a></p>
+                        <p> <span id="vacation_row1_id1"></span>: <span id="vacation_row1_id2"></span></p>
+                        <p> <span id="vacation_row2_id1"></span>: <span id="vacation_row2_id2"></span></p>
+                        <p> <span id="vacation_row3_id1"></span>: <span id="vacation_row3_id2"></span></p>
                     
                     </div>
                     
                     <div class="col-sm-6" >
                       
-                      <a href="Vacation.html">
+                        <a href="Vacation.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="expenseDetails10()">
+                            <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="expenseDetails10()">
                     
-                    </a>
+                        </a>
 
                     </div>
                   
-                  </div>    
+                </div>    
 
-              </div>
+            </div>
 
-            
-            <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
-          
+            <div class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
             </div>
         
         </div>
       
-      </div>
+    </div>
     
-      <footer class="container-fluid ">
+    <footer class="container-fluid ">
         
         <div class="row">
           
             <div class="col-sm-4"  >
               
-              <p>Contact us :</p>
-              <p>Phno : </p>
-              <p>E-mail : </p>
+                <p>Contact us :</p>
+                <p>Phno : </p>
+                <p>E-mail : </p>
           
             </div>
             
-            <div class="col-sm-8" class="text-center">
+            <div class="col-sm-8 text-center">
               
-              <p>Address :</p>
-              <p>Vindhya c4</p>
-              <p>IIIT Gachibowli campus,hyd<p>
-              <p>Pin code : 500032</p>
+                <p>Address :</p>
+                <p>Vindhya c4</p>
+                <p>IIIT Gachibowli campus,hyd<p>
+                <p>Pin code : 500032</p>
             
             </div>
         
         </div>
       
-      </footer> 
+    </footer> 
 
-      <script type="text/javascript">
+    <script type="text/javascript">
 
-       window.onload = function (event) {
+        window.onload = function (event) {
 
-          displayContainerValues();
-       }
+            displayContainerValues();
+        }
 
+        function displayContainerValues() {
 
-        function displayContainerValues(){
+            for (var currentCategory of GlobalWebClientModule.categoryNames) {
 
+                var keyIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id1");
+                var valueIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id2");
+                var keyValueMap = keyValueMapModule.deduceKeyValueMap(keyIdArray, valueIdArray,
+                    GlobalWebClientModule.dummyResultObject_SummaryDetails);
 
-          var keyIdArray = ["food_row1_id1","food_row2_id1","food_row3_id1",
-                            "accommodation_row1_id1","accommodation_row2_id1","accommodation_row3_id1",
-                            "entertainment_row1_id1","entertainment_row2_id1","entertainment_row3_id1",
-                            "familycare_row1_id1","familycare_row2_id1","familycare_row3_id1",
-                            "movie_row1_id1","movie_row2_id1","movie_row3_id1",
-                            "medicalandfitness_row1_id1","medicalandfitness_row2_id1","medicalandfitness_row3_id1",
-                            "miscellaneous_row1_id1","miscellaneous_row2_id1","miscellaneous_row3_id1",
-                            "shopping_row1_id1","shopping_row2_id1","shopping_row3_id1",
-                            "transportation_row1_id1","transportation_row2_id1","transportation_row3_id1",
-                            "vacation_row1_id1","vacation_row2_id1","vacation_row3_id1"];
+                if (GlobalWebClientModule.bDebug == true) {
 
-          var valueIdArray = ["food_row1_id2","food_row2_id2","food_row3_id2",
-                              "accommodation_row1_id2","accommodation_row2_id2","accommodation_row3_id2",
-                              "entertainment_row1_id2","entertainment_row2_id2","entertainment_row3_id2",
-                              "familycare_row1_id2","familycare_row2_id2","familycare_row3_id2",
-                              "movie_row1_id2","movie_row2_id2","movie_row3_id2",
-                              "medicalandfitness_row1_id2","medicalandfitness_row2_id2","medicalandfitness_row3_id2",
-                              "miscellaneous_row1_id2","miscellaneous_row2_id2","miscellaneous_row3_id2",
-                              "shopping_row1_id2","shopping_row2_id2","shopping_row3_id2",
-                              "transportation_row1_id2","transportation_row2_id2","transportation_row3_id2",
-                              "vacation_row1_id2","vacation_row2_id2","vacation_row3_id2"];
-      
-          var keyValueMap = new Map();
+                    alert("keyIdArray : " + keyIdArray);
+                    alert("valueIdArray : " + valueIdArray);
+                    alert("keyValueMap : " + keyValueMap);
+                }
 
-          // Container 1 Display
-
-          keyValueMap.set ("food_row1_id1","name1");
-          keyValueMap.set ("food_row2_id1","name2");
-          keyValueMap.set ("food_row3_id1","name3");
-          keyValueMap.set ("food_row1_id2","value1");
-          keyValueMap.set ("food_row2_id2","value2");
-          keyValueMap.set ("food_row3_id2","value3");
-
-          // Container 2 Display
-
-          keyValueMap.set ("accommodation_row1_id1","name1");
-          keyValueMap.set ("accommodation_row2_id1","name2");
-          keyValueMap.set ("accommodation_row3_id1","name3");
-          keyValueMap.set ("accommodation_row1_id2","value1");
-          keyValueMap.set ("accommodation_row2_id2","value2");
-          keyValueMap.set ("accommodation_row3_id2","value3");
-
-          // Container 3 Display
-
-          keyValueMap.set ("entertainment_row1_id1","name1");
-          keyValueMap.set ("entertainment_row2_id1","name2");
-          keyValueMap.set ("entertainment_row3_id1","name3");
-          keyValueMap.set ("entertainment_row1_id2","value1");
-          keyValueMap.set ("entertainment_row2_id2","value2");
-          keyValueMap.set ("entertainment_row3_id2","value3");
-
-          // Container 4 Display
-
-          keyValueMap.set ("familycare_row1_id1","name1");
-          keyValueMap.set ("familycare_row2_id1","name2");
-          keyValueMap.set ("familycare_row3_id1","name3");
-          keyValueMap.set ("familycare_row1_id2","value1");
-          keyValueMap.set ("familycare_row2_id2","value2");
-          keyValueMap.set ("familycare_row3_id2","value3");
-
-          // Container 5 Display
-
-          keyValueMap.set ("movie_row1_id1","name1");
-          keyValueMap.set ("movie_row2_id1","name2");
-          keyValueMap.set ("movie_row3_id1","name3");
-          keyValueMap.set ("movie_row1_id2","value1");
-          keyValueMap.set ("movie_row2_id2","value2");
-          keyValueMap.set ("movie_row3_id2","value3");
-
-          // Container 6 Display
-
-          keyValueMap.set ("medicalandfitness_row1_id1","name1");
-          keyValueMap.set ("medicalandfitness_row2_id1","name2");
-          keyValueMap.set ("medicalandfitness_row3_id1","name3");
-          keyValueMap.set ("medicalandfitness_row1_id2","value1");
-          keyValueMap.set ("medicalandfitness_row2_id2","value2");
-          keyValueMap.set ("medicalandfitness_row3_id2","value3");
-
-          // Container 7 Display 
-
-          keyValueMap.set ("miscellaneous_row1_id1","name1");
-          keyValueMap.set ("miscellaneous_row2_id1","name2");
-          keyValueMap.set ("miscellaneous_row3_id1","name3");
-          keyValueMap.set ("miscellaneous_row1_id2","value1");
-          keyValueMap.set ("miscellaneous_row2_id2","value2");
-          keyValueMap.set ("miscellaneous_row3_id2","value3"); 
-
-          // Container 8 Display
-
-          keyValueMap.set ("shopping_row1_id1","name1");
-          keyValueMap.set ("shopping_row2_id1","name2");
-          keyValueMap.set ("shopping_row3_id1","name3");
-          keyValueMap.set ("shopping_row1_id2","value1");
-          keyValueMap.set ("shopping_row2_id2","value2");
-          keyValueMap.set ("shopping_row3_id2","value3");
-
-          // Container 9 Display
-
-          keyValueMap.set ("transportation_row1_id1","name1");
-          keyValueMap.set ("transportation_row2_id1","name2");
-          keyValueMap.set ("transportation_row3_id1","name3");
-          keyValueMap.set ("transportation_row1_id2","value1");
-          keyValueMap.set ("transportation_row2_id2","value2");
-          keyValueMap.set ("transportation_row3_id2","value3");
-
-          // Container 10 Display
-
-          keyValueMap.set ("vacation_row1_id1","name1");
-          keyValueMap.set ("vacation_row2_id1","name2");
-          keyValueMap.set ("vacation_row3_id1","name3");
-          keyValueMap.set ("vacation_row1_id2","value1");
-          keyValueMap.set ("vacation_row2_id2","value2");
-          keyValueMap.set ("vacation_row3_id2","value3");
-
-          keyValueMapModule.displaySingleContainerValues( keyIdArray, valueIdArray, keyValueMap);
-
-
+                keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
+            }
         }
 
         function expenseDetails1(){
@@ -517,75 +410,73 @@
             document.getElementById('food').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "food");
 
-          }
+        }
 
-          function expenseDetails2(){
+        function expenseDetails2(){
 
             document.getElementById('accommodation').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "accommodation");
 
-          }
+        }
             
-          function expenseDetails3(){
+        function expenseDetails3(){
 
             document.getElementById('entertainment').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "entertainment");
 
-          }
+        }
 
-          function expenseDetails4(){
+        function expenseDetails4(){
 
             document.getElementById('familycare').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "familycare");
     
-          }
+        }
 
-          function expenseDetails5(){
+        function expenseDetails5(){
 
             document.getElementById('movie').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "movie");
            
+        }
 
-          }
-
-          function expenseDetails6(){
+        function expenseDetails6(){
 
             document.getElementById('medicalandfitness').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "medicalandfitness");
-           
 
-          }
+        }
 
-          function expenseDetails7(){
+        function expenseDetails7(){
 
             document.getElementById('miscellaneous').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "miscellaneous");
 
-          }
+        }
 
-          function expenseDetails8(){
+        function expenseDetails8(){
 
             document.getElementById('shopping').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "shopping");
            
-          }
+        }
 
-          function expenseDetails9(){
+        function expenseDetails9(){
 
             document.getElementById('transportation').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "transportation");
 
-          }
+        }
 
-          function expenseDetails10(){
+        function expenseDetails10(){
 
             document.getElementById('vacation').value = 
             window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "vacation");
            
-          }
+        }
        
-      </script>
+    </script>
       
-    </body>
+</body>
 
 </html>

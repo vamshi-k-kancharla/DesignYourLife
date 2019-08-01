@@ -1,79 +1,79 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
   
-  <html lang="en">
+<html lang="en">
     
-    <head>
+<head>
       
-      <title>Accommodation</title>
+    <title>Accommodation</title>
   
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         
-        <style>
+    <style>
           
-          .text-left {
+        .text-left {
             
             padding-bottom: 1000px;
             height: 100%;
           
-          }
+        }
           
-          .navbar {
+        .navbar {
               
-              margin-bottom: 0;
-              border-radius: 0;
-              background-color: #80B1F6;
-              color: black;
+            margin-bottom: 0;
+            border-radius: 0;
+            background-color: #80B1F6;
+            color: black;
           
-          }
+        }
           
-          .row.content {height: auto;}
+        .row.content {height: auto;}
           
-          .sidenav {
+        .sidenav {
               
-              padding-top: 1100px;
-              height: auto;
-          }
+            padding-top: 1100px;
+            height: auto;
+        }
           
-          footer {
+        footer {
               
-              background-color: #555;
-              color: white;
-              padding: 15px;
+            background-color: #555;
+            color: white;
+            padding: 15px;
           
-          }
+        }
           
-          @media screen and (max-width: 767px) {
+        @media screen and (max-width: 767px) {
             
-              .sidenav {
+            .sidenav {
 
                 height: auto;
                 padding: 15px;
             
-                }
+            }
             
-                .row.content {height:auto;} 
-          }
+            .row.content {height:auto;} 
+        }
 
-        </style>
+    </style>
     
-    </head>
+</head>
     
-    <body>
+<body>
 
-      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-      <script src="./JavaScripts/UserAuthentication.js"></script>
-      <script src="./JavaScripts/GlobalsWebClient.js"></script>
-      <script src="./JavaScripts/Key_Value_Map.js"></script>  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="./JavaScripts/UserAuthentication.js"></script>
+    <script src="./JavaScripts/GlobalsWebClient.js"></script>
+    <script src="./JavaScripts/Key_Value_Map.js"></script>  
       
-      <nav class="navbar navbar-inverse ">
+    <nav class="navbar navbar-inverse ">
   
-          <div class="container-fluid">
+        <div class="container-fluid">
             
             <div class="navbar-header">
                 
@@ -92,17 +92,15 @@
                 
                 <div class="input-group">
                 
-                  <input type="text" class="form-control" placeholder="Search" name="search">
+                    <input type="text" class="form-control" placeholder="Search" name="search">
                   
-                  <div class="input-group-btn">
+                    <div class="input-group-btn">
                       
-                      <button class="btn btn-default" type="submit">
-                        
-                        <i class="glyphicon glyphicon-search"></i>
-                      
-                      </button>
+                        <button class="btn btn-default" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
                   
-                  </div>
+                    </div>
                 
                 </div>
             
@@ -111,46 +109,45 @@
             <ul class="nav navbar-nav navbar-right">
                 
                 <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+
             </ul>
 
         </div>
 
-      </nav>
+    </nav>
       
-      <div class="container-fluid text-center">    
+    <div class="container-fluid text-center">    
           
-          <div class="row content">
+        <div class="row content">
             
             <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
             
             <div class="col-sm-8 ">
 
-              <div style="background-color: #4B5246;" >
-                
-                <h1 style="text-align: center;color: white">ACCOMODATION </h1>
-              
-              </div>
+                <div style="background-color: #4B5246;" >
+                    <h1 style="text-align: center;color: white">ACCOMODATION </h1>
+                </div>
                 
                 <div style="padding: 10px" ></div>
 
-               <div class="col-sm-6">
+                <div class="col-sm-6">
                    
                     <div class="col-sm-6">
 
-                      <a href="Expense_Info.html">
+                        <a href="Expense_Info.html">
                     
-                      <img style="float: left" src=".\Resources\Pictures\emi.jpg" class="img-rounded" width="200" height="176" id="emi" onclick="expenseAccomodationDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\emi.jpg" class="img-rounded" width="200" height="176" id="emi" onclick="expenseAccomodationDetails1()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <p id="emi" onclick="expenseAccomodationDetails1()"><a href="Expense_Info.html">Emi</a></p>
-                      <p> <span id="emi_row1_id1"></span>: <span id="emi_row1_id2"></span></p>
-                      <p> <span id="emi_row2_id1"></span>: <span id="emi_row2_id2"></span></p>
-                      <p> <span id="emi_row3_id1"></span>: <span id="emi_row3_id2"></span></p>
+                        <p id="emi" onclick="expenseAccomodationDetails1()"><a href="Expense_Info.html">Emi</a></p>
+                        <p> <span id="emi_row1_id1"></span>: <span id="emi_row1_id2"></span></p>
+                        <p> <span id="emi_row2_id1"></span>: <span id="emi_row2_id2"></span></p>
+                        <p> <span id="emi_row3_id1"></span>: <span id="emi_row3_id2"></span></p>
 
                     </div>
                   
@@ -158,20 +155,20 @@
                   
                     <div class="col-sm-6">
                     
-                      <p id="housekeeping" onclick="expenseAccomodationDetails2()"><a href="Expense_Info.html">HouseKeeping</a></p>
-                      <p> <span id="housekeeping_row1_id1"></span>: <span id="housekeeping_row1_id2"></span></p>
-                      <p> <span id="housekeeping_row2_id1"></span>: <span id="housekeeping_row2_id2"></span></p>
-                      <p> <span id="housekeeping_row3_id1"></span>: <span id="housekeeping_row3_id2"></span></p>
+                        <p id="housekeeping" onclick="expenseAccomodationDetails2()"><a href="Expense_Info.html">HouseKeeping</a></p>
+                        <p> <span id="housekeeping_row1_id1"></span>: <span id="housekeeping_row1_id2"></span></p>
+                        <p> <span id="housekeeping_row2_id1"></span>: <span id="housekeeping_row2_id2"></span></p>
+                        <p> <span id="housekeeping_row3_id1"></span>: <span id="housekeeping_row3_id2"></span></p>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <a href="Expense_Info.html">
+                        <a href="Expense_Info.html">
 
-                      <img style="float: right;" src=".\Resources\Pictures\housekeeping.jpg"  class="img-rounded" width="200" height="176" id="housekeeping" onclick="expenseAccomodationDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\housekeeping.jpg"  class="img-rounded" width="200" height="176" id="housekeeping" onclick="expenseAccomodationDetails2()">
                     
-                    </a>
+                        </a>
 
                     </div>
                   
@@ -179,20 +176,20 @@
 
                     <div class="col-sm-6" >
                     
-                    <a href="Expense_Info.html">
+                        <a href="Expense_Info.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\hotel.jpg" style="background-color: #9FF2BD" class="img-rounded" width="200" height="176" id="hotel" onclick="expenseAccomodationDetails3()">
+                            <img style="float: left;" src=".\Resources\Pictures\hotel.jpg" style="background-color: #9FF2BD" class="img-rounded" width="200" height="176" id="hotel" onclick="expenseAccomodationDetails3()">
                     
-                    </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <p id="hotel" onclick="expenseAccomodationDetails3()"><a href="Expense_Info.html">Hotel</a></p>
-                      <p> <span id="hotel_row1_id1"></span>: <span id="hotel_row1_id2"></span></p>
-                      <p> <span id="hotel_row2_id1"></span>: <span id="hotel_row2_id2"></span></p>
-                      <p> <span id="hotel_row3_id1"></span>: <span id="hotel_row3_id2"></span></p>
+                        <p id="hotel" onclick="expenseAccomodationDetails3()"><a href="Expense_Info.html">Hotel</a></p>
+                        <p> <span id="hotel_row1_id1"></span>: <span id="hotel_row1_id2"></span></p>
+                        <p> <span id="hotel_row2_id1"></span>: <span id="hotel_row2_id2"></span></p>
+                        <p> <span id="hotel_row3_id1"></span>: <span id="hotel_row3_id2"></span></p>
                     
                     </div>
                   
@@ -202,20 +199,20 @@
 
                     <div class="col-sm-6">
                       
-                      <p id="rent" onclick="expenseAccomodationDetails4()"><a href="Expense_Info.html">Rent</a></p>
-                      <p> <span id="rent_row1_id1"></span>: <span id="rent_row1_id2"></span></p>
-                      <p> <span id="rent_row2_id1"></span>: <span id="rent_row2_id2"></span></p>
-                      <p> <span id="rent_row3_id1"></span>: <span id="rent_row3_id2"></span></p>
+                        <p id="rent" onclick="expenseAccomodationDetails4()"><a href="Expense_Info.html">Rent</a></p>
+                        <p> <span id="rent_row1_id1"></span>: <span id="rent_row1_id2"></span></p>
+                        <p> <span id="rent_row2_id1"></span>: <span id="rent_row2_id2"></span></p>
+                        <p> <span id="rent_row3_id1"></span>: <span id="rent_row3_id2"></span></p>
                     
                     </div>
                     
                     <div class="col-sm-6">
                       
-                      <a href="Expense_Info.html">
+                        <a href="Expense_Info.html">
 
-                      <img style="float: right;" src=".\Resources\Pictures\rent.jpg"  class="img-rounded" width="200" height="176" id="rent" onclick="expenseAccomodationDetails4()">
+                            <img style="float: right;" src=".\Resources\Pictures\rent.jpg"  class="img-rounded" width="200" height="176" id="rent" onclick="expenseAccomodationDetails4()">
                     
-                      </a>
+                        </a>
 
                     </div>
                   
@@ -223,20 +220,20 @@
 
                     <div class="col-sm-6">
                       
-                      <a href="Expense_Info.html">
+                        <a href="Expense_Info.html">
 
-                      <img style="float: left;" src=".\Resources\Pictures\utilities.jpg"  class="img-rounded" width="200" height="176" id="utilities" onclick="expenseAccomodationDetails5()">
+                            <img style="float: left;" src=".\Resources\Pictures\utilities.jpg"  class="img-rounded" width="200" height="176" id="utilities" onclick="expenseAccomodationDetails5()">
                       
-                      </a>
+                        </a>
 
                     </div>
                     
                     <div class="col-sm-6" >
                       
-                      <p id="utilities" onclick="expenseAccomodationDetails5()"><a href="Expense_Info.html">Utilities</a></p>
-                      <p> <span id="utilities_row1_id1"></span>: <span id="utilities_row1_id2"></span></p>
-                      <p> <span id="utilities_row2_id1"></span>: <span id="utilities_row2_id2"></span></p>
-                      <p> <span id="utilities_row3_id1"></span>: <span id="utilities_row3_id2"></span></p>
+                        <p id="utilities" onclick="expenseAccomodationDetails5()"><a href="Expense_Info.html">Utilities</a></p>
+                        <p> <span id="utilities_row1_id1"></span>: <span id="utilities_row1_id2"></span></p>
+                        <p> <span id="utilities_row2_id1"></span>: <span id="utilities_row2_id2"></span></p>
+                        <p> <span id="utilities_row3_id1"></span>: <span id="utilities_row3_id2"></span></p>
                     
                     </div>
 
@@ -245,156 +242,154 @@
             </div>
 
             <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
-          
             </div>
         
         </div>
       
-      </div>
+    </div>
     
-      <footer class="container-fluid ">
+    <footer class="container-fluid ">
         
         <div class="row">
           
             <div class="col-sm-4"  >
               
-              <p>Contact us :</p>
-              <p>Phno : ss</p>
-              <p>E-mail : </p>
+                <p>Contact us :</p>
+                <p>Phone no : </p>
+                <p>E-mail : </p>
           
-          </div>
+            </div>
             
-            <div class="col-sm-8" class="text-center">
+            <div class="col-sm-8 text-center">
               
-              <p>Address :</p>
-              <p>Vindhya c4</p>
-              <p>IIIT Gachibowli campus,hyd<p>
-              <p>Pin code : 500032</p>
+                <p>Address :</p>
+                <p>Vindhya c4</p>
+                <p>IIIT Gachibowli campus,hyd<p>
+                <p>Pin code : 500032</p>
             
             </div>
         
         </div>
       
-      </footer> 
+    </footer> 
 
-      <script type="text/javascript">
+    <script type="text/javascript">
 
-       window.onload = function (event) {
+        window.onload = function (event) {
 
-          displayContainerValues();
-       }
+            displayContainerValues();
+        }
 
 
         function displayContainerValues(){
 
 
-          var keyIdArray = ["emi_row1_id1","emi_row2_id1","emi_row3_id1",
+            var keyIdArray = ["emi_row1_id1","emi_row2_id1","emi_row3_id1",
                             "housekeeping_row1_id1","housekeeping_row2_id1","housekeeping_row3_id1",
                             "hotel_row1_id1","hotel_row2_id1","hotel_row3_id1",
                             "rent_row1_id1","rent_row2_id1","rent_row3_id1",
                             "utilities_row1_id1","utilities_row2_id1","utilities_row3_id1"];
 
-          var valueIdArray = ["emi_row1_id2","emi_row2_id2","emi_row3_id2",
-                              "housekeeping_row1_id2","housekeeping_row2_id2","housekeeping_row3_id2",
-                              "hotel_row1_id2","hotel_row2_id2","hotel_row3_id2",
-                              "rent_row1_id2","rent_row2_id2","rent_row3_id2",
-                              "utilities_row1_id2","utilities_row2_id2","utilities_row3_id2"];
+            var valueIdArray = ["emi_row1_id2","emi_row2_id2","emi_row3_id2",
+                                "housekeeping_row1_id2","housekeeping_row2_id2","housekeeping_row3_id2",
+                                "hotel_row1_id2","hotel_row2_id2","hotel_row3_id2",
+                                "rent_row1_id2","rent_row2_id2","rent_row3_id2",
+                                "utilities_row1_id2","utilities_row2_id2","utilities_row3_id2"];
       
-          var keyValueMap = new Map();
+            var keyValueMap = new Map();
 
-          // Container 1 Display
+            // Container 1 Display
 
-          keyValueMap.set ("emi_row1_id1","name1");
-          keyValueMap.set ("emi_row2_id1","name2");
-          keyValueMap.set ("emi_row3_id1","name3");
-          keyValueMap.set ("emi_row1_id2","value1");
-          keyValueMap.set ("emi_row2_id2","value2");
-          keyValueMap.set ("emi_row3_id2","value3");
+            keyValueMap.set ("emi_row1_id1","name1");
+            keyValueMap.set ("emi_row2_id1","name2");
+            keyValueMap.set ("emi_row3_id1","name3");
+            keyValueMap.set ("emi_row1_id2","value1");
+            keyValueMap.set ("emi_row2_id2","value2");
+            keyValueMap.set ("emi_row3_id2","value3");
 
-          // Container 2 Display
+            // Container 2 Display
 
-          keyValueMap.set ("housekeeping_row1_id1","name1");
-          keyValueMap.set ("housekeeping_row2_id1","name2");
-          keyValueMap.set ("housekeeping_row3_id1","name3");
-          keyValueMap.set ("housekeeping_row1_id2","value1");
-          keyValueMap.set ("housekeeping_row2_id2","value2");
-          keyValueMap.set ("housekeeping_row3_id2","value3");
+            keyValueMap.set ("housekeeping_row1_id1","name1");
+            keyValueMap.set ("housekeeping_row2_id1","name2");
+            keyValueMap.set ("housekeeping_row3_id1","name3");
+            keyValueMap.set ("housekeeping_row1_id2","value1");
+            keyValueMap.set ("housekeeping_row2_id2","value2");
+            keyValueMap.set ("housekeeping_row3_id2","value3");
 
-          // Container 3 Display
+            // Container 3 Display
 
-          keyValueMap.set ("hotel_row1_id1","name1");
-          keyValueMap.set ("hotel_row2_id1","name2");
-          keyValueMap.set ("hotel_row3_id1","name3");
-          keyValueMap.set ("hotel_row1_id2","value1");
-          keyValueMap.set ("hotel_row2_id2","value2");
-          keyValueMap.set ("hotel_row3_id2","value3");
+            keyValueMap.set ("hotel_row1_id1","name1");
+            keyValueMap.set ("hotel_row2_id1","name2");
+            keyValueMap.set ("hotel_row3_id1","name3");
+            keyValueMap.set ("hotel_row1_id2","value1");
+            keyValueMap.set ("hotel_row2_id2","value2");
+            keyValueMap.set ("hotel_row3_id2","value3");
 
-          // Container 4 Display
+            // Container 4 Display
 
-          keyValueMap.set ("rent_row1_id1","name1");
-          keyValueMap.set ("rent_row2_id1","name2");
-          keyValueMap.set ("rent_row3_id1","name3");
-          keyValueMap.set ("rent_row1_id2","value1");
-          keyValueMap.set ("rent_row2_id2","value2");
-          keyValueMap.set ("rent_row3_id2","value3");
+            keyValueMap.set ("rent_row1_id1","name1");
+            keyValueMap.set ("rent_row2_id1","name2");
+            keyValueMap.set ("rent_row3_id1","name3");
+            keyValueMap.set ("rent_row1_id2","value1");
+            keyValueMap.set ("rent_row2_id2","value2");
+            keyValueMap.set ("rent_row3_id2","value3");
 
-          // Container 5 Display
+            // Container 5 Display
 
-          keyValueMap.set ("utilities_row1_id1","name1");
-          keyValueMap.set ("utilities_row2_id1","name2");
-          keyValueMap.set ("utilities_row3_id1","name3");
-          keyValueMap.set ("utilities_row1_id2","value1");
-          keyValueMap.set ("utilities_row2_id2","value2");
-          keyValueMap.set ("utilities_row3_id2","value3");
+            keyValueMap.set ("utilities_row1_id1","name1");
+            keyValueMap.set ("utilities_row2_id1","name2");
+            keyValueMap.set ("utilities_row3_id1","name3");
+            keyValueMap.set ("utilities_row1_id2","value1");
+            keyValueMap.set ("utilities_row2_id2","value2");
+            keyValueMap.set ("utilities_row3_id2","value3");
 
 
-          keyValueMapModule.displaySingleContainerValues( keyIdArray, valueIdArray, keyValueMap);
+            keyValueMapModule.displaySingleContainerValues( keyIdArray, valueIdArray, keyValueMap);
 
 
         }
 
         function expenseAccomodationDetails1(){
 
-          document.getElementById('emi').value = 
-          window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "emi");
+            document.getElementById('emi').value = 
+            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "emi");
 
         }
 
 
         function expenseAccomodationDetails2(){
 
-          document.getElementById('housekeeping').value = 
-          window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "housekeeping");
+            document.getElementById('housekeeping').value = 
+            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "housekeeping");
 
         }
 
 
         function expenseAccomodationDetails3(){
 
-          document.getElementById('hotel').value = 
-          window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "hotel");
+            document.getElementById('hotel').value = 
+            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "hotel");
 
         }
 
 
         function expenseAccomodationDetails4(){
 
-          document.getElementById('rent').value = 
-          window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "rent");
+            document.getElementById('rent').value = 
+            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "rent");
 
         }
 
 
         function expenseAccomodationDetails5(){
 
-          document.getElementById('utilities').value = 
-          window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "utilities");
+            document.getElementById('utilities').value = 
+            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "utilities");
 
         }
 
-       
-      </script>
+    </script>
       
-    </body>
+</body>
 
 </html>

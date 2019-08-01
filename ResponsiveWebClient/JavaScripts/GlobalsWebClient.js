@@ -1,37 +1,53 @@
-var GlobalWebClientModule = (function(){
+
+var GlobalWebClientModule = (function () {
+
+    var bDebug = false;
 
 	var currentUserName_Key = "currentUserName";
 	var currentBudget_Id_Key = "currentBudget_Id";
 	var currentExpense_Category_Key = "currentExpense_Category";
-	var currentExpense_SubCategory_Key = "currentExpense_SubCategory";
+    var currentExpense_SubCategory_Key = "currentExpense_SubCategory";
+
+    // All Category & SubCategory Names for <Key, Value> Pair Retrieval
 	
+    var categoryNames = ["food", "accommodation", "entertainment", "familycare", "movie", "medicalandfitness", "miscellaneous", "shopping", "transportation", "vacation"];
 
-	var categories_Key = ["food","accomodation","familycare","movie","medicalandfitness","miscellaneous","shopping","transportation","vacation"];
-	var foodSubCategories = ["coffeeshop","groceries","restaurants"];
-	var accomodationSubCategories = ["emi","housekeeping","hotel","rent","utilities"];
-	var familycareSubCategories = ["childcare","education","gifts"];
-	var medicalandfitnessSubCategories = ["gym","skincare","generic","insurance"];
-	var miscellaneousSubCategories = ["charity"];
-	var shoppingSubCategories  = ["gadgets","fashion"];
-	var transportationSubCategories = ["carinsurance","vehicalmaintenance","fuel","rentalcar","taxi","train"];
-	var vacationSubCategories = ["accomodation","sightseeing","fuel","rentalcar","taxi","train"];
+	var food_SubCategories = ["coffeeshop","groceries","restaurants"];
+	var accomodation_SubCategories = ["emi","housekeeping","hotel","rent","utilities"];
+	var familycare_SubCategories = ["childcare","education","gifts"];
+	var medicalAndFitness_SubCategories = ["gym","skincare","generic","insurance"];
+	var miscellaneous_SubCategories = ["charity"];
+	var shopping_SubCategories  = ["gadgets","fashion"];
+	var transportation_SubCategories = ["carinsurance","vehicalmaintenance","fuel","rentalcar","taxi","train"];
+	var vacation_SubCategories = ["accomodation","sightseeing","fuel","rentalcar","taxi","train"];
 
-	return {
+    // dummy Result Object For <Key, Value> Pairs display
+
+    var dummyResultObject_SummaryDetails = { currentCategory: "dummy", noOfExpenses: "100", expenditure: "4500" };
+
+    // Expose local variables for global access
+
+    return {
+
+        bDebug: bDebug,
 
 		currentUserName_Key : currentUserName_Key,
 		currentBudget_Id_Key : currentBudget_Id_Key,
 		currentExpense_Category_Key : currentExpense_Category_Key,
 		currentExpense_SubCategory_Key : currentExpense_SubCategory_Key,
 
-		categories_Key : categories_Key,
-		foodSubCategories : foodSubCategories,
-		accomodationSubCategories : accomodationSubCategories,
-		familycareSubCategories : familycareSubCategories,
-		medicalandfitnessSubCategories : medicalandfitnessSubCategories,
-		miscellaneousSubCategories : miscellaneousSubCategories,
-		shoppingSubCategories : shoppingSubCategories,
-		transportationSubCategories : transportationSubCategories,
-		vacationSubCategories : vacationSubCategories
+        categoryNames: categoryNames,
+
+        food_SubCategories: food_SubCategories,
+		accomodation_SubCategories : accomodation_SubCategories,
+		familycare_SubCategories : familycare_SubCategories,
+        medicalAndFitness_SubCategories: medicalAndFitness_SubCategories,
+        miscellaneous_SubCategories: miscellaneous_SubCategories,
+        shopping_SubCategories: shopping_SubCategories,
+        transportation_SubCategories: transportation_SubCategories,
+        vacation_SubCategories: vacation_SubCategories,
+
+        dummyResultObject_SummaryDetails: dummyResultObject_SummaryDetails
 	}
 
 }) ();
