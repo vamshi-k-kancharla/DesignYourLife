@@ -14,12 +14,13 @@ var GlobalWebClientModule = (function () {
 
 	var food_SubCategories = ["coffeeshop","groceries","restaurants"];
 	var accomodation_SubCategories = ["emi","housekeeping","hotel","rent","utilities"];
+    var entertainment_SubCategories = ["movie", "clubs"];
 	var familycare_SubCategories = ["childcare","education","gifts"];
 	var medicalAndFitness_SubCategories = ["gym","skincare","generic","insurance"];
 	var miscellaneous_SubCategories = ["charity"];
 	var shopping_SubCategories  = ["gadgets","fashion"];
-	var transportation_SubCategories = ["carinsurance","vehicalmaintenance","fuel","rentalcar","taxi","train"];
-	var vacation_SubCategories = ["accomodation","sightseeing","fuel","rentalcar","taxi","train"];
+    var transportation_SubCategories = ["carinsurance","vehiclemaintenance","fuel","rentalcar","taxi","train"];
+	var vacation_SubCategories = ["accommodation","sightseeing","fuel","rentalcar","taxi","train"];
 
     // dummy Result Object For <Key, Value> Pairs display
 
@@ -39,7 +40,8 @@ var GlobalWebClientModule = (function () {
         categoryNames: categoryNames,
 
         food_SubCategories: food_SubCategories,
-		accomodation_SubCategories : accomodation_SubCategories,
+        accomodation_SubCategories: accomodation_SubCategories,
+        entertainment_SubCategories: entertainment_SubCategories,
 		familycare_SubCategories : familycare_SubCategories,
         medicalAndFitness_SubCategories: medicalAndFitness_SubCategories,
         miscellaneous_SubCategories: miscellaneous_SubCategories,

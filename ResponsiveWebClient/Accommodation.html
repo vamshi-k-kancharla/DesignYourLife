@@ -280,74 +280,37 @@
             displayContainerValues();
         }
 
+        /**
+         * 
+         *  Displays container values onload by retrieving data.
+         *  
+         */
 
-        function displayContainerValues(){
+        function displayContainerValues() {
 
+            for (var currentCategory of GlobalWebClientModule.accomodation_SubCategories) {
 
-            var keyIdArray = ["emi_row1_id1","emi_row2_id1","emi_row3_id1",
-                            "housekeeping_row1_id1","housekeeping_row2_id1","housekeeping_row3_id1",
-                            "hotel_row1_id1","hotel_row2_id1","hotel_row3_id1",
-                            "rent_row1_id1","rent_row2_id1","rent_row3_id1",
-                            "utilities_row1_id1","utilities_row2_id1","utilities_row3_id1"];
+                var keyIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id1");
+                var valueIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id2");
+                var keyValueMap = keyValueMapModule.deduceKeyValueMap(keyIdArray, valueIdArray,
+                    GlobalWebClientModule.dummyResultObject_SummaryDetails);
 
-            var valueIdArray = ["emi_row1_id2","emi_row2_id2","emi_row3_id2",
-                                "housekeeping_row1_id2","housekeeping_row2_id2","housekeeping_row3_id2",
-                                "hotel_row1_id2","hotel_row2_id2","hotel_row3_id2",
-                                "rent_row1_id2","rent_row2_id2","rent_row3_id2",
-                                "utilities_row1_id2","utilities_row2_id2","utilities_row3_id2"];
-      
-            var keyValueMap = new Map();
+                if (GlobalWebClientModule.bDebug == true) {
 
-            // Container 1 Display
+                    alert("keyIdArray : " + keyIdArray);
+                    alert("valueIdArray : " + valueIdArray);
+                    alert("keyValueMap : " + keyValueMap);
+                }
 
-            keyValueMap.set ("emi_row1_id1","name1");
-            keyValueMap.set ("emi_row2_id1","name2");
-            keyValueMap.set ("emi_row3_id1","name3");
-            keyValueMap.set ("emi_row1_id2","value1");
-            keyValueMap.set ("emi_row2_id2","value2");
-            keyValueMap.set ("emi_row3_id2","value3");
-
-            // Container 2 Display
-
-            keyValueMap.set ("housekeeping_row1_id1","name1");
-            keyValueMap.set ("housekeeping_row2_id1","name2");
-            keyValueMap.set ("housekeeping_row3_id1","name3");
-            keyValueMap.set ("housekeeping_row1_id2","value1");
-            keyValueMap.set ("housekeeping_row2_id2","value2");
-            keyValueMap.set ("housekeeping_row3_id2","value3");
-
-            // Container 3 Display
-
-            keyValueMap.set ("hotel_row1_id1","name1");
-            keyValueMap.set ("hotel_row2_id1","name2");
-            keyValueMap.set ("hotel_row3_id1","name3");
-            keyValueMap.set ("hotel_row1_id2","value1");
-            keyValueMap.set ("hotel_row2_id2","value2");
-            keyValueMap.set ("hotel_row3_id2","value3");
-
-            // Container 4 Display
-
-            keyValueMap.set ("rent_row1_id1","name1");
-            keyValueMap.set ("rent_row2_id1","name2");
-            keyValueMap.set ("rent_row3_id1","name3");
-            keyValueMap.set ("rent_row1_id2","value1");
-            keyValueMap.set ("rent_row2_id2","value2");
-            keyValueMap.set ("rent_row3_id2","value3");
-
-            // Container 5 Display
-
-            keyValueMap.set ("utilities_row1_id1","name1");
-            keyValueMap.set ("utilities_row2_id1","name2");
-            keyValueMap.set ("utilities_row3_id1","name3");
-            keyValueMap.set ("utilities_row1_id2","value1");
-            keyValueMap.set ("utilities_row2_id2","value2");
-            keyValueMap.set ("utilities_row3_id2","value3");
-
-
-            keyValueMapModule.displaySingleContainerValues( keyIdArray, valueIdArray, keyValueMap);
-
-
+                keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
+            }
         }
+
+        /**
+         * 
+         *  Stores the selection in cache based on onClick() event
+         *  
+         */
 
         function expenseAccomodationDetails1(){
 
