@@ -25,6 +25,7 @@ var GlobalWebClientModule = (function () {
     // dummy Result Object For <Key, Value> Pairs display
 
     var dummyResultObject_SummaryDetails = { currentCategory: "dummy", noOfExpenses: "100", expenditure: "4500" };
+    var dummyResultObject_ExpenseDetails = { merchantName: "Subway", place: "Hyderabad", expenditure: "200" };
 
     // Expose local variables for global access
 
@@ -49,7 +50,8 @@ var GlobalWebClientModule = (function () {
         transportation_SubCategories: transportation_SubCategories,
         vacation_SubCategories: vacation_SubCategories,
 
-        dummyResultObject_SummaryDetails: dummyResultObject_SummaryDetails
+        dummyResultObject_SummaryDetails: dummyResultObject_SummaryDetails,
+        dummyResultObject_ExpenseDetails: dummyResultObject_ExpenseDetails
 	}
 
 }) ();

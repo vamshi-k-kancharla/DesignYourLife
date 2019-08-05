@@ -52,7 +52,7 @@ var keyValueMapModule = (function () {
      * 
      * @param {String} category  : String value of "Category/Sub Category"
      * @param {Number} no_of_rows  : Number of <k,v> pairs of Id's rendered in current container
-     * @param {Map} id  : Specific suffix of targeted id
+     * @param {String} id  : Specific suffix of targeted id
      * 
      * @returns {Array} resultIdArray : Array of deduced Id's from input variables
      *
@@ -110,14 +110,63 @@ var keyValueMapModule = (function () {
     }
 
 
+    /**
+     * 
+     * @param {String} containerPrefix  : Prefix value of Expense container name
+     * @param {Number} no_of_containers  : Number of Expense Containers
+     * @param {String} idPrefix  : Prefix value of id
+     * 
+     * @returns {Array} resultIdArray : Array of deduced Id's from input variables
+     *
+     */
+
+    function deduceExpenseKeyValueIdArray(containerPrefix, currentContainer, no_Of_Expense_Details, idPrefix) {
+
+        var resultIdArray = new Array();
+
+        for (var currentRow = 1; currentRow <= no_Of_Expense_Details; currentRow++) {
+
+            var resultId = containerPrefix + String(currentContainer) + "_" + idPrefix + String(currentRow);
+            resultIdArray.push(resultId);
+        }
+
+        return resultIdArray;
+    }
+
+    /**
+     * 
+     * @param {String} containerPrefix  : Prefix value of Expense container name
+     * @param {Number} no_of_containers  : Number of Expense Containers
+     * @param {String} idPrefix  : Prefix value of id
+     * 
+     * @returns {Array} resultIdArray : Array of deduced Id's from input variables
+     *
+     */
+
+    function deduceExpenseKeyValueMap(containerPrefix, currentContainer, imageSource, keyIdArray, valueIdArray, resultKeyValueObject) {
+
+        // Fill Expense Info details in map
+
+        resultKeyValueMap = deduceKeyValueMap(keyIdArray, valueIdArray, resultKeyValueObject);
+
+        // Fill image info in map
+
+        var imageKey = containerPrefix + String(currentContainer);
+        document.getElementById(imageKey).setAttribute("src", imageSource);
+
+        return resultKeyValueMap;
+    }
+
     // Expose the method implementations for Global Access
 
 	 return {
 
-        deduceKeyValueIdArray : deduceKeyValueIdArray ,
-        displayimageContainerValues : displayimageContainerValues ,
+        deduceKeyValueIdArray : deduceKeyValueIdArray,
+        displayimageContainerValues : displayimageContainerValues,
         displaySingleContainerValues : displaySingleContainerValues,
-        deduceKeyValueMap : deduceKeyValueMap
+        deduceKeyValueMap: deduceKeyValueMap,
+        deduceExpenseKeyValueIdArray: deduceExpenseKeyValueIdArray,
+        deduceExpenseKeyValueMap: deduceExpenseKeyValueMap
 
 	 }
 
