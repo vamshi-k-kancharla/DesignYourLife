@@ -1,7 +1,6 @@
 
 var keyValueMapModule = (function () {
  
-
     /**
      * 
      * @param {Array} keyIdArray  : Array of Doc Element (Key) Id's
@@ -71,16 +70,15 @@ var keyValueMapModule = (function () {
          return resultIdArray;
      }
     
-
     /**
-     * 
-     * @param {Array} keyIdArray  : Array of Doc Element (Key) Id's
-     * @param {Array} valueIdArray  : Array of Doc Element (Value) Id's
-     * @param {Object} resultKeyValueObject  : Result Object that needs to be displayed in a container
-     *
-     * @returns {Map} resultKeyValueMap : Map of <k,v> paris of container values to be displayed
-     *
-     */
+        * 
+        * @param {Array} keyIdArray  : Array of Doc Element (Key) Id's
+        * @param {Array} valueIdArray  : Array of Doc Element (Value) Id's
+        * @param {Object} resultKeyValueObject  : Result Object that needs to be displayed in a container
+        *
+        * @returns {Map} resultKeyValueMap : Map of <k,v> paris of container values to be displayed
+        *
+        */
 
     function deduceKeyValueMap(keyIdArray, valueIdArray, resultKeyValueObject) {
 
@@ -108,7 +106,6 @@ var keyValueMapModule = (function () {
 
         return resultKeyValueMap;
     }
-
 
     /**
      * 
@@ -157,6 +154,29 @@ var keyValueMapModule = (function () {
         return resultKeyValueMap;
     }
 
+    /**
+     * 
+     * @param {String} containerPrefix  : Prefix value of Expense container name
+     * @param {Number} no_of_containers  : Number of Expense Containers
+     * @param {String} idPrefix  : Prefix value of id
+     * 
+     * @returns {Array} resultIdArray : Array of deduced Id's from input variables
+     *
+     */
+
+    function deduceSummaryGridKeyValueIdArray(currentRowNumber, currentColumnNumber, no_Of_Expense_Details, idPrefix) {
+
+        var resultIdArray = new Array();
+
+        for (var currentDetail = 1; currentDetail <= no_Of_Expense_Details; currentDetail++) {
+
+            var resultId = "row" + String(currentRowNumber) + "_column" + String(currentColumnNumber) + "_" + idPrefix + String(currentDetail);
+            resultIdArray.push(resultId);
+        }
+
+        return resultIdArray;
+    }
+
     // Expose the method implementations for Global Access
 
 	 return {
@@ -166,7 +186,8 @@ var keyValueMapModule = (function () {
         displaySingleContainerValues : displaySingleContainerValues,
         deduceKeyValueMap: deduceKeyValueMap,
         deduceExpenseKeyValueIdArray: deduceExpenseKeyValueIdArray,
-        deduceExpenseKeyValueMap: deduceExpenseKeyValueMap
+        deduceExpenseKeyValueMap: deduceExpenseKeyValueMap,
+        deduceSummaryGridKeyValueIdArray: deduceSummaryGridKeyValueIdArray
 
 	 }
 
