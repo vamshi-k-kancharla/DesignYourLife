@@ -7,29 +7,30 @@ var addLabelsModule = (function () {
      * 
      */
 
-	function addLabels() {
+    function addInputListItemToDivision(divElementId, textNodeContent) {
 
         var node = document.createElement("label");
-        var textnode = document.createTextNode("label:");
+        var textnode = document.createTextNode(textNodeContent);
         var input = document.createElement("input");
-        var list = document.createElement("li");
         node.appendChild(textnode);
         node.appendChild(input);
+
+        var list = document.createElement("li");
         list.appendChild(node);
-        document.getElementById('new_division').appendChild(list);
+        document.getElementById(divElementId).appendChild(list);
 
     };
 
     /**
      * 
-     * Removes the Lables in a division 
+     * Removes the first child of a Div Element
      * 
      */
 
-    function removeLabels() {
+    function removeFirstChildOfDivElement(divElementId) {
 
-        var label = document.getElementById('new_division');
-        label.removeChild(label.childNodes[0]);
+        var divElement = document.getElementById(divElementId);
+        divElement.removeChild(divElement.childNodes[0]);
 
     };
 
@@ -40,9 +41,9 @@ var addLabelsModule = (function () {
      */
 
     return {
-
-	    addLabels : addLabels,
-        removeLabels: removeLabels
+           
+        addInputListItemToDivision: addInputListItemToDivision,
+        removeFirstChildOfDivElement: removeFirstChildOfDivElement
 
     }
 
