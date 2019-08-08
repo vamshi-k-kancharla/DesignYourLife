@@ -3,80 +3,30 @@
 <html lang="en">
     
 <head>
-      
+
     <title>Square_Design</title>
-  
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        
+    <link rel="stylesheet" type="text/css" href="./StyleSheet/CustomStylingGlobal.css" media="all" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        
+
     <style>
 
-        .table.table-border > tbody > tr > td{
-
+        .table.table-border > tbody > tr > td {
             border: 1px solid black;
             height: 80px;
         }
-          
-        .text-left {
-            
-            padding-bottom: 1000px;
-            height: 100%;
-          
-        }
-          
-        .navbar {
-              
-            margin-bottom: 0;
-            border-radius: 0;
-            background-color: #80B1F6;
-            color: black;
-          
-        }
-          
-        .row.content {height: auto;}
-          
-        .sidenav {
-              
-            padding-top: 1251px;
-            height: 100%;
 
-        }
-          
-        footer {
-              
-            background-color: #555;
-            color: white;
-            padding: 15px;
-          
-        }
-          
-        @media screen and (max-width: 767px) {
-            
-            .sidenav {
-
-                height: auto;
-                padding: 15px;
-            
-            }
-            
-            .row.content {height:auto;} 
-
-        }
-
-        .text-left{
-
-            height: 1251px;
-            padding: 15px;
-
+        @media screen and (max-width: 100%) {
         }
 
     </style>
-    
+
 </head>
     
 <body>
@@ -85,8 +35,9 @@
     <script src="./JavaScripts/SummaryGridHelper.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
 
-    <nav class="navbar navbar-inverse ">
+    <nav id="headerNav" class="navbar navbar-inverse ">
 
         <div class="container-fluid">
 
@@ -140,9 +91,9 @@
 
         <div class="row content">
 
-            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
 
-            <div class="col-sm-8 text-left" style="background-color: #D5D9D3;">
+            <div id="mainContentWindow" class="col-sm-8 text-left" style="background-color: #D5D9D3;">
 
                 <table class="table table-border" id="mytable">
 
@@ -287,14 +238,14 @@
 
             </div>
 
-            <div class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
+            <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
             </div>
 
         </div>
 
     </div>
 
-    <footer class="container-fluid">
+    <footer id="footerNav" class="container-fluid">
 
         <div class="row">
 
@@ -329,7 +280,9 @@
 
         window.onload = function (event) {
 
-            displaySummaryGridData()
+            displaySummaryGridData();
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1.01);
 
         }
 

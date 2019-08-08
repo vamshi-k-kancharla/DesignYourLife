@@ -3,109 +3,74 @@
 <html lang="en">
     
 <head>
-      
+
     <title>Categories</title>
-  
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        
+    <link rel="stylesheet" type="text/css" href="./StyleSheet/CustomStylingGlobal.css" media="all" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        
-    <style>
-          
-        .text-left {
-            
-            padding-bottom: 1000px;
-            height: 100%;
-        }
-          
-        .navbar {
-              
-            margin-bottom: 0;
-            border-radius: 0;
-            background-color: #80B1F6;
-            color: black;
-        }
-          
-        .row.content {height: auto;}
-          
-        .sidenav {
-              
-            padding-top: 1100px;
-            height: auto;
-        }
-          
-        footer {
-              
-            background-color: #555;
-            color: white;
-            padding: 15px;
-        }
-          
-        @media screen and (max-width: 767px) {
-            
-            .sidenav {
 
-                height: auto;
-                padding: 15px;
-            }
-            
-            .row.content {height:auto;} 
+    <style>
+
+        @media screen and (max-width: 767px) {
         }
 
     </style>
-    
+
 </head>
     
 <body>
-      
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="./JavaScripts/UserAuthentication.js"></script>
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
-    <script src="./JavaScripts/Key_Value_Map.js"></script> 
-      
-    <nav class="navbar navbar-inverse">
-  
+    <script src="./JavaScripts/Key_Value_Map.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+
+    <nav id="headerNav" class="navbar navbar-inverse">
+
         <div class="container-fluid">
-            
+
             <div class="navbar-header">
-                
+
                 <a class="navbar-brand" style="color:black" href="homepage.html">DesignYourLife</a>
-            
+
             </div>
-            
+
             <ul class="nav navbar-nav">
-                
+
                 <li><a href="Categories.html" style="color:black">Home</a></li>
                 <li><a href="#" style="color:black"> Page 1 </a></li>
-                
+
             </ul>
-            
+
             <form class="navbar-form navbar-left" action="/action.html">
-                
+
                 <div class="input-group">
-                
+
                     <input type="text" class="form-control" placeholder="Search" name="search">
-                  
+
                     <div class="input-group-btn">
-                      
+
                         <button class="btn btn-default" type="submit">
-                        
+
                             <i class="glyphicon glyphicon-search"></i>
-                      
+
                         </button>
-                  
+
                     </div>
-                
+
                 </div>
-            
+
             </form>
-            
+
             <ul class="nav navbar-nav navbar-right">
-                
+
                 <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
             </ul>
@@ -113,108 +78,108 @@
         </div>
 
     </nav>
-      
-    <div class="container-fluid text-center">    
-          
-        <div class="row content">
-            
-            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
-            
-            <div class="col-sm-8 ">
 
-                <div style="background-color: #4B5246;" >
-                
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+
+            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+
+            <div id="mainContentWindow" class="col-sm-8">
+
+                <div style="background-color: #4B5246;">
+
                     <h1 style="text-align: center;color: white">CATEGORIES </h1>
-              
+
                 </div>
-                
-                <div style="padding: 10px" ></div>
+
+                <div style="padding: 10px"></div>
 
                 <div class="col-sm-6">
-                   
-                    <div class="col-sm-6" >
+
+                    <div class="col-sm-6">
 
                         <a href="Food.html">
-                    
-                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="expenseDetails1()" >
-                    
+
+                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="expenseDetails1()">
+
                         </a>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
-                        <p id="food" onclick="expenseDetails1()" ><a href="Food.html">Food</a> </p>
+
+                        <p id="food" onclick="expenseDetails1()"><a href="Food.html">Food</a> </p>
                         <p> <span id="food_row1_id1"></span>: <span id="food_row1_id2"></span></p>
                         <p> <span id="food_row2_id1"></span>: <span id="food_row2_id2"></span></p>
                         <p> <span id="food_row3_id1"></span>: <span id="food_row3_id2"></span></p>
 
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
-                  
+
+                    <div style="padding: 100px"></div>
+
                     <div class="col-sm-6">
-                    
-                        <p id="accommodation" onclick="expenseDetails2()" ><a href="Accommodation.html"> Accommodation</a></p>
+
+                        <p id="accommodation" onclick="expenseDetails2()"><a href="Accommodation.html"> Accommodation</a></p>
                         <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
                         <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
                         <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <a href="Accommodation.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg"  class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseDetails2()">
 
                         </a>
-                    
-                    </div>
-                  
-                    <div style="padding: 100px" ></div>
 
-                    <div class="col-sm-6" >
-                      
+                    </div>
+
+                    <div style="padding: 100px"></div>
+
+                    <div class="col-sm-6">
+
                         <a href="Entertainment.html">
 
                             <img style="float:left; background-color: #9FF2BD" src=".\Resources\Pictures\entertainment.jpg" class="img-rounded" width="200" height="176" id="entertainment" onclick="expenseDetails3()">
-                    
+
                         </a>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
-                        <p id="entertainment" onclick="expenseDetails3()" ><a href="Entertainment.html"> Entertainment</a></p>
+
+                        <p id="entertainment" onclick="expenseDetails3()"><a href="Entertainment.html"> Entertainment</a></p>
                         <p> <span id="entertainment_row1_id1"></span>: <span id="entertainment_row1_id2"></span></p>
                         <p> <span id="entertainment_row2_id1"></span>: <span id="entertainment_row2_id2"></span></p>
                         <p> <span id="entertainment_row3_id1"></span>: <span id="entertainment_row3_id2"></span></p>
-                    
+
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
+
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
-                      
+
                         <p id="familycare" onclick="expenseDetails4()"><a href="FamilyCare.html">FamilyCare</a></p>
                         <p> <span id="familycare_row1_id1"></span>: <span id="familycare_row1_id2"></span></p>
                         <p> <span id="familycare_row2_id1"></span>: <span id="familycare_row2_id2"></span></p>
                         <p> <span id="familycare_row3_id1"></span>: <span id="familycare_row3_id2"></span></p>
-                    
+
                     </div>
-                    
-                    <div class="col-sm-6" >
+
+                    <div class="col-sm-6">
 
                         <a href="FamilyCare.html">
-                      
+
                             <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="expenseDetails4()">
 
                         </a>
-                    
+
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
+
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
 
@@ -225,31 +190,31 @@
                         </a>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
-                        <p id="movie" onclick="expenseDetails5()" ><a href="Movie.html"> Movie</a></p>
+
+                        <p id="movie" onclick="expenseDetails5()"><a href="Movie.html"> Movie</a></p>
                         <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
                         <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
                         <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
-                    
+
                     </div>
-              
+
                 </div>
-              
+
                 <div class="col-sm-6">
 
                     <div class="col-sm-6">
-                      
-                        <p id="medicalandfitness" onclick="expenseDetails6()" ><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
+
+                        <p id="medicalandfitness" onclick="expenseDetails6()"><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
                         <p> <span id="medicalandfitness_row1_id1"></span>: <span id="medicalandfitness_row1_id2"></span></p>
                         <p> <span id="medicalandfitness_row2_id1"></span>: <span id="medicalandfitness_row2_id2"></span></p>
                         <p> <span id="medicalandfitness_row3_id1"></span>: <span id="medicalandfitness_row3_id2"></span></p>
-                    
+
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <a href="MedicalAndFitness.html">
 
                             <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="expenseDetails6()">
@@ -257,133 +222,141 @@
                         </a>
 
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
+
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
-                      
+
                         <a href="Miscellaneous.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg"  class="img-rounded" width="200" height="176" id="miscellaneous" onclick="expenseDetails7()">
-                    
+                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg" class="img-rounded" width="200" height="176" id="miscellaneous" onclick="expenseDetails7()">
+
                         </a>
 
                     </div>
-                    
-                    <div class="col-sm-6" >
-                      
+
+                    <div class="col-sm-6">
+
                         <p id="miscellaneous" onclick="expenseDetails7()"><a href="Miscellaneous.html"> Miscellaneous</a></p>
                         <p> <span id="miscellaneous_row1_id1"></span>: <span id="miscellaneous_row1_id2"></span></p>
                         <p> <span id="miscellaneous_row2_id1"></span>: <span id="miscellaneous_row2_id2"></span></p>
                         <p> <span id="miscellaneous_row3_id1"></span>: <span id="miscellaneous_row3_id2"></span></p>
-                    
+
                     </div>
 
-                    <div style="padding: 100px" ></div>
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
-                      
+
                         <p id="shopping" onclick="expenseDetails8()"><a href="Shopping.html"> Shopping</a></p>
                         <p> <span id="shopping_row1_id1"></span>: <span id="shopping_row1_id2"></span></p>
                         <p> <span id="shopping_row2_id1"></span>: <span id="shopping_row2_id2"></span></p>
                         <p> <span id="shopping_row3_id1"></span>: <span id="shopping_row3_id2"></span></p>
-                    
+
                     </div>
-                    
-                    <div class="col-sm-6" >
-                        
+
+                    <div class="col-sm-6">
+
                         <a href="Shopping.html">
 
                             <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="expenseDetails8()">
-                    
+
                         </a>
 
                     </div>
-                    
-                    <div style="padding: 100px" ></div>
 
-                    <div class="col-sm-6" >
-                     
+                    <div style="padding: 100px"></div>
+
+                    <div class="col-sm-6">
+
                         <a href="Transportation.html">
 
                             <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="expenseDetails9()">
-                    
+
                         </a>
 
                     </div>
-                    
-                    <div class="col-sm-6" >
-                      
+
+                    <div class="col-sm-6">
+
                         <p id="transportation" onclick="expenseDetails9()"><a href="Transportation.html"> Transportation</a></p>
                         <p> <span id="transportation_row1_id1"></span>: <span id="transportation_row1_id2"></span></p>
                         <p> <span id="transportation_row2_id1"></span>: <span id="transportation_row2_id2"></span></p>
                         <p> <span id="transportation_row3_id1"></span>: <span id="transportation_row3_id2"></span></p>
-                    
+
                     </div>
 
-                    <div style="padding: 100px" ></div>
+                    <div style="padding: 100px"></div>
 
-                    <div class="col-sm-6" >
-                      
+                    <div class="col-sm-6">
+
                         <p id="vacation" onclick="expenseDetails10()"><a href="Vacation.html"> Vacation</a></p>
                         <p> <span id="vacation_row1_id1"></span>: <span id="vacation_row1_id2"></span></p>
                         <p> <span id="vacation_row2_id1"></span>: <span id="vacation_row2_id2"></span></p>
                         <p> <span id="vacation_row3_id1"></span>: <span id="vacation_row3_id2"></span></p>
-                    
+
                     </div>
-                    
-                    <div class="col-sm-6" >
-                      
+
+                    <div class="col-sm-6">
+
                         <a href="Vacation.html">
 
                             <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="expenseDetails10()">
-                    
+
                         </a>
 
                     </div>
-                  
-                </div>    
+
+                </div>
 
             </div>
 
-            <div class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
+            <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
             </div>
-        
+
         </div>
-      
+
     </div>
-    
-    <footer class="container-fluid ">
-        
+
+    <footer id="footerNav" class="container-fluid ">
+
         <div class="row">
-          
-            <div class="col-sm-4"  >
-              
+
+            <div class="col-sm-4">
+
                 <p>Contact us :</p>
                 <p>Phno : </p>
                 <p>E-mail : </p>
-          
+
             </div>
-            
+
             <div class="col-sm-8 text-center">
-              
+
                 <p>Address :</p>
                 <p>Vindhya c4</p>
                 <p>IIIT Gachibowli campus,hyd<p>
                 <p>Pin code : 500032</p>
-            
+
             </div>
-        
+
         </div>
-      
-    </footer> 
+
+    </footer>
 
     <script type="text/javascript">
 
         window.onload = function (event) {
 
             displayContainerValues();
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1.05);
         }
+
+        /**
+         *
+         *  Displays container values onload by retrieving data.
+         *
+         */
 
         function displayContainerValues() {
 
@@ -405,78 +378,78 @@
             }
         }
 
-        function expenseDetails1(){
+        function expenseDetails1() {
 
-            document.getElementById('food').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "food");
-
-        }
-
-        function expenseDetails2(){
-
-            document.getElementById('accommodation').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "accommodation");
-
-        }
-            
-        function expenseDetails3(){
-
-            document.getElementById('entertainment').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "entertainment");
+            document.getElementById('food').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "food");
 
         }
 
-        function expenseDetails4(){
+        function expenseDetails2() {
 
-            document.getElementById('familycare').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "familycare");
-    
-        }
-
-        function expenseDetails5(){
-
-            document.getElementById('movie').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "movie");
-           
-        }
-
-        function expenseDetails6(){
-
-            document.getElementById('medicalandfitness').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "medicalandfitness");
+            document.getElementById('accommodation').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "accommodation");
 
         }
 
-        function expenseDetails7(){
+        function expenseDetails3() {
 
-            document.getElementById('miscellaneous').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "miscellaneous");
-
-        }
-
-        function expenseDetails8(){
-
-            document.getElementById('shopping').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "shopping");
-           
-        }
-
-        function expenseDetails9(){
-
-            document.getElementById('transportation').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "transportation");
+            document.getElementById('entertainment').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "entertainment");
 
         }
 
-        function expenseDetails10(){
+        function expenseDetails4() {
 
-            document.getElementById('vacation').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "vacation");
-           
+            document.getElementById('familycare').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "familycare");
+
         }
-       
+
+        function expenseDetails5() {
+
+            document.getElementById('movie').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "movie");
+
+        }
+
+        function expenseDetails6() {
+
+            document.getElementById('medicalandfitness').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "medicalandfitness");
+
+        }
+
+        function expenseDetails7() {
+
+            document.getElementById('miscellaneous').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "miscellaneous");
+
+        }
+
+        function expenseDetails8() {
+
+            document.getElementById('shopping').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "shopping");
+
+        }
+
+        function expenseDetails9() {
+
+            document.getElementById('transportation').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "transportation");
+
+        }
+
+        function expenseDetails10() {
+
+            document.getElementById('vacation').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "vacation");
+
+        }
+
     </script>
-      
+
 </body>
 
 </html>

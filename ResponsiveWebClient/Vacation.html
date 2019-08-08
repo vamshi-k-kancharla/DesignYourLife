@@ -3,65 +3,25 @@
 <html lang="en">
     
 <head>
-      
+
     <title>Vacation</title>
-  
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-        
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        
+    <link rel="stylesheet" type="text/css" href="./StyleSheet/CustomStylingGlobal.css" media="all" />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        
-    <style>
-          
-        .text-left {
-            
-            padding-bottom: 1000px;
-            height: 100%;
-          
-        }
-          
-        .navbar {
-              
-            margin-bottom: 0;
-            border-radius: 0;
-            background-color: #80B1F6;
-            color: black;
-          
-        }
-          
-        .row.content {height: auto;}
-          
-        .sidenav {
-              
-            padding-top: 1100px;
-            height: auto;
-        }
-          
-        footer {
-              
-            background-color: #555;
-            color: white;
-            padding: 15px;
-          
-        }
-          
-        @media screen and (max-width: 767px) {
-            
-            .sidenav {
 
-                height: auto;
-                padding: 15px;
-            
-            }
-            
-            .row.content {height:auto;} 
+    <style>
+
+        @media screen and (max-width: 100%) {
         }
 
     </style>
-    
+
 </head>
     
 <body>
@@ -70,46 +30,47 @@
     <script src="./JavaScripts/UserAuthentication.js"></script>
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
-      
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+
     <nav class="navbar navbar-inverse ">
-  
-        <div class="container-fluid">
-            
+
+        <div id="headerNav" class="container-fluid">
+
             <div class="navbar-header">
-                
+
                 <a class="navbar-brand" style="color:black" href="HomePage.html">DesignYourLife</a>
-            
+
             </div>
-            
+
             <ul class="nav navbar-nav">
-                
+
                 <li><a href="categories.html" style="color:black">Home</a></li>
                 <li><a href="#" style="color:black"> Page 1 </a></li>
-                
+
             </ul>
-            
+
             <form class="navbar-form navbar-left" action="/action.html">
-                
+
                 <div class="input-group">
-                
+
                     <input type="text" class="form-control" placeholder="Search" name="search">
-                  
+
                     <div class="input-group-btn">
-                      
+
                         <button class="btn btn-default" type="submit">
-                        
+
                             <i class="glyphicon glyphicon-search"></i>
-                      
+
                         </button>
-                  
+
                     </div>
-                
+
                 </div>
-            
+
             </form>
-            
+
             <ul class="nav navbar-nav navbar-right">
-                
+
                 <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
             </ul>
@@ -117,198 +78,200 @@
         </div>
 
     </nav>
-      
-    <div class="container-fluid text-center">    
-          
-        <div class="row content">
-            
-            <div class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
-            
-            <div class="col-sm-8 ">
-              
-                <div style="background-color: #4B5246;" >
 
-                    <h1 style="text-align: center;" > <a style="color: white">VACATION </a></h1>
-              
+    <div class="container-fluid text-center">
+
+        <div class="row content">
+
+            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+
+            <div id="mainContentWindow" class="col-sm-8">
+
+                <div style="background-color: #4B5246;">
+
+                    <h1 style="text-align: center;"> <a style="color: white">VACATION </a></h1>
+
                 </div>
-                
-                <div style="padding: 10px" ></div>
+
+                <div style="padding: 10px"></div>
 
                 <div class="col-sm-6">
-                   
+
                     <div class="col-sm-6">
 
                         <a href="container_info.html">
-                    
+
                             <img style="float: left" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseVacationDetails1()">
-                    
+
                         </a>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <p id="accommodation" onclick="expenseVacationDetails1()"><a href="container_info.html">Accommodation</a></p>
                         <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
                         <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
                         <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
 
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
-                  
+
+                    <div style="padding: 100px"></div>
+
                     <div class="col-sm-6">
-                    
+
                         <p id="sightseeing" onclick="expenseVacationDetails2()"><a href="container_info.html">SightSeeing</a></p>
                         <p> <span id="sightseeing_row1_id1"></span>: <span id="sightseeing_row1_id2"></span></p>
                         <p> <span id="sightseeing_row2_id1"></span>: <span id="sightseeing_row2_id2"></span></p>
                         <p> <span id="sightseeing_row3_id1"></span>: <span id="sightseeing_row3_id2"></span></p>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <a href="container_info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\sightseeing.jpg"  class="img-rounded" width="200" height="176" id="sightseeing" onclick="expenseVacationDetails2()">
-                    
+                            <img style="float: right;" src=".\Resources\Pictures\sightseeing.jpg" class="img-rounded" width="200" height="176" id="sightseeing" onclick="expenseVacationDetails2()">
+
                         </a>
 
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
 
-                    <div class="col-sm-6" >
-                      
+                    <div style="padding: 100px"></div>
+
+                    <div class="col-sm-6">
+
                         <a href="container_info.html">
 
                             <img style="float: left;" src=".\Resources\Pictures\fuel.jpg" style="background-color: #9FF2BD" class="img-rounded" width="200" height="176" id="fuel" onclick="expenseVacationDetails3()">
-                    
+
                         </a>
 
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <p id="fuel" onclick="expenseVacationDetails3()"><a href="container_info.html">Fuel</a></p>
                         <p> <span id="fuel_row1_id1"></span>: <span id="fuel_row1_id2"></span></p>
                         <p> <span id="fuel_row2_id1"></span>: <span id="fuel_row2_id2"></span></p>
                         <p> <span id="fuel_row3_id1"></span>: <span id="fuel_row3_id2"></span></p>
-                    
+
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
-              
+
+                    <div style="padding: 100px"></div>
+
                 </div>
-              
+
                 <div class="col-sm-6">
 
                     <div class="col-sm-6">
-                      
+
                         <p id="rentalcar" onclick="expenseVacationDetails4()"><a href="container_info.html">RentalCar</a></p>
                         <p> <span id="rentalcar_row1_id1"></span>: <span id="rentalcar_row1_id2"></span></p>
                         <p> <span id="rentalcar_row2_id1"></span>: <span id="rentalcar_row2_id2"></span></p>
                         <p> <span id="rentalcar_row3_id1"></span>: <span id="rentalcar_row3_id2"></span></p>
-                    
+
                     </div>
-                    
+
                     <div class="col-sm-6">
-                      
+
                         <a href="container_info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\rentalcar.jpg"  class="img-rounded" width="200" height="176" id="rentalcar" onclick="expenseVacationDetails4()">
-                    
+                            <img style="float: right;" src=".\Resources\Pictures\rentalcar.jpg" class="img-rounded" width="200" height="176" id="rentalcar" onclick="expenseVacationDetails4()">
+
                         </a>
 
                     </div>
-                  
-                    <div style="padding: 100px" ></div>
+
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
-                      
-                        <img style="float: left;" src=".\Resources\Pictures\taxi.jpg"  class="img-rounded" width="200" height="176" id="taxi" onclick="expenseVacationDetails5()">
-                    
+
+                        <img style="float: left;" src=".\Resources\Pictures\taxi.jpg" class="img-rounded" width="200" height="176" id="taxi" onclick="expenseVacationDetails5()">
+
                     </div>
-                    
-                    <div class="col-sm-6" >
-                      
+
+                    <div class="col-sm-6">
+
                         <p id="taxi" onclick="expenseVacationDetails5()"><a href="container_info.html">Taxi</a></p>
                         <p> <span id="taxi_row1_id1"></span>: <span id="taxi_row1_id2"></span></p>
                         <p> <span id="taxi_row2_id1"></span>: <span id="taxi_row2_id2"></span></p>
                         <p> <span id="taxi_row3_id1"></span>: <span id="taxi_row3_id2"></span></p>
-                    
+
                     </div>
 
-                    <div style="padding: 100px" ></div>
+                    <div style="padding: 100px"></div>
 
                     <div class="col-sm-6">
-                      
+
                         <p id="train" onclick="expenseVacationDetails6()"><a href="container_info.html">Train</a></p>
                         <p> <span id="train_row1_id1"></span>: <span id="train_row1_id2"></span></p>
                         <p> <span id="train_row2_id1"></span>: <span id="train_row2_id2"></span></p>
                         <p> <span id="train_row3_id1"></span>: <span id="train_row3_id2"></span></p>
-                    
+
                     </div>
-                    
-                    <div class="col-sm-6" >
-                        
+
+                    <div class="col-sm-6">
+
                         <a href="container_info.html">
 
                             <img style="float: right;" src=".\Resources\Pictures\train.jpg" class="img-rounded" width="200" height="176" id="train" onclick="expenseVacationDetails6()">
-                      
+
                         </a>
 
                     </div>
-                    
-                    <div style="padding: 100px" ></div>
-                    
-                </div>    
+
+                    <div style="padding: 100px"></div>
+
+                </div>
 
             </div>
 
-            <div  class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
+            <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
             </div>
 
         </div>
-      
+
     </div>
-    
-    <footer class="container-fluid ">
-        
+
+    <footer id="footerNav" class="container-fluid ">
+
         <div class="row">
-          
+
             <div class="col-sm-4">
-              
+
                 <p>Contact US: </p>
                 <p>Phone No: </p>
                 <p>E-mail: </p>
-            
+
             </div>
-            
+
             <div class="col-sm-8 text-center">
-              
+
                 <p>Address: </p>
                 <p>Vindhya c4</p>
                 <p>IIIT Gachibowli campus,hyd<p>
                 <p>Pin code: 500032</p>
-            
+
             </div>
-        
+
         </div>
-      
-    </footer> 
+
+    </footer>
 
     <script type="text/javascript">
 
         window.onload = function (event) {
 
             displayContainerValues();
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1.05);
         }
 
         /**
-         * 
+         *
          *  Displays container values onload by retrieving data.
-         *  
+         *
          */
 
         function displayContainerValues() {
@@ -332,55 +295,55 @@
         }
 
         /**
-         * 
+         *
          *  Stores the selection in cache based on onClick() event
-         *  
+         *
          */
 
-        function expenseVacationDetails1(){
+        function expenseVacationDetails1() {
 
-            document.getElementById('accommodation').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "accommodation");
-
-        }
-
-        function expenseVacationDetails2(){
-
-            document.getElementById('sightseeing').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "sightseeing");
+            document.getElementById('accommodation').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "accommodation");
 
         }
 
-        function expenseVacationDetails3(){
+        function expenseVacationDetails2() {
 
-            document.getElementById('fuel').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "fuel");
-
-        }
-
-        function expenseVacationDetails4(){
-
-            document.getElementById('rentalcar').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "rentalcar");
+            document.getElementById('sightseeing').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "sightseeing");
 
         }
 
-        function expenseVacationDetails5(){
+        function expenseVacationDetails3() {
 
-            document.getElementById('taxi').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "taxi");
+            document.getElementById('fuel').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "fuel");
 
         }
 
-        function expenseVacationDetails6(){
+        function expenseVacationDetails4() {
 
-            document.getElementById('train').value = 
-            window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "train");
+            document.getElementById('rentalcar').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "rentalcar");
+
+        }
+
+        function expenseVacationDetails5() {
+
+            document.getElementById('taxi').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "taxi");
+
+        }
+
+        function expenseVacationDetails6() {
+
+            document.getElementById('train').value =
+                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "train");
 
         }
 
     </script>
-      
+
 </body>
 
 </html>
