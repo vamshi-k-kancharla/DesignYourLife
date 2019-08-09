@@ -32,8 +32,9 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
-    <nav id="headerNav" class="navbar navbar-inverse ">
+    <nav id="headerNav" class="navbar navbar-inverse">
 
         <div class="container-fluid">
 
@@ -102,7 +103,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\childcare.png" class="img-rounded" width="200" height="176" id="childcare" onclick="expenseFamilycareDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\childcare.png" class="img-rounded" width="200" height="176" id="childcare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','childcare')">
 
                         </a>
 
@@ -110,7 +111,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="childcare" onclick="expenseFamilycareDetails1()"><a href="Expense_Info.html"> ChildCdare</a></p>
+                        <p id="childcare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','childcare')"><a href="Expense_Info.html"> ChildCdare</a></p>
                         <p> <span id="childcare_row1_id1"></span>: <span id="childcare_row1_id2"></span></p>
                         <p> <span id="childcare_row2_id1"></span>: <span id="childcare_row2_id2"></span></p>
                         <p> <span id="childcare_row3_id1"></span>: <span id="childcare_row3_id2"></span></p>
@@ -121,7 +122,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="education" onclick="expenseFamilycareDetails2()"><a href="Expense_Info.html"> Education</a></p>
+                        <p id="education" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','education')"><a href="Expense_Info.html"> Education</a></p>
                         <p> <span id="education_row1_id1"></span>: <span id="education_row1_id2"></span></p>
                         <p> <span id="education_row2_id1"></span>: <span id="education_row2_id2"></span></p>
                         <p> <span id="education_row3_id1"></span>: <span id="education_row3_id2"></span></p>
@@ -132,7 +133,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\education.jpg" class="img-rounded" width="200" height="176" id="education" onclick="expenseFamilycareDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\education.jpg" class="img-rounded" width="200" height="176" id="education" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','education')">
 
                         </a>
 
@@ -144,7 +145,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="gifts" onclick="expenseFamilycareDetails3()"><a href="Expense_Info.html"> Gifts</a></p>
+                        <p id="gifts" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gifts')"><a href="Expense_Info.html"> Gifts</a></p>
                         <p> <span id="gifts_row1_id1"></span>: <span id="gifts_row1_id2"></span></p>
                         <p> <span id="gifts_row2_id1"></span>: <span id="gifts_row2_id2"></span></p>
                         <p> <span id="gifts_row3_id1"></span>: <span id="gifts_row3_id2"></span></p>
@@ -155,7 +156,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\gifts.jpeg" class="img-rounded" width="200" height="176" id="gifts" onclick="expenseFamilycareDetails3()">
+                            <img style="float: right;" src=".\Resources\Pictures\gifts.jpeg" class="img-rounded" width="200" height="176" id="gifts" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gifts')">
 
                         </a>
 
@@ -199,6 +200,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -231,33 +238,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-
-        }
-
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseFamilycareDetails1() {
-
-            document.getElementById('childcare').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "childcare");
-
-        }
-
-
-        function expenseFamilycareDetails2() {
-
-            document.getElementById('education').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "education");
-
-        }
-
-
-        function expenseFamilycareDetails3() {
-
-            document.getElementById('gifts').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "gifts");
 
         }
 

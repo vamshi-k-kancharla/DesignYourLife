@@ -17,7 +17,7 @@
 
     <style>
 
-        @media screen and (max-width: 767px) {
+        @media screen and (max-width: 100%) {
         }
 
     </style>
@@ -31,6 +31,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -101,7 +102,7 @@
 
                         <a href="Food.html">
 
-                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="expenseDetails1()">
+                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','food')">
 
                         </a>
 
@@ -109,7 +110,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="food" onclick="expenseDetails1()"><a href="Food.html">Food</a> </p>
+                        <p id="food" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','food')"><a href="Food.html">Food</a> </p>
                         <p> <span id="food_row1_id1"></span>: <span id="food_row1_id2"></span></p>
                         <p> <span id="food_row2_id1"></span>: <span id="food_row2_id2"></span></p>
                         <p> <span id="food_row3_id1"></span>: <span id="food_row3_id2"></span></p>
@@ -120,7 +121,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="accommodation" onclick="expenseDetails2()"><a href="Accommodation.html"> Accommodation</a></p>
+                        <p id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','accommodation')"><a href="Accommodation.html"> Accommodation</a></p>
                         <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
                         <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
                         <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
@@ -131,7 +132,7 @@
 
                         <a href="Accommodation.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="expenseDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','accommodation')">
 
                         </a>
 
@@ -143,7 +144,7 @@
 
                         <a href="Entertainment.html">
 
-                            <img style="float:left; background-color: #9FF2BD" src=".\Resources\Pictures\entertainment.jpg" class="img-rounded" width="200" height="176" id="entertainment" onclick="expenseDetails3()">
+                            <img style="float:left; background-color: #9FF2BD" src=".\Resources\Pictures\entertainment.jpg" class="img-rounded" width="200" height="176" id="entertainment" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','entertainment')">
 
                         </a>
 
@@ -151,7 +152,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="entertainment" onclick="expenseDetails3()"><a href="Entertainment.html"> Entertainment</a></p>
+                        <p id="entertainment" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','entertainment')"><a href="Entertainment.html"> Entertainment</a></p>
                         <p> <span id="entertainment_row1_id1"></span>: <span id="entertainment_row1_id2"></span></p>
                         <p> <span id="entertainment_row2_id1"></span>: <span id="entertainment_row2_id2"></span></p>
                         <p> <span id="entertainment_row3_id1"></span>: <span id="entertainment_row3_id2"></span></p>
@@ -162,7 +163,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="familycare" onclick="expenseDetails4()"><a href="FamilyCare.html">FamilyCare</a></p>
+                        <p id="familycare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','familycare')"><a href="FamilyCare.html">FamilyCare</a></p>
                         <p> <span id="familycare_row1_id1"></span>: <span id="familycare_row1_id2"></span></p>
                         <p> <span id="familycare_row2_id1"></span>: <span id="familycare_row2_id2"></span></p>
                         <p> <span id="familycare_row3_id1"></span>: <span id="familycare_row3_id2"></span></p>
@@ -173,7 +174,7 @@
 
                         <a href="FamilyCare.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="expenseDetails4()">
+                            <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','familycare')">
 
                         </a>
 
@@ -185,7 +186,7 @@
 
                         <a href="Movie.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="Movie" onclick="expenseDetails5()">
+                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="Movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','movie')">
 
                         </a>
 
@@ -193,7 +194,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="movie" onclick="expenseDetails5()"><a href="Movie.html"> Movie</a></p>
+                        <p id="movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','movie')"><a href="Movie.html"> Movie</a></p>
                         <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
                         <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
                         <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
@@ -206,7 +207,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="medicalandfitness" onclick="expenseDetails6()"><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
+                        <p id="medicalandfitness" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','medicalandfitness')"><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
                         <p> <span id="medicalandfitness_row1_id1"></span>: <span id="medicalandfitness_row1_id2"></span></p>
                         <p> <span id="medicalandfitness_row2_id1"></span>: <span id="medicalandfitness_row2_id2"></span></p>
                         <p> <span id="medicalandfitness_row3_id1"></span>: <span id="medicalandfitness_row3_id2"></span></p>
@@ -217,7 +218,7 @@
 
                         <a href="MedicalAndFitness.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="expenseDetails6()">
+                            <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','medicalandfitness')">
 
                         </a>
 
@@ -229,7 +230,7 @@
 
                         <a href="Miscellaneous.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg" class="img-rounded" width="200" height="176" id="miscellaneous" onclick="expenseDetails7()">
+                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg" class="img-rounded" width="200" height="176" id="miscellaneous" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','miscellaneous')">
 
                         </a>
 
@@ -237,7 +238,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="miscellaneous" onclick="expenseDetails7()"><a href="Miscellaneous.html"> Miscellaneous</a></p>
+                        <p id="miscellaneous" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','miscellaneous')"><a href="Miscellaneous.html"> Miscellaneous</a></p>
                         <p> <span id="miscellaneous_row1_id1"></span>: <span id="miscellaneous_row1_id2"></span></p>
                         <p> <span id="miscellaneous_row2_id1"></span>: <span id="miscellaneous_row2_id2"></span></p>
                         <p> <span id="miscellaneous_row3_id1"></span>: <span id="miscellaneous_row3_id2"></span></p>
@@ -248,7 +249,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="shopping" onclick="expenseDetails8()"><a href="Shopping.html"> Shopping</a></p>
+                        <p id="shopping" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','shopping')"><a href="Shopping.html"> Shopping</a></p>
                         <p> <span id="shopping_row1_id1"></span>: <span id="shopping_row1_id2"></span></p>
                         <p> <span id="shopping_row2_id1"></span>: <span id="shopping_row2_id2"></span></p>
                         <p> <span id="shopping_row3_id1"></span>: <span id="shopping_row3_id2"></span></p>
@@ -259,7 +260,7 @@
 
                         <a href="Shopping.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="expenseDetails8()">
+                            <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','shopping')">
 
                         </a>
 
@@ -271,7 +272,7 @@
 
                         <a href="Transportation.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="expenseDetails9()">
+                            <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','transportation')">
 
                         </a>
 
@@ -279,7 +280,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="transportation" onclick="expenseDetails9()"><a href="Transportation.html"> Transportation</a></p>
+                        <p id="transportation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','transportation')"><a href="Transportation.html"> Transportation</a></p>
                         <p> <span id="transportation_row1_id1"></span>: <span id="transportation_row1_id2"></span></p>
                         <p> <span id="transportation_row2_id1"></span>: <span id="transportation_row2_id2"></span></p>
                         <p> <span id="transportation_row3_id1"></span>: <span id="transportation_row3_id2"></span></p>
@@ -290,7 +291,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="vacation" onclick="expenseDetails10()"><a href="Vacation.html"> Vacation</a></p>
+                        <p id="vacation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','vacation')"><a href="Vacation.html"> Vacation</a></p>
                         <p> <span id="vacation_row1_id1"></span>: <span id="vacation_row1_id2"></span></p>
                         <p> <span id="vacation_row2_id1"></span>: <span id="vacation_row2_id2"></span></p>
                         <p> <span id="vacation_row3_id1"></span>: <span id="vacation_row3_id2"></span></p>
@@ -301,7 +302,7 @@
 
                         <a href="Vacation.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="expenseDetails10()">
+                            <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','vacation')">
 
                         </a>
 
@@ -324,15 +325,15 @@
 
             <div class="col-sm-4">
 
-                <p>Contact us :</p>
-                <p>Phno : </p>
-                <p>E-mail : </p>
+                <p>Contact us: </p>
+                <p>Phone No: </p>
+                <p>E-mail: </p>
 
             </div>
 
             <div class="col-sm-8 text-center">
 
-                <p>Address :</p>
+                <p>Address: </p>
                 <p>Vindhya c4</p>
                 <p>IIIT Gachibowli campus,hyd<p>
                 <p>Pin code : 500032</p>
@@ -344,6 +345,12 @@
     </footer>
 
     <script type="text/javascript">
+
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
 
         window.onload = function (event) {
 
@@ -378,78 +385,9 @@
             }
         }
 
-        function expenseDetails1() {
-
-            document.getElementById('food').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "food");
-
-        }
-
-        function expenseDetails2() {
-
-            document.getElementById('accommodation').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "accommodation");
-
-        }
-
-        function expenseDetails3() {
-
-            document.getElementById('entertainment').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "entertainment");
-
-        }
-
-        function expenseDetails4() {
-
-            document.getElementById('familycare').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "familycare");
-
-        }
-
-        function expenseDetails5() {
-
-            document.getElementById('movie').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "movie");
-
-        }
-
-        function expenseDetails6() {
-
-            document.getElementById('medicalandfitness').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "medicalandfitness");
-
-        }
-
-        function expenseDetails7() {
-
-            document.getElementById('miscellaneous').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "miscellaneous");
-
-        }
-
-        function expenseDetails8() {
-
-            document.getElementById('shopping').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "shopping");
-
-        }
-
-        function expenseDetails9() {
-
-            document.getElementById('transportation').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "transportation");
-
-        }
-
-        function expenseDetails10() {
-
-            document.getElementById('vacation').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "vacation");
-
-        }
-
     </script>
 
 </body>
 
 </html>
+

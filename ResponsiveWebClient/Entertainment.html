@@ -30,6 +30,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -100,7 +101,7 @@
 
                         <a href="container_info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="movie" onclick="expenseEntertainmentDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','movie')">
 
                         </a>
 
@@ -108,7 +109,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="movie" onclick="expenseEntertainmentDetails1()"><a href="Expense_Info.html"> Movie</a></p>
+                        <p id="movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','movie')"><a href="Expense_Info.html"> Movie</a></p>
                         <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
                         <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
                         <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
@@ -122,7 +123,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="clubs" onclick="expenseEntertainmentDetails2()"><a href="Expense_Info.html"> Clubs</a></p>
+                        <p id="clubs" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','clubs')"><a href="Expense_Info.html"> Clubs</a></p>
                         <p> <span id="clubs_row1_id1"></span>: <span id="clubs_row1_id2"></span></p>
                         <p> <span id="clubs_row2_id1"></span>: <span id="clubs_row2_id2"></span></p>
                         <p> <span id="clubs_row3_id1"></span>: <span id="clubs_row3_id2"></span></p>
@@ -133,7 +134,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\clubs.jpg" class="img-rounded" width="200" height="176" id="clubs" onclick="expenseEntertainmentDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\clubs.jpg" class="img-rounded" width="200" height="176" id="clubs" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','clubs')">
 
                         </a>
 
@@ -177,6 +178,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -208,26 +215,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseEntertainmentDetails1() {
-
-            document.getElementById('movie').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "movie");
-
-        }
-
-        function expenseEntertainmentDetails2() {
-
-            document.getElementById('clubs').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "clubs");
 
         }
 

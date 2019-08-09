@@ -31,6 +31,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -101,7 +102,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\carinsurance.jpg" class="img-rounded" width="200" height="176" id="carinsurance" onclick="expenseTransportationDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\carinsurance.jpg" class="img-rounded" width="200" height="176" id="carinsurance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','carinsurance')">
 
                         </a>
 
@@ -109,7 +110,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="carinsurance" onclick="expenseTransportationDetails1()"><a href="Expense_Info.html">Insurance</a></p>
+                        <p id="carinsurance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','carinsurance')"><a href="Expense_Info.html">Insurance</a></p>
                         <p> <span id="carinsurance_row1_id1"></span>: <span id="carinsurance_row1_id2"></span></p>
                         <p> <span id="carinsurance_row2_id1"></span>: <span id="carinsurance_row2_id2"></span></p>
                         <p> <span id="carinsurance_row3_id1"></span>: <span id="carinsurance_row3_id2"></span></p>
@@ -120,7 +121,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="vehiclemaintenance" onclick="expenseTransportationDetails2()"><a href="Expense_Info.html">Vehicle Maintenance</a></p>
+                        <p id="vehiclemaintenance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','vehiclemaintenance')"><a href="Expense_Info.html">Vehicle Maintenance</a></p>
                         <p> <span id="vehiclemaintenance_row1_id1"></span>: <span id="vehiclemaintenance_row1_id2"></span></p>
                         <p> <span id="vehiclemaintenance_row2_id1"></span>: <span id="vehiclemaintenance_row2_id2"></span></p>
                         <p> <span id="vehiclemaintenance_row3_id1"></span>: <span id="vehiclemaintenance_row3_id2"></span></p>
@@ -131,7 +132,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\vehiclemaintenance.jpg" class="img-rounded" width="200" height="176" id="vehiclemaintenance" onclick="expenseTransportationDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\vehiclemaintenance.jpg" class="img-rounded" width="200" height="176" id="vehiclemaintenance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','vehiclemaintenance')">
 
                         </a>
 
@@ -143,7 +144,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left; background-color: #9FF2BD" src=".\Resources\Pictures\fuel.jpg" class="img-rounded" width="200" height="176" id="fuel" onclick="expenseTransportationDetails3()">
+                            <img style="float: left; background-color: #9FF2BD" src=".\Resources\Pictures\fuel.jpg" class="img-rounded" width="200" height="176" id="fuel" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fuel')">
 
                         </a>
 
@@ -151,7 +152,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="fuel" onclick="expenseTransportationDetails3()"><a href="Expense_Info.html">Fuel</a></p>
+                        <p id="fuel" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fuel')"><a href="Expense_Info.html">Fuel</a></p>
                         <p> <span id="fuel_row1_id1"></span>: <span id="fuel_row1_id2"></span></p>
                         <p> <span id="fuel_row2_id1"></span>: <span id="fuel_row2_id2"></span></p>
                         <p> <span id="fuel_row3_id1"></span>: <span id="fuel_row3_id2"></span></p>
@@ -166,7 +167,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="rentalcar" onclick="expenseTransportationDetails4()"><a href="Expense_Info.html">RentalCar</a></p>
+                        <p id="rentalcar" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','rentalcar')"><a href="Expense_Info.html">RentalCar</a></p>
                         <p> <span id="rentalcar_row1_id1"></span>: <span id="rentalcar_row1_id2"></span></p>
                         <p> <span id="rentalcar_row2_id1"></span>: <span id="rentalcar_row2_id2"></span></p>
                         <p> <span id="rentalcar_row3_id1"></span>: <span id="rentalcar_row3_id2"></span></p>
@@ -177,7 +178,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\rentalcar.jpg" class="img-rounded" width="200" height="176" id="rentalcar" onclick="expenseTransportationDetails4()">
+                            <img style="float: right;" src=".\Resources\Pictures\rentalcar.jpg" class="img-rounded" width="200" height="176" id="rentalcar" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','rentalcar')">
 
                         </a>
 
@@ -189,7 +190,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\taxi.jpg" class="img-rounded" width="200" height="176" id="taxi" onclick="expenseTransportationDetails5()">
+                            <img style="float: left;" src=".\Resources\Pictures\taxi.jpg" class="img-rounded" width="200" height="176" id="taxi" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','taxi')">
 
                         </a>
 
@@ -197,7 +198,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="taxi" onclick="expenseTransportationDetails5()"><a href="Expense_Info.html">Taxi</a></p>
+                        <p id="taxi" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','taxi')"><a href="Expense_Info.html">Taxi</a></p>
                         <p> <span id="taxi_row1_id1"></span>: <span id="taxi_row1_id2"></span></p>
                         <p> <span id="taxi_row2_id1"></span>: <span id="taxi_row2_id2"></span></p>
                         <p> <span id="taxi_row3_id1"></span>: <span id="taxi_row3_id2"></span></p>
@@ -208,7 +209,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="train" onclick="expenseTransportationDetails6()"><a href="Expense_Info.html">Train</a></p>
+                        <p id="train" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','train')"><a href="Expense_Info.html">Train</a></p>
                         <p> <span id="train_row1_id1"></span>: <span id="train_row1_id2"></span></p>
                         <p> <span id="train_row2_id1"></span>: <span id="train_row2_id2"></span></p>
                         <p> <span id="train_row3_id1"></span>: <span id="train_row3_id2"></span></p>
@@ -219,7 +220,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\train.jpg" class="img-rounded" width="200" height="176" id="train" onclick="expenseTransportationDetails6()">
+                            <img style="float: right;" src=".\Resources\Pictures\train.jpg" class="img-rounded" width="200" height="176" id="train" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','train')">
 
                         </a>
 
@@ -265,6 +266,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -297,54 +304,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseTransportationDetails1() {
-
-            document.getElementById('carinsurance').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "carinsurance");
-
-        }
-
-        function expenseTransportationDetails2() {
-
-            document.getElementById('vehiclemaintenance').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "vehiclemaintenance");
-
-        }
-
-        function expenseTransportationDetails3() {
-
-            document.getElementById('fuel').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "fuel");
-
-        }
-
-        function expenseTransportationDetails4() {
-
-            document.getElementById('rentalcar').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "rentalcar");
-
-        }
-
-        function expenseTransportationDetails5() {
-
-            document.getElementById('taxi').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "taxi");
-
-        }
-
-        function expenseTransportationDetails6() {
-
-            document.getElementById('train').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "train");
-
         }
 
     </script>

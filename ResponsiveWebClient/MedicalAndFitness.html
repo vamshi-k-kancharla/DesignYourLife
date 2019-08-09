@@ -31,6 +31,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -101,7 +102,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="gym" onclick="expenseMedicalAndFitnessDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="gym" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gym')">
 
                         </a>
 
@@ -109,7 +110,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="gym" onclick="expenseMedicalAndFitnessDetails1()"><a href="container_info.html">Gym</a></p>
+                        <p id="gym" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gym')"><a href="container_info.html">Gym</a></p>
                         <p> <span id="gym_row1_id1"></span>: <span id="gym_row1_id2"></span></p>
                         <p> <span id="gym_row2_id1"></span>: <span id="gym_row2_id2"></span></p>
                         <p> <span id="gym_row3_id1"></span>: <span id="gym_row3_id2"></span></p>
@@ -120,7 +121,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="skincare" onclick="expenseMedicalAndFitnessDetails2()"><a href="Expense_Info.html">SkinCare</a></p>
+                        <p id="skincare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','skincare')"><a href="Expense_Info.html">SkinCare</a></p>
                         <p> <span id="skincare_row1_id1"></span>: <span id="skincare_row1_id2"></span></p>
                         <p> <span id="skincare_row2_id1"></span>: <span id="skincare_row2_id2"></span></p>
                         <p> <span id="skincare_row3_id1"></span>: <span id="skincare_row3_id2"></span></p>
@@ -131,7 +132,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\skincare.jpg" class="img-rounded" width="200" height="176" id="skincare" onclick="expenseMedicalAndFitnessDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\skincare.jpg" class="img-rounded" width="200" height="176" id="skincare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','skincare')">
 
                         </a>
 
@@ -143,7 +144,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="generic" onclick="expenseMedicalAndFitnessDetails3()"><a href="Expense_Info.html">Generic</a></p>
+                        <p id="generic" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','generic')"><a href="Expense_Info.html">Generic</a></p>
                         <p> <span id="generic_row1_id1"></span>: <span id="generic_row1_id2"></span></p>
                         <p> <span id="generic_row2_id1"></span>: <span id="generic_row2_id2"></span></p>
                         <p> <span id="generic_row3_id1"></span>: <span id="generic_row3_id2"></span></p>
@@ -154,7 +155,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\generic.jpg" class="img-rounded" width="200" height="176" id="generic" onclick="expenseMedicalAndFitnessDetails3()">
+                            <img style="float: right;" src=".\Resources\Pictures\generic.jpg" class="img-rounded" width="200" height="176" id="generic" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','generic')">
 
                         </a>
 
@@ -166,7 +167,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left;" src=".\Resources\Pictures\insurance.jpg" class="img-rounded" width="200" height="176" id="insurance" onclick="expenseMedicalAndFitnessDetails4()">
+                            <img style="float: left;" src=".\Resources\Pictures\insurance.jpg" class="img-rounded" width="200" height="176" id="insurance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','insurance')">
 
                         </a>
 
@@ -174,7 +175,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="insurance" onclick="expenseMedicalAndFitnessDetails4()"><a href="Expense_Info.html">Insurance</a></p>
+                        <p id="insurance" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','insurance')"><a href="Expense_Info.html">Insurance</a></p>
                         <p> <span id="insurance_row1_id1"></span>: <span id="insurance_row1_id2"></span></p>
                         <p> <span id="insurance_row2_id1"></span>: <span id="insurance_row2_id2"></span></p>
                         <p> <span id="insurance_row3_id1"></span>: <span id="insurance_row3_id2"></span></p>
@@ -219,6 +220,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -250,42 +257,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseMedicalAndFitnessDetails1() {
-
-            document.getElementById('gym').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "gym");
-
-        }
-
-
-        function expenseMedicalAndFitnessDetails2() {
-
-            document.getElementById('skincare').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "skincare");
-
-        }
-
-
-        function expenseMedicalAndFitnessDetails3() {
-
-            document.getElementById('generic').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "generic");
-
-        }
-
-        function expenseMedicalAndFitnessDetails4() {
-
-            document.getElementById('insurance').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "insurance");
-
         }
 
     </script>

@@ -31,6 +31,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -101,7 +102,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\gadgets.jpg" class="img-rounded" width="200" height="176" id="gadgets" onclick="expenseShoppingDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\gadgets.jpg" class="img-rounded" width="200" height="176" id="gadgets" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gadgets')">
 
                         </a>
 
@@ -109,7 +110,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="gadgets" onclick="expenseShoppingDetails1()"><a href="Expense_Info.html"> Gadgets</a></p>
+                        <p id="gadgets" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','gadgets')"><a href="Expense_Info.html"> Gadgets</a></p>
                         <p> <span id="gadgets_row1_id1"></span>: <span id="gadgets_row1_id2"></span></p>
                         <p> <span id="gadgets_row2_id1"></span>: <span id="gadgets_row2_id2"></span></p>
                         <p> <span id="gadgets_row3_id1"></span>: <span id="gadgets_row3_id2"></span></p>
@@ -123,7 +124,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="fashion" onclick="expenseShoppingDetails2()"><a href="Expense_Info.html">Fashion</a></p>
+                        <p id="fashion" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fashion')"><a href="Expense_Info.html">Fashion</a></p>
                         <p> <span id="fashion_row1_id1"></span>: <span id="fashion_row1_id2"></span></p>
                         <p> <span id="fashion_row2_id1"></span>: <span id="fashion_row2_id2"></span></p>
                         <p> <span id="fashion_row3_id1"></span>: <span id="fashion_row3_id2"></span></p>
@@ -134,7 +135,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\fashion.jpg" class="img-rounded" width="200" height="176" id="fashion" onclick="expenseShoppingDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\fashion.jpg" class="img-rounded" width="200" height="176" id="fashion" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fashion')">
 
                         </a>
 
@@ -178,6 +179,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -210,26 +217,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseShoppingDetails1() {
-
-            document.getElementById('gadgets').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "gadgets");
-
-        }
-
-        function expenseShoppingDetails2() {
-
-            document.getElementById('fashion').value =
-                window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "fashion");
-
         }
 
     </script>

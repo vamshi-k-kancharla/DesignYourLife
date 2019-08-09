@@ -28,6 +28,12 @@
     
 <body>
 
+    <script src="./JavaScripts/UserAuthentication.js"></script>
+    <script src="./JavaScripts/GlobalsWebClient.js"></script>
+    <script src="./JavaScripts/Key_Value_Map.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
+
     <nav id="headerNav" class="navbar navbar-inverse">
 
         <div class="container-fluid">
@@ -97,7 +103,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\coffeeshop.jpg" class="img-rounded" width="200" height="176" id="coffeeshop" onclick="expenseFoodDetails1()">
+                            <img style="float: left" src=".\Resources\Pictures\coffeeshop.jpg" class="img-rounded" width="200" height="176" id="coffeeshop" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','coffeeshop')">
 
                         </a>
 
@@ -105,7 +111,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="coffeeshop" onclick="expenseFoodDetails1()"> <a href="Expense_Info.html">CoffeeShop</a></p>
+                        <p id="coffeeshop" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','coffeeshop')"> <a href="Expense_Info.html">CoffeeShop</a></p>
                         <p> <span id="coffeeshop_row1_id1"></span>: <span id="coffeeshop_row1_id2"></span></p>
                         <p> <span id="coffeeshop_row2_id1"></span>: <span id="coffeeshop_row2_id2"></span></p>
                         <p> <span id="coffeeshop_row3_id1"></span>: <span id="coffeeshop_row3_id2"></span></p>
@@ -116,7 +122,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="groceries" onclick="expenseFoodDetails2()"> <a href="Expense_Info.html">Groceries</a></p>
+                        <p id="groceries" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','groceries')"> <a href="Expense_Info.html">Groceries</a></p>
                         <p> <span id="groceries_row1_id1"></span>: <span id="groceries_row1_id2"></span></p>
                         <p> <span id="groceries_row2_id1"></span>: <span id="groceries_row2_id2"></span></p>
                         <p> <span id="groceries_row3_id1"></span>: <span id="groceries_row3_id2"></span></p>
@@ -127,7 +133,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\groceries.jpg" class="img-rounded" width="200" height="176" id="groceries" onclick="expenseFoodDetails2()">
+                            <img style="float: right;" src=".\Resources\Pictures\groceries.jpg" class="img-rounded" width="200" height="176" id="groceries" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','groceries')">
 
                         </a>
 
@@ -139,7 +145,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="restaurants" onclick="expenseFoodDetails3()"> <a href="Expense_Info.html">Restaurants</a></p>
+                        <p id="restaurants" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','restaurants')"> <a href="Expense_Info.html">Restaurants</a></p>
                         <p> <span id="restaurants_row1_id1"></span>: <span id="restaurants_row1_id2"></span></p>
                         <p> <span id="restaurants_row2_id1"></span>: <span id="restaurants_row2_id2"></span></p>
                         <p> <span id="restaurants_row3_id1"></span>: <span id="restaurants_row3_id2"></span></p>
@@ -150,7 +156,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: right;" src=".\Resources\Pictures\restaurants.jpg" class="img-rounded" width="200" height="176" id="restaurants" onclick="expenseFoodDetails3()">
+                            <img style="float: right;" src=".\Resources\Pictures\restaurants.jpg" class="img-rounded" width="200" height="176" id="restaurants" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','restaurants')">
 
                         </a>
 
@@ -192,12 +198,13 @@
 
     </footer>
 
-    <script src="./JavaScripts/UserAuthentication.js"></script>
-    <script src="./JavaScripts/GlobalsWebClient.js"></script>
-    <script src="./JavaScripts/Key_Value_Map.js"></script>
-    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
-
     <script type="text/javascript">
+
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
 
         window.onload = function (event) {
 
@@ -231,30 +238,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseFoodDetails1() {
-
-            document.getElementById('coffeeshop').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "coffeeshop");
-
-        }
-
-        function expenseFoodDetails2() {
-
-            document.getElementById('groceries').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "groceries");
-
-        }
-
-        function expenseFoodDetails3() {
-
-            document.getElementById('restaurants').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "restaurants");
-
         }
 
     </script>

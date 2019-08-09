@@ -31,6 +31,7 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -101,7 +102,7 @@
 
                         <a href="Expense_Info.html">
 
-                            <img style="float: left" src=".\Resources\Pictures\charity.jpg" class="img-rounded" width="200" height="176" id="charity" onclick="expenseMiscellaneousDetails()">
+                            <img style="float: left" src=".\Resources\Pictures\charity.jpg" class="img-rounded" width="200" height="176" id="charity" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','charity')">
 
                         </a>
 
@@ -109,7 +110,7 @@
 
                     <div class="col-sm-6">
 
-                        <p id="charity" onclick="expenseMiscellaneousDetails()"><a href="Expense_Info.html">Charity</a></p>
+                        <p id="charity" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','charity')"><a href="Expense_Info.html">Charity</a></p>
                         <p> <span id="charity_row1_id1"></span>: <span id="charity_row1_id2"></span></p>
                         <p> <span id="charity_row2_id1"></span>: <span id="charity_row2_id2"></span></p>
                         <p> <span id="charity_row3_id1"></span>: <span id="charity_row3_id2"></span></p>
@@ -154,6 +155,12 @@
 
     <script type="text/javascript">
 
+        /**
+         *
+         *  Page onload functionality
+         *
+         */
+
         window.onload = function (event) {
 
             displayContainerValues();
@@ -186,18 +193,6 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
-        }
-
-        /**
-         *
-         *  Stores the selection in cache based on onClick() event
-         *
-         */
-
-        function expenseMiscellaneousDetails() {
-
-            document.getElementById('charity').value = window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "charity");
-
         }
 
     </script>
