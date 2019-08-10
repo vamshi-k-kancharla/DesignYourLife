@@ -14,22 +14,22 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
+    <script src="./JavaScripts/Key_Value_Map.js"></script>
+    <script src="./JavaScripts/GlobalsWebClient.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
 
     <style>
 
         @media screen and (max-width: 100%) {
         }
-
     </style>
 
 </head>
     
 <body>
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="./JavaScripts/Key_Value_Map.js"></script>
-    <script src="./JavaScripts/GlobalsWebClient.js"></script>
-    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -87,163 +87,25 @@
 
             <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
 
-            <div id="mainContentWindow" class="col-sm-8 text-left" style="background-color: #D5D9D3; border:groove">
+            <div id="mainContentWindow" class="col-sm-8" style="background-color: #D5D9D3; border:groove">
 
                 <div class="navbar navbar-inverse" style="background-color:#35433A">
 
-                    <div class="navbar-header">
+                    <div class="navbar-header col-sm-12">
 
-                        <h2 style="text-align: center; padding-left: 350px ; color: white">IMAGE INFO</h2>
-
-                    </div>
-
-                </div>
-
-                <div style="padding: 20px"></div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-3">
-
-                        <img id="img1" style="width:100%">
-
-                    </div>
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: left;">
-                            <span id="img1_id1"></span> : <span id="img1_value1"></span>,
-                            <span id="img1_id2"></span> : <span id="img1_value2"></span>,
-                            <span id="img1_id3"></span> : <span id="img1_value3"></span>
-                        </p>
+                        <label class="col-sm-3"></label>
+                        <h2  style="color: white;" class="col-sm-9">EXPENSE DETAILS</h2>
 
                     </div>
 
                 </div>
 
-                <div style="padding: 75px"></div>
+                <div class="col-sm-12" style="padding:2%"></div>
 
-                <div class="col-sm-12">
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: right;">
-                            <span id="img2_id1"></span> : <span id="img2_value1"></span>,
-                            <span id="img2_id2"></span> : <span id="img2_value2"></span>,
-                            <span id="img2_id3"></span> : <span id="img2_value3"></span>
-                        </p>
-
-                    </div>
-
-                    <div class="col-sm-3">
-
-                        <img id="img2" style="width:100%">
-
-                    </div>
-
+                <div id="expenseContentWindow" class="col-sm-12">
                 </div>
 
-                <div style="padding: 75px"></div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-3">
-
-                        <img id="img3" style="width:100%">
-
-                    </div>
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: left;">
-                            <span id="img3_id1"></span> : <span id="img3_value1"></span>,
-                            <span id="img3_id2"></span> : <span id="img3_value2"></span>,
-                            <span id="img3_id3"></span> : <span id="img3_value3"></span>
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div style="padding: 75px"></div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: right;">
-                            <span id="img4_id1"></span> : <span id="img4_value1"></span>,
-                            <span id="img4_id2"></span> : <span id="img4_value2"></span>,
-                            <span id="img4_id3"></span> : <span id="img4_value3"></span>
-                        </p>
-
-                    </div>
-
-                    <div class="col-sm-3">
-
-                        <img id="img4" style="width:100%">
-
-                    </div>
-
-                </div>
-
-                <div style="padding: 75px"></div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-3">
-
-                        <img id="img5" style="width:100%">
-
-                    </div>
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: left;">
-                            <span id="img5_id1"></span> : <span id="img5_value1"></span>,
-                            <span id="img5_id2"></span> : <span id="img5_value2"></span>,
-                            <span id="img5_id3"></span> : <span id="img5_value3"></span>
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div style="padding: 75px"></div>
-
-                <div class="col-sm-12">
-
-                    <div class="col-sm-9">
-
-                        <div style="padding: 10px"></div>
-
-                        <p style="text-align: right;">
-                            <span id="img6_id1"></span> : <span id="img6_value1"></span>,
-                            <span id="img6_id2"></span> : <span id="img6_value2"></span>,
-                            <span id="img6_id3"></span> : <span id="img6_value3"></span>
-                        </p>
-
-                    </div>
-
-                    <div class="col-sm-3">
-
-                        <img id="img6" style="width:100%">
-
-                    </div>
-
-                </div>
-
-                <div style="padding: 75px"></div>
+                <div class="col-sm-12" style="padding:2%"></div>
 
                 <div class="col-sm-12">
 
@@ -251,6 +113,8 @@
                     <button type="submit" class="btn btn-default" style="float: right;" onclick="window.open('./addexpense.html','_self')">Add Expense</button>
 
                 </div>
+
+                <div class="col-sm-12" style="padding:2%"></div>
 
             </div>
 
@@ -294,31 +158,59 @@
          *
          */
 
+        var noOfExpenses = 400;
+
         window.onload = function (event) {
 
-            displayExpenseValues();
+            retrieveExpenseDetailsAndRenderDynamicContent()
+
+            var sideNavigatorsBottomBufferHeight = (.05 / noOfExpenses);
+
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1.01);
+                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
         }
 
         /**
          *
-         *  Displays Expense values onload by retrieving data.
+         *  Retrieve Expense Details from Server and Render content dynamically
          *
          */
 
-        function displayExpenseValues() {
+        function retrieveExpenseDetailsAndRenderDynamicContent() {
 
-            var totalNumberOfContainers = 6;
+            var noOfExpenseDetails = 3;
+
+            for (var currentExpenseNum = 1; currentExpenseNum <= noOfExpenses; currentExpenseNum++) {
+
+                var textAlignmentArray = ["right", "left"];
+                RenderingHelperUtilsModule.addExpenseDetailContainer("expenseContentWindow", currentExpenseNum,
+                    textAlignmentArray[currentExpenseNum % 2], noOfExpenseDetails);
+            }
+
+            // Now that dynamic rendering of ExpenseDetailsWindow happened, display all the expense details
+
+            displayExpenseDetails(noOfExpenses, noOfExpenseDetails);
+        }
+
+        /**
+         *
+         * @param {int} noOfExpenses  : Number of expenses obtained from server
+         * @param {int} noOfExpenseDetails  : Number of expense details in each expense
+         *
+         */
+
+        function displayExpenseDetails(noOfExpenses, noOfExpenseDetails) {
+
+            var totalNumberOfContainers = noOfExpenses;
             var imageSource = "./Resources/Pictures/accommodation.jpg";
             //var imageSource = "./Resources/Pictures/" + window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
 
             for (var currentContainer = 1; currentContainer <= totalNumberOfContainers; currentContainer++) {
 
-                var keyIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("img", currentContainer, 3, "id");
-                var valueIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("img", currentContainer, 3, "value");
+                var keyIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("containerNode", currentContainer, noOfExpenseDetails, "id");
+                var valueIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("containerNode", currentContainer, noOfExpenseDetails, "value");
 
-                var keyValueMap = keyValueMapModule.deduceExpenseKeyValueMap("img", currentContainer, imageSource,
+                var keyValueMap = keyValueMapModule.deduceExpenseKeyValueMap("containerNode", currentContainer, imageSource,
                     keyIdArray, valueIdArray, GlobalWebClientModule.dummyResultObject_ExpenseDetails);
 
                 if (GlobalWebClientModule.bDebug == true) {
@@ -330,6 +222,9 @@
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
             }
+
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1.01);
         }
 
     </script>

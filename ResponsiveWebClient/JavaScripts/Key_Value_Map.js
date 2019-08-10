@@ -148,7 +148,7 @@ var keyValueMapModule = (function () {
 
         // Fill image info in map
 
-        var imageKey = containerPrefix + String(currentContainer);
+        var imageKey = containerPrefix + String(currentContainer) + "_img";
         document.getElementById(imageKey).setAttribute("src", imageSource);
 
         return resultKeyValueMap;
