@@ -9,10 +9,15 @@ var UserRegistrationModule = (function () {
 
     function userRegistration(){
 
-        var uniqueUserId = "UserId_" + HelperUtilsModule.returnUniqueIdBasedCurrentTime();
+        var uniqueUserId = "UserId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
 
         var userRegistrationDataMap = FormDataInputHelperUtilsModule.processFormInputData( uniqueUserId,
             GlobalWebClientModule.userRegistrationData_InputIds, GlobalWebClientModule.userRegistrationData_Keys );
+
+        if (GlobalWebClientModule.bDebug == true) {
+
+            alert("userRegistrationDataMap.length = " + userRegistrationDataMap.size);
+        }
 
         // Check for required input values
 
@@ -32,7 +37,26 @@ var UserRegistrationModule = (function () {
 
         // Web Client Request for User Registration
 
-        WebClientRequestHelperModule.webClientRequestAPIWrapper("UserRegistration", userRegistrationDataMap);
+        WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("UserRegistration", userRegistrationDataMap,
+            postUserSignup_SuccessCallback, postUserSignup_FailureCallback);
+    }
+
+    /**
+    * 
+    * Post processing Callbacks after Web Client Requests
+    *
+    */
+
+    function postUserSignup_SuccessCallback(webReqResponse) {
+
+        alert("User Registration was successful : " + webReqResponse);
+        document.location.replace("./HomePage.html");
+    }
+
+    function postUserSignup_FailureCallback(webReqResponse) {
+
+        alert("User Registration has failed : " + webReqResponse);
+        document.location.replace("./SignUpPage.html");
     }
 
     /**

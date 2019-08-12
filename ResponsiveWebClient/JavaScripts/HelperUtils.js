@@ -45,8 +45,9 @@ var HelperUtilsModule = (function () {
         todaysYear += 1900;
         var randomNumber = Math.floor(Math.random() * randomNumberSeed);
 
-        var uniqueIdBasedOnCurrentTime = randomNumber.toString() + todaysYear + todaysMonth + todaysDate + todaysDate.getHours().toString() +
-            todaysDate.getMinutes().toString() + todaysDate.getSeconds().toString() + todaysDate.getMilliseconds.toString();
+        var uniqueIdBasedOnCurrentTime = randomNumber.toString() + todaysYear + todaysMonth + todaysDate.getDay().toString() +
+            todaysDate.getHours().toString() + todaysDate.getMinutes().toString() + todaysDate.getSeconds().toString() +
+            todaysDate.getMilliseconds().toString();
         return uniqueIdBasedOnCurrentTime;
 
     }

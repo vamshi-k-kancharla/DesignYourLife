@@ -36,6 +36,8 @@
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/UserAuthentication.js"></script>
+    <script src="./JavaScripts/CacheHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -78,8 +80,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a style="color:black"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#" style="color:black"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a id="LogoutButton" href="#" style="color:black" onclick='UserAuthenticationModule.resetUserContextAndLogout()'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
             </ul>
 

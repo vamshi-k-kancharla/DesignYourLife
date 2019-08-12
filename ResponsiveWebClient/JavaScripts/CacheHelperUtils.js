@@ -45,6 +45,21 @@ var CacheHelperUtilsModule = (function () {
 
     }
 
+    /**
+     *
+     * Reset Local User context upon Logout
+     *
+     */
+
+    function resetUserContextInLocalCache() {
+
+        window.localStorage.setItem(GlobalWebClientModule.currentUserName_Key, "");
+        window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, "");
+        window.localStorage.setItem(GlobalWebClientModule.currentExpense_Category_Key, "");
+        window.localStorage.setItem(GlobalWebClientModule.currentExpense_SubCategory_Key, "");
+
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -52,6 +67,7 @@ var CacheHelperUtilsModule = (function () {
     return {
 
         storeValueInLocalCache: storeValueInLocalCache,
+        resetUserContextInLocalCache: resetUserContextInLocalCache,
 
     };
 

@@ -4,7 +4,7 @@ var GlobalWebClientModule = (function () {
     // Globals & Configs
 
     var bDebug = false;
-    var webServerPrefix = "http://127.0.0.1:3500/?";
+    var webServerPrefix = "http://127.0.0.1:4500/?";
 
     // Current User Context : Local cache
 

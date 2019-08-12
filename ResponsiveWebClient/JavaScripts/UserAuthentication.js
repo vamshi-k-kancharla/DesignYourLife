@@ -53,6 +53,18 @@ var UserAuthenticationModule = (function () {
     }
 
     /**
+     *
+     *  Reset Local User Context and Logout
+     *
+     */
+
+    function resetUserContextAndLogout() {
+
+        CacheHelperUtilsModule.resetUserContextInLocalCache();
+        document.location.replace("./HomePage.html");
+    }
+
+    /**
     * 
     * Reveal Private methods & variables
     *
@@ -60,7 +72,8 @@ var UserAuthenticationModule = (function () {
 
     return {
 
-        processUserLogin : processUserLogin,
+        processUserLogin: processUserLogin,
+        resetUserContextAndLogout: resetUserContextAndLogout,
     }
 
 })();
