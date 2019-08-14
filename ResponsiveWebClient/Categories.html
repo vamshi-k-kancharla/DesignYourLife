@@ -32,6 +32,8 @@
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
+    <script src="./JavaScripts/RenderingHelperWrapperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -39,7 +41,7 @@
 
             <div class="navbar-header">
 
-                <a class="navbar-brand" style="color:black" href="homepage.html">DesignYourLife</a>
+                <a class="navbar-brand" style="color:black" href="#">DesignYourLife</a>
 
             </div>
 
@@ -72,7 +74,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li><a href="#" id="LogoutButton"style="color:black" onclick='UserAuthenticationModule.resetUserContextAndLogout()'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+                <li><a href="#" id="LogoutButton" style="color:black" onclick='UserAuthenticationModule.resetUserContextAndLogout()'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 
             </ul>
 
@@ -91,222 +93,6 @@
                 <div style="background-color: #4B5246;">
 
                     <h1 style="text-align: center;color: white">CATEGORIES </h1>
-
-                </div>
-
-                <div style="padding: 10px"></div>
-
-                <div class="col-sm-6">
-
-                    <div class="col-sm-6">
-
-                        <a href="Food.html">
-
-                            <img id="food" style="float: left" src=".\Resources\Pictures\food.jpg" class="img-rounded" width="200" height="176" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','food')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="food" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','food')"><a href="Food.html">Food</a> </p>
-                        <p> <span id="food_row1_id1"></span>: <span id="food_row1_id2"></span></p>
-                        <p> <span id="food_row2_id1"></span>: <span id="food_row2_id2"></span></p>
-                        <p> <span id="food_row3_id1"></span>: <span id="food_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','accommodation')"><a href="Accommodation.html"> Accommodation</a></p>
-                        <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
-                        <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
-                        <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Accommodation.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','accommodation')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Entertainment.html">
-
-                            <img style="float:left; background-color: #9FF2BD" src=".\Resources\Pictures\entertainment.jpg" class="img-rounded" width="200" height="176" id="entertainment" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','entertainment')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="entertainment" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','entertainment')"><a href="Entertainment.html"> Entertainment</a></p>
-                        <p> <span id="entertainment_row1_id1"></span>: <span id="entertainment_row1_id2"></span></p>
-                        <p> <span id="entertainment_row2_id1"></span>: <span id="entertainment_row2_id2"></span></p>
-                        <p> <span id="entertainment_row3_id1"></span>: <span id="entertainment_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="familycare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','familycare')"><a href="FamilyCare.html">FamilyCare</a></p>
-                        <p> <span id="familycare_row1_id1"></span>: <span id="familycare_row1_id2"></span></p>
-                        <p> <span id="familycare_row2_id1"></span>: <span id="familycare_row2_id2"></span></p>
-                        <p> <span id="familycare_row3_id1"></span>: <span id="familycare_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="FamilyCare.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\familycare.jpg" class="img-rounded" width="200" height="176" id="familycare" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','familycare')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Movie.html">
-
-                            <img style="float: left" src=".\Resources\Pictures\movie.jpg" class="img-rounded" width="200" height="176" id="Movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','movie')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="movie" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','movie')"><a href="Movie.html"> Movie</a></p>
-                        <p> <span id="movie_row1_id1"></span>: <span id="movie_row1_id2"></span></p>
-                        <p> <span id="movie_row2_id1"></span>: <span id="movie_row2_id2"></span></p>
-                        <p> <span id="movie_row3_id1"></span>: <span id="movie_row3_id2"></span></p>
-
-                    </div>
-
-                </div>
-
-                <div class="col-sm-6">
-
-                    <div class="col-sm-6">
-
-                        <p id="medicalandfitness" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','medicalandfitness')"><a href="MedicalAndFitness.html">MedicalAndFitness</a></p>
-                        <p> <span id="medicalandfitness_row1_id1"></span>: <span id="medicalandfitness_row1_id2"></span></p>
-                        <p> <span id="medicalandfitness_row2_id1"></span>: <span id="medicalandfitness_row2_id2"></span></p>
-                        <p> <span id="medicalandfitness_row3_id1"></span>: <span id="medicalandfitness_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="MedicalAndFitness.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\gym.jpg" class="img-rounded" width="200" height="176" id="medicalandfitness" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','medicalandfitness')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Miscellaneous.html">
-
-                            <img style="float: left;" src=".\Resources\Pictures\miscellaneous.jpg" class="img-rounded" width="200" height="176" id="miscellaneous" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','miscellaneous')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="miscellaneous" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','miscellaneous')"><a href="Miscellaneous.html"> Miscellaneous</a></p>
-                        <p> <span id="miscellaneous_row1_id1"></span>: <span id="miscellaneous_row1_id2"></span></p>
-                        <p> <span id="miscellaneous_row2_id1"></span>: <span id="miscellaneous_row2_id2"></span></p>
-                        <p> <span id="miscellaneous_row3_id1"></span>: <span id="miscellaneous_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="shopping" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','shopping')"><a href="Shopping.html"> Shopping</a></p>
-                        <p> <span id="shopping_row1_id1"></span>: <span id="shopping_row1_id2"></span></p>
-                        <p> <span id="shopping_row2_id1"></span>: <span id="shopping_row2_id2"></span></p>
-                        <p> <span id="shopping_row3_id1"></span>: <span id="shopping_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Shopping.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\shopping.jpg" class="img-rounded" width="200" height="176" id="shopping" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','shopping')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Transportation.html">
-
-                            <img style="float: left;" src=".\Resources\Pictures\transportation.jpg" class="img-rounded" width="200" height="176" id="transportation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','transportation')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="transportation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','transportation')"><a href="Transportation.html"> Transportation</a></p>
-                        <p> <span id="transportation_row1_id1"></span>: <span id="transportation_row1_id2"></span></p>
-                        <p> <span id="transportation_row2_id1"></span>: <span id="transportation_row2_id2"></span></p>
-                        <p> <span id="transportation_row3_id1"></span>: <span id="transportation_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="vacation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','vacation')"><a href="Vacation.html"> Vacation</a></p>
-                        <p> <span id="vacation_row1_id1"></span>: <span id="vacation_row1_id2"></span></p>
-                        <p> <span id="vacation_row2_id1"></span>: <span id="vacation_row2_id2"></span></p>
-                        <p> <span id="vacation_row3_id1"></span>: <span id="vacation_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="Vacation.html">
-
-                            <img style="float: left;" src=".\Resources\Pictures\vacation.jpg" class="img-rounded" width="200" height="176" id="vacation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('category','vacation')">
-
-                        </a>
-
-                    </div>
 
                 </div>
 
@@ -348,41 +134,43 @@
 
         /**
          *
-         *  Page onload functionality
+         *  Onload event based functionality
          *
          */
 
+        var noOfCategories = GlobalWebClientModule.categoryContainer_ImageNames.length;
+        var categoryToPageMap;
+        
         window.onload = function (event) {
 
-            displayContainerValues();
+            // Fill Category Page map & Render Dynamic Content
+
+            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToPageMap(GlobalWebClientModule.categoryNames,
+                GlobalWebClientModule.categoryPageNames);
+            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, 3, "mainContentWindow",
+                GlobalWebClientModule.categoryContainer_ImageNames, GlobalWebClientModule.dummyResultObject_SummaryDetails,
+                GlobalWebClientModule.categoryNames, GlobalWebClientModule.categoryPageNames);
+
+            // Rendering Adjustments
+
+            var sideNavigatorsBottomBufferHeight = (.05 / noOfCategories);
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1.05);
+                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
+
         }
 
         /**
          *
-         *  Displays container values onload by retrieving data.
+         * Stores the category value in Local Cache and traverses to appropriate function.
+         *  
+         * @param {string} categoryId  : Category/SubCategory Id
          *
          */
 
-        function displayContainerValues() {
+        function traverseToNextPage(categoryId) {
 
-            for (var currentCategory of GlobalWebClientModule.categoryNames) {
-
-                var keyIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id1");
-                var valueIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id2");
-                var keyValueMap = keyValueMapModule.deduceKeyValueMap(keyIdArray, valueIdArray,
-                    GlobalWebClientModule.dummyResultObject_SummaryDetails);
-
-                if (GlobalWebClientModule.bDebug == true) {
-
-                    alert("keyIdArray : " + keyIdArray);
-                    alert("valueIdArray : " + valueIdArray);
-                    alert("keyValueMap : " + keyValueMap);
-                }
-
-                keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
-            }
+            CacheHelperUtilsModule.storeValueInLocalCache('category', categoryId);
+            document.location.replace(categoryToPageMap.get(categoryId));
         }
 
     </script>

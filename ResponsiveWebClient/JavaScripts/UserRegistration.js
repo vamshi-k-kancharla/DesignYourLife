@@ -21,6 +21,14 @@ var UserRegistrationModule = (function () {
 
         // Check for required input values
 
+        if (userRegistrationDataMap.get("Password") != userRegistrationDataMap.get("Repeat-Password")) {
+
+            alert("Entered Passwords didn't match..Please ReEnter Details");
+            return;
+        }
+
+        // Check for required input values
+
         if (FormDataInputHelperUtilsModule.checkForRequiredInputData(userRegistrationDataMap,
             GlobalWebClientModule.userRegistrationData_RequiredKeys)) {
 

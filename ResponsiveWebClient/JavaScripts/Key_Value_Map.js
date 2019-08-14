@@ -85,18 +85,12 @@ var keyValueMapModule = (function () {
         var resultKeyValueMap = new Map();
         var currentKeyValueIndex = 0;
 
-        if (GlobalWebClientModule.bDebug == true) {
-
-            alert("deduceKeyValueMap resultKeyValueObject.Keys : " + Object.keys(resultKeyValueObject));
-            alert("deduceKeyValueMap resultKeyValueObject.Values : " + Object.values(resultKeyValueObject));
-        }
-
         for (var currentProperty in resultKeyValueObject) {
 
             if (GlobalWebClientModule.bDebug == true) {
 
-                alert("deduceKeyValueMap.currentProperty : " + currentProperty);
-                alert("deduceKeyValueMap.currentValue : " + resultKeyValueObject[currentProperty]);
+                //alert("deduceKeyValueMap.currentProperty : " + currentProperty);
+                //alert("deduceKeyValueMap.currentValue : " + resultKeyValueObject[currentProperty]);
             }
 
             resultKeyValueMap.set(keyIdArray[currentKeyValueIndex], currentProperty);

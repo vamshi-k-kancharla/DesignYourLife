@@ -178,16 +178,224 @@ var RenderingHelperUtilsModule = (function () {
 
     /**
      *
+     * @param {string} mainContentWindowId  : Id of main content window
+     * @param {int} containerNumber  : Category details container Number
+     * @param {string} categoryDetailsAlignment  : Category Details alignment : left/right
+     * @param {int} numOfDetails  : Number of Category Summary details
+     * @param {int} categoryNames  : Array of Category Names
+     * @param {int} categoryPageNames  : Array of Category Page Names
+     *
+     */
+
+   
+    function addCategoryDetailsContainer(mainContentWindowId, containerNumber, numOfContainers, categoryDetailsAlignment, numOfDetails,
+        categoryNames, categoryPageNames) {
+
+        var mainContentWindow = document.getElementById(mainContentWindowId);
+
+        if (numOfContainers != 1 && numOfContainers != 2) {
+
+            alert("Current dynamic rendering only supports a max of 2 containers in each row");
+            return;
+        }
+
+        // Buffer Node
+
+        var bufferNode = createNewElementWithAttributes("DIV", null, "col-sm-12", "height:40px;");
+        mainContentWindow.appendChild(bufferNode);
+
+        // Fill Left Side of Container 
+
+        fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
+            categoryNames, categoryPageNames);
+
+        // Fill Right Side of Container 
+
+        if (numOfContainers == 2) {
+
+            containerNumber++;
+
+            if (categoryDetailsAlignment == "left") {
+
+                categoryDetailsAlignment = "right";
+
+            } else {
+
+                categoryDetailsAlignment = "left";
+            }
+
+            fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
+                categoryNames, categoryPageNames);
+        }
+    }
+
+
+    /**
+    *
+    * @param {string} mainContentWindowId  : Id of main content window
+    * @param {int} containerNumber  : Category details container Number
+    * @param {string} categoryDetailAlignment  : Category Details alignment : left/right
+    * @param {int} numOfDetails  : Number of Category Summary details
+    * @param {int} categoryNames  : Array of Category Names
+    * @param {int} categoryPageNames  : Array of Category Page Names
+    *
+    */
+
+    function fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailAlignment, numOfDetails,
+        categoryNames, categoryPageNames) {
+
+        var containerId = "containerNode" + containerNumber.toString();
+
+        var mainContentWindow = document.getElementById(mainContentWindowId);
+
+        var traveToNextPageFunction = "traverseToNextPage('" + categoryNames[containerNumber - 1] + "')";
+        var attributeMap_HyperLinkNode = new Map();
+
+        if (categoryPageNames.length == 1) {
+
+            attributeMap_HyperLinkNode.set("href", categoryPageNames[0]);
+
+        } else {
+
+            attributeMap_HyperLinkNode.set("href", categoryPageNames[containerNumber - 1]);
+
+        }
+
+        // Container Node
+
+        var containerNode = createNewElementWithAttributes("DIV", containerId, "col-sm-6", null);
+        {
+
+            if (categoryDetailAlignment == "left") {
+
+                var pageTraversalHyperLinkNode = createNewElementWithAttributeMap("A", attributeMap_HyperLinkNode);
+                {
+
+                    var imageDetailNode = createNewElementWithAttributes("DIV", containerId + "_ImageDetailNode", "col-sm-6", null);
+                    {
+                        var imageNode = createNewElementWithAttributes("IMG", "containerNode" + containerNumber.toString() + "_img",
+                            "img-thumbnail", "width:100%; height:150px");
+                        imageDetailNode.appendChild(imageNode);
+
+                    }
+                    pageTraversalHyperLinkNode.appendChild(imageDetailNode);
+
+                    // Debug Node Info
+
+                    if (GlobalWebClientModule.bDebug == true) {
+
+                        var labelNode = createNewElementWithAttributes("LABEL", null, null, "padding: 25px;");
+                        labelNode.innerHTML = "newExpense_Image";
+                        imageDetailNode.appendChild(labelNode);
+                    }
+                }
+                containerNode.appendChild(pageTraversalHyperLinkNode);
+            }
+
+            var categoryDetailNode = createNewElementWithAttributes("DIV", containerId + "_CategoryDetailNode", "col-sm-6", null);
+            {
+
+                var innerBufferNode = createNewElementWithAttributes("DIV", null, null, "padding: 10px;");
+                categoryDetailNode.appendChild(innerBufferNode);
+
+                var pageTraversalHyperLinkTextNode = createNewElementWithAttributeMap("A", attributeMap_HyperLinkNode);
+                pageTraversalHyperLinkTextNode.innerHTML = categoryNames[containerNumber - 1];
+
+                var categoryParagraphNode = createNewElementWithAttributes("P", null, null, "text-align:" +
+                    categoryDetailAlignment + ";");
+                {
+
+                    var paragraphContent = "";
+
+                    for (var detailNum = 1; detailNum <= numOfDetails; detailNum++) {
+
+                        var currentCategoryDetailKeyId = "containerNode" + containerNumber.toString() + "_" + "id" + detailNum.toString();
+                        var currentCategoryDetailValueId = "containerNode" + containerNumber.toString() + "_" + "value" + detailNum.toString();
+
+                        paragraphContent += "<span id=" + currentCategoryDetailKeyId + "></span> : <span id=" +
+                            currentCategoryDetailValueId + "></span>";
+
+                        if (detailNum != numOfDetails) {
+
+                            paragraphContent += " ,";
+                        }
+                    }
+
+                    if (GlobalWebClientModule.bDebug == true) {
+
+                        alert("fillCategoryDetailsContainer: paragraphContent => " + paragraphContent);
+                    }
+
+                    categoryParagraphNode.innerHTML = paragraphContent;
+                }
+
+                categoryDetailNode.appendChild(pageTraversalHyperLinkTextNode);
+                categoryDetailNode.appendChild(categoryParagraphNode);
+
+                if (GlobalWebClientModule.bDebug == true) {
+
+                    var labelNode = createNewElementWithAttributes("LABEL", null, null, "padding: 25px;");
+                    labelNode.innerHTML = "newCategory_Detail";
+                    categoryDetailNode.appendChild(labelNode);
+                }
+
+            }
+            containerNode.appendChild(categoryDetailNode);
+
+            if (categoryDetailAlignment == "right") {
+
+                var pageTraversalHyperLinkNode = createNewElementWithAttributeMap("A", attributeMap_HyperLinkNode);
+                {
+
+                    var imageDetailNode = createNewElementWithAttributes("DIV", containerId + "_ImageDetailNode", "col-sm-6", null);
+                    {
+                        var imageNode = createNewElementWithAttributes("IMG", "containerNode" + containerNumber.toString() + "_" + "img",
+                            "img-thumbnail", "width:100%; height:150px");
+                        imageDetailNode.appendChild(imageNode);
+                    }
+
+                    pageTraversalHyperLinkNode.appendChild(imageDetailNode);
+                }
+
+                containerNode.appendChild(pageTraversalHyperLinkNode);
+
+                if (GlobalWebClientModule.bDebug == true) {
+
+                    var labelNode = createNewElementWithAttributes("LABEL", null, null, "padding: 25px;");
+                    labelNode.innerHTML = "newCategory_Image";
+                    imageDetailNode.appendChild(labelNode);
+                }
+            }
+
+        }
+
+        mainContentWindow.appendChild(containerNode);
+
+        if (GlobalWebClientModule.bDebug == true) {
+
+            alert("fillCategoryDetailsContainer: Category detail container Added")
+        }
+
+    }
+
+    /**
+     *
      * @param {string} elementType  : Id of main content window
      * @param {string} elementId  : Id of Left Side Navigator
      * @param {string} elementClass  : Id of Right Side Navigator
      * @param {string} elementStyle  : Id of Header Navigator
-     * 
+     * @param {string} elementOnClickFunction  : Function that should be called upon onClick event
+     *
      * @returns {DOMElement} currentElement : Returns newly created Element
      * 
      */
 
     function createNewElementWithAttributes(elementType, elementId, elementClass, elementStyle) {
+
+        createNewElementWithAttributes(elementType, elementId, elementClass, elementStyle, null);
+    }
+
+    function createNewElementWithAttributes(elementType, elementId, elementClass, elementStyle, elementOnClickFunction) {
 
         var currentElement = document.createElement(elementType);
 
@@ -203,10 +411,36 @@ var RenderingHelperUtilsModule = (function () {
 
             currentElement.setAttribute("style", elementStyle);
         }
+        if (HelperUtilsModule.valueDefined(elementOnClickFunction)) {
+
+            currentElement.setAttribute("onclick", elementOnClickFunction);
+        }
 
         return currentElement;
     }
 
+
+    /**
+     *
+     * @param {string} elementType  : Id of main content window
+     * @param {string} elementAttributeMap  : Attribute Map with all the input attributes
+     *
+     * @returns {DOMElement} currentElement : Returns newly created Element
+     * 
+     */
+
+    function createNewElementWithAttributeMap(elementType, elementAttributeMap) {
+
+        var currentElement = document.createElement(elementType);
+        var elementAttributeKeys = elementAttributeMap.keys();
+
+        for (var currentKey of elementAttributeKeys) {
+
+            currentElement.setAttribute(currentKey, elementAttributeMap.get(currentKey));
+        }
+
+        return currentElement;
+    }
 
     /****************************************************************************************
         Reveal private methods & variables
@@ -217,6 +451,8 @@ var RenderingHelperUtilsModule = (function () {
         changeHeightOfSideNavigators: changeHeightOfSideNavigators,
         addExpenseDetailContainer: addExpenseDetailContainer,
         createNewElementWithAttributes: createNewElementWithAttributes,
+        createNewElementWithAttributeMap: createNewElementWithAttributeMap,
+        addCategoryDetailsContainer: addCategoryDetailsContainer,
 
     };
 

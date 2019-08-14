@@ -32,6 +32,8 @@
     <script src="./JavaScripts/Key_Value_Map.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
+    <script src="./JavaScripts/RenderingHelperWrapperUtils.js"></script>
 
     <nav class="navbar navbar-inverse ">
 
@@ -39,7 +41,7 @@
 
             <div class="navbar-header">
 
-                <a class="navbar-brand" style="color:black" href="HomePage.html">DesignYourLife</a>
+                <a class="navbar-brand" style="color:black" href="#">DesignYourLife</a>
 
             </div>
 
@@ -94,138 +96,6 @@
 
                 </div>
 
-                <div style="padding: 10px"></div>
-
-                <div class="col-sm-6">
-
-                    <div class="col-sm-6">
-
-                        <a href="container_info.html">
-
-                            <img style="float: left" src=".\Resources\Pictures\accommodation.jpg" class="img-rounded" width="200" height="176" id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','accommodation')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="accommodation" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','accommodation')"><a href="container_info.html">Accommodation</a></p>
-                        <p> <span id="accommodation_row1_id1"></span>: <span id="accommodation_row1_id2"></span></p>
-                        <p> <span id="accommodation_row2_id1"></span>: <span id="accommodation_row2_id2"></span></p>
-                        <p> <span id="accommodation_row3_id1"></span>: <span id="accommodation_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="sightseeing" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','sightseeing')"><a href="container_info.html">SightSeeing</a></p>
-                        <p> <span id="sightseeing_row1_id1"></span>: <span id="sightseeing_row1_id2"></span></p>
-                        <p> <span id="sightseeing_row2_id1"></span>: <span id="sightseeing_row2_id2"></span></p>
-                        <p> <span id="sightseeing_row3_id1"></span>: <span id="sightseeing_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="container_info.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\sightseeing.jpg" class="img-rounded" width="200" height="176" id="sightseeing" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','sightseeing')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <a href="container_info.html">
-
-                            <img style="float: left;" src=".\Resources\Pictures\fuel.jpg" style="background-color: #9FF2BD" class="img-rounded" width="200" height="176" id="fuel" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fuel')">
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="fuel" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','fuel')"><a href="container_info.html">Fuel</a></p>
-                        <p> <span id="fuel_row1_id1"></span>: <span id="fuel_row1_id2"></span></p>
-                        <p> <span id="fuel_row2_id1"></span>: <span id="fuel_row2_id2"></span></p>
-                        <p> <span id="fuel_row3_id1"></span>: <span id="fuel_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                </div>
-
-                <div class="col-sm-6">
-
-                    <div class="col-sm-6">
-
-                        <p id="rentalcar" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','rentalcar')"><a href="container_info.html">RentalCar</a></p>
-                        <p> <span id="rentalcar_row1_id1"></span>: <span id="rentalcar_row1_id2"></span></p>
-                        <p> <span id="rentalcar_row2_id1"></span>: <span id="rentalcar_row2_id2"></span></p>
-                        <p> <span id="rentalcar_row3_id1"></span>: <span id="rentalcar_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="container_info.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\rentalcar.jpg" class="img-rounded" width="200" height="176" id="rentalcar" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','rentalcar')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <img style="float: left;" src=".\Resources\Pictures\taxi.jpg" class="img-rounded" width="200" height="176" id="taxi" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','taxi')">
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <p id="taxi" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','taxi')"><a href="container_info.html">Taxi</a></p>
-                        <p> <span id="taxi_row1_id1"></span>: <span id="taxi_row1_id2"></span></p>
-                        <p> <span id="taxi_row2_id1"></span>: <span id="taxi_row2_id2"></span></p>
-                        <p> <span id="taxi_row3_id1"></span>: <span id="taxi_row3_id2"></span></p>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                    <div class="col-sm-6">
-
-                        <p id="train" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','train')"><a href="container_info.html">Train</a></p>
-                        <p> <span id="train_row1_id1"></span>: <span id="train_row1_id2"></span></p>
-                        <p> <span id="train_row2_id1"></span>: <span id="train_row2_id2"></span></p>
-                        <p> <span id="train_row3_id1"></span>: <span id="train_row3_id2"></span></p>
-
-                    </div>
-
-                    <div class="col-sm-6">
-
-                        <a href="container_info.html">
-
-                            <img style="float: right;" src=".\Resources\Pictures\train.jpg" class="img-rounded" width="200" height="176" id="train" onclick="CacheHelperUtilsModule.storeValueInLocalCache('subcategory','train')">
-
-                        </a>
-
-                    </div>
-
-                    <div style="padding: 100px"></div>
-
-                </div>
-
             </div>
 
             <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
@@ -264,41 +134,43 @@
 
         /**
          *
-         *  Page onload functionality
+         *  Onload event based functionality
          *
          */
 
+        var noOfCategories = GlobalWebClientModule.vacation_SubCategories.length;
+        var categoryToPageMap;
+
         window.onload = function (event) {
 
-            displayContainerValues();
+            // Fill Category Page map & Render Dynamic Content
+
+            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToPageMap(GlobalWebClientModule.vacation_SubCategories,
+                GlobalWebClientModule.vacationCategoryPageNames);
+            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, 3, "mainContentWindow",
+                GlobalWebClientModule.vacationCategoryContainer_ImageNames, GlobalWebClientModule.dummyResultObject_SummaryDetails,
+                GlobalWebClientModule.vacation_SubCategories, GlobalWebClientModule.vacationCategoryPageNames);
+
+            // Rendering Adjustments
+
+            var sideNavigatorsBottomBufferHeight = (.05 / noOfCategories);
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1.05);
+                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
+
         }
 
         /**
          *
-         *  Displays container values onload by retrieving data.
+         * Stores the category value in Local Cache and traverses to appropriate function.
+         *  
+         * @param {string} categoryId  : Category/SubCategory Id
          *
          */
 
-        function displayContainerValues() {
+        function traverseToNextPage(categoryId) {
 
-            for (var currentCategory of GlobalWebClientModule.vacation_SubCategories) {
-
-                var keyIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id1");
-                var valueIdArray = keyValueMapModule.deduceKeyValueIdArray(currentCategory, 3, "id2");
-                var keyValueMap = keyValueMapModule.deduceKeyValueMap(keyIdArray, valueIdArray,
-                    GlobalWebClientModule.dummyResultObject_SummaryDetails);
-
-                if (GlobalWebClientModule.bDebug == true) {
-
-                    alert("keyIdArray : " + keyIdArray);
-                    alert("valueIdArray : " + valueIdArray);
-                    alert("keyValueMap : " + keyValueMap);
-                }
-
-                keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
-            }
+            CacheHelperUtilsModule.storeValueInLocalCache('subcategory', categoryId);
+            document.location.replace(categoryToPageMap.get(categoryId));
         }
 
     </script>
