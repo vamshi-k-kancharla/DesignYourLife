@@ -38,16 +38,16 @@ var designYourLifeDbConnection;
 
 // Budget & Expense Details : Required Fields
 
-var budgetRecordRequiredFields = ["Budget_Id", "Name", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
+var budgetRecordRequiredFields = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
 var budgetRecordData_UniqueFields = ["Budget_Id"];
-var budgetRecordData_NameFileds = ["Name", "UserName"];
+var budgetRecordData_NameFileds = ["BudgetName", "UserName"];
 var budgetRecordData_SubGroupFileds = ["Budget_Type", "Place", "StartDate", "EndDate"];
-var budgetRecordData_AtleastOneValueShouldBeDifferent = ["Name", "UserName","Budget_Type", "Place", "StartDate", "EndDate"];
+var budgetRecordData_AtleastOneValueShouldBeDifferent = ["BudgetName", "UserName","Budget_Type", "Place", "StartDate", "EndDate"];
 
-var expenseRecordRequiredFields = ["Expense_Id", "Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory", "Date",
+var expenseRecordRequiredFields = ["Expense_Id", "ExpenseName", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory", "Date",
     "Amount", "MerchantName", "Budget_Id", "UserName"];
 var expenseRecordData_UniqueFields = ["UserName", " Budget_Id", "Expense_Id"];
-var expenseRecordData_AtleastOneValueShouldBeDifferent = ["Name", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory",
+var expenseRecordData_AtleastOneValueShouldBeDifferent = ["ExpenseName", "Expense_Type", "Place", "Expense_Category", "Expense_SubCategory",
     "Date", "Amount", "MerchantName", "Budget_Id", "UserName"];
 
 var userRegistrationData_RequiredFields = ["UserType", "User_Id", "Name", "Email", "Location", "Address", "UserName", "Password"];
@@ -109,6 +109,5 @@ exports.budgetRecordData_AtleastOneValueShouldBeDifferent = budgetRecordData_Atl
 
 exports.budgetLevelAnalyticsRecord_CategoryFields = budgetLevelAnalyticsRecord_CategoryFields;
 exports.budgetAnalyticsRecord_RequiredQueryFields = budgetAnalyticsRecord_RequiredQueryFields;
-
-
+exports.budgetLevelAnalyticsRecord_RequiredFields = budgetLevelAnalyticsRecord_RequiredFields;
 

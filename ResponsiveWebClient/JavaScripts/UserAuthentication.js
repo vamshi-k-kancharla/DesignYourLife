@@ -31,7 +31,7 @@ var UserAuthenticationModule = (function () {
         // Web Client Request for User Authentication
 
         WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("UserAuthentication", userAuthenticationDataMap,
-            postUserAuthentication_SuccessCallback, postUserAuthentication_FailureCallback);
+            postUserAuthentication_SuccessCallback, postUserAuthentication_FailureCallback, userAuthenticationDataMap);
     }
 
     /**
@@ -40,15 +40,25 @@ var UserAuthenticationModule = (function () {
     *
     */
 
-    function postUserAuthentication_SuccessCallback(webReqResponse) {
+    function postUserAuthentication_SuccessCallback(webReqResponse, userAuthenticationDataMap) {
 
         alert("User Authentication successful : " + webReqResponse);
+        window.localStorage.setItem(GlobalWebClientModule.currentUserName_Key, userAuthenticationDataMap.get("UserName"));
+        window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, GlobalWebClientModule.currentBudgetId_Dummy);
+        
+        if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+
+            alert("UserName stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
+            alert("Current BudgetId Stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
+        }
+
         document.location.replace("./Categories.html");
     }
 
-    function postUserAuthentication_FailureCallback(webReqResponse) {
+    function postUserAuthentication_FailureCallback(webReqResponse, userAuthenticationDataMap) {
 
         alert("User Authentication failed : " + webReqResponse);
+        alert("UserName : " + userAuthenticationDataMap.get("UserName"));
         document.location.replace("./HomePage.html");
     }
 

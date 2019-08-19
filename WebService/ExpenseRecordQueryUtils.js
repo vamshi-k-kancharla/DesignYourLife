@@ -80,6 +80,11 @@ function buildQueryResponse_JSON(queryResult) {
 
             queryResponse_ExpenseRecord_JSON_String += JSON.stringify(RecordHelperUtilsModule.buildJSONRecord(currentRecord,
                 GlobalsForServiceModule.expenseRecordRequiredFields));
+
+            if (i == queryResult.length - 1) {
+                continue;
+            }
+
             queryResponse_ExpenseRecord_JSON_String += "\n";
         }
 

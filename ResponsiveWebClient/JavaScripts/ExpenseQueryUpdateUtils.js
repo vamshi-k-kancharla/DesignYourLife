@@ -9,16 +9,18 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
     function addExpenseRecordFromUserInput() {
 
-        var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedCurrentTime();
+        var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
 
         var expenseRecordDataMap = FormDataInputHelperUtilsModule.processFormInputData(uniqueExpenseId,
             GlobalWebClientModule.expenseRecordData_InputIds, GlobalWebClientModule.expenseRecordData_Keys);
 
         var userNameValue = window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key);
+        var budgetIdValue = window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key);
         var expenseCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_Category_Key);
         var expenseSubCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
 
         expenseRecordDataMap.set("Expense_Category", expenseCategoryValue);
+        expenseRecordDataMap.set("Budget_Id", budgetIdValue);
         expenseRecordDataMap.set("Expense_SubCategory", expenseSubCategoryValue);
         expenseRecordDataMap.set("UserName", userNameValue);
 
@@ -38,7 +40,7 @@ var ExpenseQueryUpdateUtilsModule = (function () {
             return;
         }
 
-        // Web Client Request for User Registration
+        // Web Client Request for Expense Record Addition
 
         WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("AddExpense", expenseRecordDataMap,
             postExpenseAddition_SuccessCallback, postExpenseAddition_FailureCallback);
@@ -64,6 +66,35 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
     /**
     * 
+    * Retrieves expense Details for Current Combination of Query Inputs
+    *
+    * @param {Function} postExpenseDetailsQuery_SuccessCallback : Success Callback Function of Expense Details Query
+    * @param {Function} postExpenseDetailsQuery_FailureCallback : Failure Callback Function of Expense Details Query
+    *
+    */
+
+    function retrieveExpenseDetails(postExpenseDetailsQuery_SuccessCallback, postExpenseDetailsQuery_FailureCallback) {
+
+        var expenseDetailsQueryDataMap = new Map();
+
+        var userNameValue = window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key);
+        var budgetIdValue = window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key);
+        var expenseCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_Category_Key);
+        var expenseSubCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
+
+        expenseDetailsQueryDataMap.set("Expense_Category", expenseCategoryValue);
+        expenseDetailsQueryDataMap.set("Budget_Id", budgetIdValue);
+        expenseDetailsQueryDataMap.set("Expense_SubCategory", expenseSubCategoryValue);
+        expenseDetailsQueryDataMap.set("UserName", userNameValue);
+
+        // Web Client Request for User Registration
+
+        WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("RetrieveExpenseDetails", expenseDetailsQueryDataMap,
+            postExpenseDetailsQuery_SuccessCallback, postExpenseDetailsQuery_FailureCallback);
+    }
+
+    /**
+    * 
     * Reveal Private methods & variables
     *
     */
@@ -71,6 +102,7 @@ var ExpenseQueryUpdateUtilsModule = (function () {
     return {
 
         addExpenseRecordFromUserInput: addExpenseRecordFromUserInput,
+        retrieveExpenseDetails: retrieveExpenseDetails,
     }
 
 })();

@@ -3,10 +3,6 @@ var HelperUtilsModule = (function () {
 
     var randomNumberSeed = 1000000;
 
-    /****************************************************************************************
-        Prints paragraph into the document by splitting it based on input parameters
-    *****************************************************************************************/
-
     /**
      * 
      * @returns {string} dateString: Returns today's Date in 'DD-MM-YYYY' format

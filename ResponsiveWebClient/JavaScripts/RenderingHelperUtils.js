@@ -260,6 +260,7 @@ var RenderingHelperUtilsModule = (function () {
             attributeMap_HyperLinkNode.set("href", categoryPageNames[containerNumber - 1]);
 
         }
+        attributeMap_HyperLinkNode.set("onclick", traveToNextPageFunction);
 
         // Container Node
 
@@ -271,7 +272,8 @@ var RenderingHelperUtilsModule = (function () {
                 var pageTraversalHyperLinkNode = createNewElementWithAttributeMap("A", attributeMap_HyperLinkNode);
                 {
 
-                    var imageDetailNode = createNewElementWithAttributes("DIV", containerId + "_ImageDetailNode", "col-sm-6", null);
+                    var imageDetailNode = createNewElementWithAttributes("DIV", containerId + "_ImageDetailNode", "col-sm-6", null,
+                        traveToNextPageFunction);
                     {
                         var imageNode = createNewElementWithAttributes("IMG", "containerNode" + containerNumber.toString() + "_img",
                             "img-thumbnail", "width:100%; height:150px");

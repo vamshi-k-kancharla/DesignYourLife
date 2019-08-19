@@ -31,6 +31,11 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
+    <script src="./JavaScripts/ExpenseQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
+    <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
+    <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -186,7 +191,7 @@
                     <div class="col-sm-12" style="text-align: center">
 
                         <label class="col-sm-3"></label>
-                        <button type="submit" class="btn btn-primary col-sm-4" onclick='userAuthenticationModule.userAddExpense();'>Submit</button>
+                        <button type="submit" class="btn btn-primary col-sm-4" onclick='ExpenseQueryUpdateUtilsModule.addExpenseRecordFromUserInput();'>Submit</button>
 
                     </div>
 

@@ -96,6 +96,13 @@ var WebClientRequestHelperModule = (function () {
     function webClientRequestAPIWrapperWithCallback(client_request, httpClientRequestParamsMap, handleSuccessResponse,
         handleFailureResponse) {
 
+        webClientRequestAPIWrapperWithCallback(client_request, httpClientRequestParamsMap, handleSuccessResponse,
+            handleFailureResponse, null);
+    }
+
+    function webClientRequestAPIWrapperWithCallback(client_request, httpClientRequestParamsMap, handleSuccessResponse,
+        handleFailureResponse, userAuthenticationDataMap) {
+
         var xmlhttp;
         var httpRequestString = GlobalWebClientModule.webServerPrefix;
 
@@ -132,7 +139,7 @@ var WebClientRequestHelperModule = (function () {
                 if (this.readyState == 4) {
 
                     var responseString = this.response;
-                    return handleSuccessResponse(responseString);
+                    return handleSuccessResponse(responseString, userAuthenticationDataMap);
 
                 } else {
 
@@ -148,7 +155,7 @@ var WebClientRequestHelperModule = (function () {
                 alert("Failure to place call :=> " + client_request + " ,status : " + this.status + " readyState : " + this.readyState);
 
                 var responseString = this.response;
-                return handleFailureResponse(responseString);
+                return handleFailureResponse(responseString, userAuthenticationDataMap);
             }
 
         };

@@ -9,7 +9,7 @@ var BudgetQueryUpdateUtilsModule = (function () {
 
     function addBudgetRecordFromUserInput(){
 
-        var uniqueBudgetId = "BudgetId_" + HelperUtilsModule.returnUniqueIdBasedCurrentTime();
+        var uniqueBudgetId = "BudgetId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
 
         var budgetRecordDataMap = FormDataInputHelperUtilsModule.processFormInputData(uniqueBudgetId,
             GlobalWebClientModule.budgetRecordData_InputIds, GlobalWebClientModule.budgetRecordData_Keys );
@@ -29,13 +29,14 @@ var BudgetQueryUpdateUtilsModule = (function () {
         } else {
 
             alert("One of the Required Input Values are missing from Form data..Please enter required budget input data");
+            alert("userNameValue => " + userNameValue);
             return;
         }
 
         // Web Client Request for User Registration
 
         WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("AddBudget", budgetRecordDataMap,
-            postBudgetAddition_SuccessCallback, postBudgetAddition_FailureCallback);
+            postBudgetAddition_SuccessCallback, postBudgetAddition_FailureCallback, budgetRecordDataMap);
     }
 
     /**
@@ -44,15 +45,23 @@ var BudgetQueryUpdateUtilsModule = (function () {
     *
     */
 
-    function postBudgetAddition_SuccessCallback(webReqResponse) {
+    function postBudgetAddition_SuccessCallback(webReqResponse, budgetRecordDataMap) {
 
         alert("User input budget record addition successful : " + webReqResponse);
+        window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, budgetRecordDataMap.get("Budget_Id"));
+
+        if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+
+            alert("Budget_Id stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
+        }
+
         document.location.replace("./AddBudget.html");
     }
 
-    function postBudgetAddition_FailureCallback(webReqResponse) {
+    function postBudgetAddition_FailureCallback(webReqResponse, budgetRecordDataMap) {
 
         alert("User input budget record addition failed : " + webReqResponse);
+        alert("Budget_Id : " + budgetRecordDataMap.get("Budget_Id"));
         document.location.replace("./AddBudget.html");
     }
 

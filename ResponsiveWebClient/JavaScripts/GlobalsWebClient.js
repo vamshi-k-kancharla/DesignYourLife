@@ -4,6 +4,7 @@ var GlobalWebClientModule = (function () {
     // Globals & Configs
 
     var bDebug = false;
+    var bCurrentDebugFlag = true;
     var webServerPrefix = "http://127.0.0.1:4500/?";
     var imageResourcePath = "./Resources/Pictures/";
 
@@ -76,14 +77,17 @@ var GlobalWebClientModule = (function () {
     var budgetRecordData_Keys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
     var budgetRecordData_RequiredKeys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
 
-    var expenseRecordData_InputIds = ["ExpenseName", "Expense_Type", "Place", "Date", "Amount", "MerchantName", "Budget_Id"];
+    var expenseRecordData_InputIds = ["ExpenseName", "Expense_Type", "Place", "Date", "Amount", "MerchantName"];
     var expenseRecordData_Keys = ["Expense_Id", "ExpenseName", "Expense_Type", "Place", "Date",
         "Amount", "MerchantName", "Budget_Id", "Expense_Category", "Expense_SubCategory", "UserName"];
     var expenseRecordData_RequiredKeys = ["Expense_Id", "ExpenseName", "Expense_Type", "Place", "Date", "Amount",
         "MerchantName", "Budget_Id", "Expense_Category", "Expense_SubCategory", "UserName"];
+    var expenseRecordKeys_ForDisplay = ["ExpenseName", "Expense_Type", "Place", "Date",
+        "Amount", "MerchantName"];
 
     // dummy Result Object For <Key, Value> Pairs display
 
+    var currentBudgetId_Dummy = "BudgetId_46013020198516384440";
     var dummyResultObject_SummaryDetails = { currentCategory: "dummy", noOfExpenses: "100", expenditure: "4500" };
     var dummyResultObject_ExpenseDetails = { merchantName: "Subway", place: "Hyderabad", expenditure: "200" };
 
@@ -94,6 +98,7 @@ var GlobalWebClientModule = (function () {
         // Globals & Configs
 
         bDebug: bDebug,
+        bCurrentDebugFlag: bCurrentDebugFlag,
         webServerPrefix: webServerPrefix,
         imageResourcePath: imageResourcePath,
 
@@ -163,9 +168,11 @@ var GlobalWebClientModule = (function () {
         expenseRecordData_InputIds: expenseRecordData_InputIds,
         expenseRecordData_Keys: expenseRecordData_Keys,
         expenseRecordData_RequiredKeys: expenseRecordData_RequiredKeys,
+        expenseRecordKeys_ForDisplay: expenseRecordKeys_ForDisplay,
 
         // Dummy Result Objects
 
+        currentBudgetId_Dummy: currentBudgetId_Dummy,
         dummyResultObject_SummaryDetails: dummyResultObject_SummaryDetails,
         dummyResultObject_ExpenseDetails: dummyResultObject_ExpenseDetails
 	}

@@ -22,6 +22,9 @@
     <script src="./JavaScripts/HelperUtils.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
     <script src="./JavaScripts/UserAuthentication.js"></script>
+    <script src="./JavaScripts/ExpenseQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+    <script src="./JavaScripts/ObjectUtilsForRendering.js"></script>
 
     <style>
 
@@ -159,60 +162,115 @@
          *
          */
 
-        var noOfExpenses = 400;
-
         window.onload = function (event) {
 
-            retrieveExpenseDetailsAndRenderDynamicContent()
+            ExpenseQueryUpdateUtilsModule.retrieveExpenseDetails(postExpenseDetailsQuery_SuccessCallback,
+                postExpenseDetailsQuery_FailureCallback);
 
-            var sideNavigatorsBottomBufferHeight = (.05 / noOfExpenses);
+        }
 
-            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
+        /**
+        * 
+        * Post processing call backs after Expense Details Query Web Client Requests
+        *
+        */
+
+        function postExpenseDetailsQuery_SuccessCallback(webReqResponse) {
+
+            var jsonResponseObjectStrings = webReqResponse.split("\n");
+            var jsonObjectResponseArray = new Array();
+
+            if (!HelperUtilsModule.valueDefined(webReqResponse) || jsonResponseObjectStrings.length == 0) {
+
+                return;
+            }
+
+            for (var currentJSONObjectString of jsonResponseObjectStrings) {
+
+                jsonObjectResponseArray.push(JSON.parse(currentJSONObjectString));
+            }
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("webReqResponse : " + webReqResponse);
+                alert("Number of keys in First Expense Details : " + Object.keys(jsonObjectResponseArray[0]).length);
+                alert("First key of first expense : " + (Object.keys(jsonObjectResponseArray[0]))[0] + " , First Value : " +
+                    (Object.values(jsonObjectResponseArray[0]))[0]);
+
+            }
+
+            var expenseInvoiceListForDisplay = ObjectUtilsForRenderingModule.buildObjectListForDisplay(jsonObjectResponseArray,
+                GlobalWebClientModule.expenseRecordKeys_ForDisplay);
+
+            if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+
+                alert("Number of keys in First Expense Details after building invoice : " +
+                    Object.keys(expenseInvoiceListForDisplay[0]).length);
+            }
+
+            retrieveExpenseDetailsAndRenderDynamicContent(expenseInvoiceListForDisplay);
+        }
+
+        function postExpenseDetailsQuery_FailureCallback(webReqResponse) {
+
+            alert("Query for Expense Records failed : " + webReqResponse);
         }
 
         /**
          *
          *  Retrieve Expense Details from Server and Render content dynamically
          *
+         * @param {Object} webReqResponse  : Expense Details Response from server for current query input combination
+         * 
          */
 
-        function retrieveExpenseDetailsAndRenderDynamicContent() {
+        function retrieveExpenseDetailsAndRenderDynamicContent(webReqResponse) {
 
-            var noOfExpenseDetails = 3;
+            if (GlobalWebClientModule.bDebug == true) {
 
-            for (var currentExpenseNum = 1; currentExpenseNum <= noOfExpenses; currentExpenseNum++) {
+                alert("Current UserName : " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
+                alert("Current Budget Id : " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
+                alert("Current Expense Category : " + window.localStorage.getItem(GlobalWebClientModule.currentExpense_Category_Key));
+                alert("Current Expense SubCategory : " + window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key));
+            }
+
+            var noOfExpenseDetails = webReqResponse.length;
+
+            for (var currentExpenseNum = 1; currentExpenseNum <= noOfExpenseDetails; currentExpenseNum++) {
+
+                var noOfExpenseDetails_CurrentExpense = Object.keys(webReqResponse[currentExpenseNum - 1]).length;
 
                 var textAlignmentArray = ["right", "left"];
                 RenderingHelperUtilsModule.addExpenseDetailContainer("expenseContentWindow", currentExpenseNum,
-                    textAlignmentArray[currentExpenseNum % 2], noOfExpenseDetails);
+                    textAlignmentArray[currentExpenseNum % 2], noOfExpenseDetails_CurrentExpense);
             }
 
             // Now that dynamic rendering of ExpenseDetailsWindow happened, display all the expense details
 
-            displayExpenseDetails(noOfExpenses, noOfExpenseDetails);
+            displayExpenseDetails(webReqResponse);
         }
 
         /**
          *
-         * @param {int} noOfExpenses  : Number of expenses obtained from server
-         * @param {int} noOfExpenseDetails  : Number of expense details in each expense
+         * @param {Object} webReqResponse  : Expense Details Response from server for current query input combination
          *
          */
 
-        function displayExpenseDetails(noOfExpenses, noOfExpenseDetails) {
+        function displayExpenseDetails(webReqResponse) {
 
-            var totalNumberOfContainers = noOfExpenses;
+            var currentContainer = 1;
             var imageSource = "./Resources/Pictures/accommodation.jpg";
             //var imageSource = "./Resources/Pictures/" + window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
 
-            for (var currentContainer = 1; currentContainer <= totalNumberOfContainers; currentContainer++) {
+            for (var currentExpenseDetailObject of webReqResponse) {
+
+                var noOfExpenseDetails = Object.keys(currentExpenseDetailObject).length;
 
                 var keyIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("containerNode", currentContainer, noOfExpenseDetails, "id");
                 var valueIdArray = keyValueMapModule.deduceExpenseKeyValueIdArray("containerNode", currentContainer, noOfExpenseDetails, "value");
 
                 var keyValueMap = keyValueMapModule.deduceExpenseKeyValueMap("containerNode", currentContainer, imageSource,
-                    keyIdArray, valueIdArray, GlobalWebClientModule.dummyResultObject_ExpenseDetails);
+                    keyIdArray, valueIdArray, currentExpenseDetailObject);
 
                 if (GlobalWebClientModule.bDebug == true) {
 
@@ -222,10 +280,14 @@
                 }
 
                 keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
+
+                currentContainer++;
             }
 
+            var sideNavigatorsBottomBufferHeight = (.05 / webReqResponse.length);
+
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1.01);
+                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
         }
 
     </script>

@@ -24,6 +24,11 @@ var FormDataInputHelperUtilsModule = (function () {
 
         for (var currentInputId of dataInputIds) {
 
+            if (!HelperUtilsModule.valueDefined(document.getElementById(currentInputId))) {
+
+                continue;
+            }
+
             var currentInputValue = document.getElementById(currentInputId).value;
             dataObjectMap.set(dataObjectKeys[currentIndex], currentInputValue);
             currentIndex++;

@@ -31,6 +31,10 @@
     <script src="./JavaScripts/GlobalsWebClient.js"></script>
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
+    <script src="./JavaScripts/BudgetQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
+    <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
+    <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -100,7 +104,7 @@
 
                         <div class="col-sm-8">
 
-                            <input type="text" class="form-control" id="BudgetName" placeholder="enter your Name" name="Name">
+                            <input type="text" class="form-control" id="BudgetName" placeholder="enter budget Name" name="Name">
 
                         </div>
 
@@ -128,7 +132,7 @@
 
                         <div class="col-sm-8">
 
-                            <input type="text" class="form-control" id="Place" placeholder="enter the current location" name="Place">
+                            <input type="text" class="form-control" id="Place" placeholder="enter current location" name="Place">
 
                         </div>
 
@@ -185,7 +189,7 @@
                     <div class=" col-sm-12">
 
                         <label class="col-sm-1"></label>
-                        <button type="submit" class="btn btn-primary col-sm-4" onclick='userAuthenticationModule.userAddBudget();'>Submit</button>
+                        <button type="submit" class="btn btn-primary col-sm-4" onclick='BudgetQueryUpdateUtilsModule.addBudgetRecordFromUserInput();'>Submit</button>
 
                     </div>
 
