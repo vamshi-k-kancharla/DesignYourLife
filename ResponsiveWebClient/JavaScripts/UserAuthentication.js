@@ -46,7 +46,7 @@ var UserAuthenticationModule = (function () {
         window.localStorage.setItem(GlobalWebClientModule.currentUserName_Key, userAuthenticationDataMap.get("UserName"));
         window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, GlobalWebClientModule.currentBudgetId_Dummy);
         
-        if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+        if (GlobalWebClientModule.bDebug == true) {
 
             alert("UserName stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
             alert("Current BudgetId Stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));

@@ -50,7 +50,7 @@ var BudgetQueryUpdateUtilsModule = (function () {
         alert("User input budget record addition successful : " + webReqResponse);
         window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, budgetRecordDataMap.get("Budget_Id"));
 
-        if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+        if (GlobalWebClientModule.bDebug == true) {
 
             alert("Budget_Id stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
         }

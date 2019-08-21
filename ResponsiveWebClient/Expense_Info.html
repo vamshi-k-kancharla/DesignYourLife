@@ -202,7 +202,7 @@
             var expenseInvoiceListForDisplay = ObjectUtilsForRenderingModule.buildObjectListForDisplay(jsonObjectResponseArray,
                 GlobalWebClientModule.expenseRecordKeys_ForDisplay);
 
-            if (GlobalWebClientModule.bCurrentDebugFlag == true) {
+            if (GlobalWebClientModule.bDebug == true) {
 
                 alert("Number of keys in First Expense Details after building invoice : " +
                     Object.keys(expenseInvoiceListForDisplay[0]).length);

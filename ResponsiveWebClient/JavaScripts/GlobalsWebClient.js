@@ -91,6 +91,8 @@ var GlobalWebClientModule = (function () {
     var dummyResultObject_SummaryDetails = { currentCategory: "dummy", noOfExpenses: "100", expenditure: "4500" };
     var dummyResultObject_ExpenseDetails = { merchantName: "Subway", place: "Hyderabad", expenditure: "200" };
 
+    var requiredKeysForCategorySummary = ["Expenditure", "NumOfExpenses"];
+
     // Expose local variables for global access
 
     return {
@@ -174,7 +176,9 @@ var GlobalWebClientModule = (function () {
 
         currentBudgetId_Dummy: currentBudgetId_Dummy,
         dummyResultObject_SummaryDetails: dummyResultObject_SummaryDetails,
-        dummyResultObject_ExpenseDetails: dummyResultObject_ExpenseDetails
+        dummyResultObject_ExpenseDetails: dummyResultObject_ExpenseDetails,
+
+        requiredKeysForCategorySummary: requiredKeysForCategorySummary,
 	}
 
 }) ();

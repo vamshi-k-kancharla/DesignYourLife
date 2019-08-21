@@ -34,6 +34,9 @@
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
     <script src="./JavaScripts/HelperUtils.js"></script>
     <script src="./JavaScripts/RenderingHelperWrapperUtils.js"></script>
+    <script src="./JavaScripts/AnalyticsQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/ObjectUtilsForRendering.js"></script>
+    <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -138,18 +141,95 @@
          *
          */
 
-        var noOfCategories = GlobalWebClientModule.categoryContainer_ImageNames.length;
+        var noOfCategories;
         var categoryToPageMap;
-        
+
         window.onload = function (event) {
 
             // Fill Category Page map & Render Dynamic Content
 
-            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToPageMap(GlobalWebClientModule.categoryNames,
+            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.categoryNames,
                 GlobalWebClientModule.categoryPageNames);
-            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, 3, "mainContentWindow",
-                GlobalWebClientModule.categoryContainer_ImageNames, GlobalWebClientModule.dummyResultObject_SummaryDetails,
+
+            // Retrieve budget level Analytics from Server for dynamic rendering
+
+            AnalyticsQueryUpdateUtilsModule.retrieveBudgetLevelAnalytics(postAnalyticsQuery_SuccessCallback,
+                postAnalyticsQuery_FailureCallback);
+
+        }
+
+        /**
+        *
+        * Post processing call back after Analytics Query
+        *
+        * @param {string} webReqResponse  :  Analytics Query Response from Server
+        *
+        */
+
+        function postAnalyticsQuery_SuccessCallback(webReqResponse) {
+
+            var jsonResponseObjectStrings = webReqResponse.split("\n");
+
+            if (!HelperUtilsModule.valueDefined(webReqResponse) || jsonResponseObjectStrings.length != 1) {
+
+                return;
+            }
+
+            var jsonObjectResponse_BudgetAnalytics = JSON.parse(jsonResponseObjectStrings[0]);
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("webReqResponse : " + webReqResponse);
+                alert("Number of keys in Budget Analytics Record : " + Object.keys(jsonObjectResponse_BudgetAnalytics).length);
+                alert("First key of Budget Analytics Record : " + (Object.keys(jsonObjectResponse_BudgetAnalytics))[0] + " , First Value : " +
+                    (Object.values(jsonObjectResponse_BudgetAnalytics))[0]);
+
+            }
+
+            var categoryLevelSummaryListForDisplay = ObjectUtilsForRenderingModule.buildCategoryLevelSummaryListForDisplay(
+                jsonObjectResponse_BudgetAnalytics, GlobalWebClientModule.categoryNames, GlobalWebClientModule.requiredKeysForCategorySummary);
+            var categoryNames = ObjectUtilsForRenderingModule.buildCategoryNamesForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
+                GlobalWebClientModule.categoryNames);
+            var categoryImageNames = ObjectUtilsForRenderingModule.buildCategoryDetailsForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
+                GlobalWebClientModule.categoryNames, GlobalWebClientModule.categoryContainer_ImageNames);
+            var categoryPageNames = ObjectUtilsForRenderingModule.buildCategoryDetailsForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
                 GlobalWebClientModule.categoryNames, GlobalWebClientModule.categoryPageNames);
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("First Category Summary Details Object : " + HelperUtilsModule.returnObjectString(categoryLevelSummaryListForDisplay[0]) );
+            }
+
+            renderCategoryLevelDynamicContent(categoryLevelSummaryListForDisplay, categoryNames, categoryImageNames, categoryPageNames);
+        }
+
+        function postAnalyticsQuery_FailureCallback(webReqResponse) {
+
+            alert("Query for Category Level Summary Details has failed : " + webReqResponse);
+        }
+
+        /**
+         *
+         *  Render category level dynamic content
+         *
+         * @param {Array} categoryLevelSummaryListForDisplay  : Array of Category Level Summary details objects
+         * @param {Array} categoryNames  : Array of Category names to be rendered
+         * @param {Array} categoryImageNames  : Array of Category Image names to be rendered
+         * @param {Array} categoryPageNames  : Array of Category Page names to be rendered
+         *
+         */
+
+        function renderCategoryLevelDynamicContent(categoryLevelSummaryListForDisplay, categoryNames, categoryImageNames, categoryPageNames) {
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("Current UserName : " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
+                alert("Current Budget Id : " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
+            }
+
+            noOfCategories = categoryLevelSummaryListForDisplay.length;
+            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, "mainContentWindow",
+                categoryImageNames, categoryLevelSummaryListForDisplay, categoryNames, categoryPageNames);
 
             // Rendering Adjustments
 
@@ -162,7 +242,7 @@
         /**
          *
          * Stores the category value in Local Cache and traverses to appropriate function.
-         *  
+         *
          * @param {string} categoryId  : Category/SubCategory Id
          *
          */
@@ -170,7 +250,6 @@
         function traverseToNextPage(categoryId) {
 
             CacheHelperUtilsModule.storeValueInLocalCache('category', categoryId);
-            //document.location.replace(categoryToPageMap.get(categoryId));
         }
 
     </script>

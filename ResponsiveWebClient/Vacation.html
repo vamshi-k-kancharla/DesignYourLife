@@ -138,31 +138,71 @@
          *
          */
 
-        var noOfCategories = GlobalWebClientModule.vacation_SubCategories.length;
         var categoryToPageMap;
+        var categoryToImageMap;
 
         window.onload = function (event) {
 
-            // Fill Category Page map & Render Dynamic Content
+            // Fill Category PageMap & ImageMap
 
-            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToPageMap(GlobalWebClientModule.vacation_SubCategories,
+            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.vacation_SubCategories,
                 GlobalWebClientModule.vacationCategoryPageNames);
-            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, 3, "mainContentWindow",
-                GlobalWebClientModule.vacationCategoryContainer_ImageNames, GlobalWebClientModule.dummyResultObject_SummaryDetails,
-                GlobalWebClientModule.vacation_SubCategories, GlobalWebClientModule.vacationCategoryPageNames);
+            categoryToImageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.vacation_SubCategories,
+                GlobalWebClientModule.vacationCategoryContainer_ImageNames);
+
+            // Retrieve budget level Analytics from Server for dynamic rendering
+
+            AnalyticsQueryUpdateUtilsModule.retrieveBudgetLevelAnalytics(postAnalyticsQuery_SuccessCallback,
+                postAnalyticsQuery_FailureCallback);
+        }
+
+        /**
+        *
+        * Post processing success call back after Analytics Query
+        *
+        * @param {string} webReqResponse  :  Analytics Query Response from Server
+        *
+        */
+
+        function postAnalyticsQuery_SuccessCallback(webReqResponse) {
+
+            var jsonResponseObjectStrings = webReqResponse.split("\n");
+
+            if (!HelperUtilsModule.valueDefined(webReqResponse) || jsonResponseObjectStrings.length != 1) {
+
+                return;
+            }
+
+            // Split content to Sub categories and render dynamically
+
+            var jsonObjectResponse_BudgetAnalytics = JSON.parse(jsonResponseObjectStrings[0]);
+            RenderingHelperWrapperUtilsModule.subCategorizeServerResponseAndRenderDynamically(jsonObjectResponse_BudgetAnalytics,
+                "vacation", GlobalWebClientModule.vacation_SubCategories, categoryToImageMap, categoryToPageMap,
+                "mainContentWindow");
 
             // Rendering Adjustments
 
-            var sideNavigatorsBottomBufferHeight = (.05 / noOfCategories);
+            var sideNavigatorsBottomBufferHeight = (.05 / GlobalWebClientModule.vacation_SubCategories.length);
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
                 "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
 
         }
 
         /**
+        *
+        * Post processing failure call back after Analytics Query
+        *
+        */
+
+        function postAnalyticsQuery_FailureCallback(webReqResponse) {
+
+            alert("Query for Sub-Category Level Summary Details has failed : " + webReqResponse);
+        }
+
+        /**
          *
          * Stores the category value in Local Cache and traverses to appropriate function.
-         *  
+         *
          * @param {string} categoryId  : Category/SubCategory Id
          *
          */
@@ -170,7 +210,6 @@
         function traverseToNextPage(categoryId) {
 
             CacheHelperUtilsModule.storeValueInLocalCache('subcategory', categoryId);
-            //document.location.replace(categoryToPageMap.get(categoryId));
         }
 
     </script>

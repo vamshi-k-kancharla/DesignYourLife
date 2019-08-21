@@ -101,6 +101,75 @@ var HelperUtilsModule = (function () {
 
     }
 
+    /**
+     *
+     * @param {Object} inputObject  : Input Object to be converted to String Display format
+     * 
+     * @returns {string} objectStr: Returns string corresponding to input object
+     *
+    */
+
+    function returnObjectString(inputObject) {
+
+        var objectStr = "{";
+
+        for (var currentKey in inputObject) {
+
+            objectStr += currentKey + " : " + inputObject[currentKey] + ",";
+        }
+        objectStr += "}";
+
+        return objectStr;
+    }
+
+    /**
+     *
+     * @param {Map} inputMap  : Input Map to be converted to String Display format
+     * 
+     * @returns {string} mapStr: Returns string corresponding to input map
+     *
+    */
+
+    function returnMapString(inputMap) {
+
+        var mapStr = "{";
+
+        for (var currentKey of inputMap.keys()) {
+
+            mapStr += currentKey + " : " + inputMap.get(currentKey) + ",";
+        }
+        mapStr += "}";
+
+        return mapStr;
+    }
+
+    /**
+     *
+     * @param {Array} inputKeyArray  : Array of input Keys
+     * @param {Map} inputMap  : Map of <k,v> pairs
+     *
+     * @returns {Array} valueArray: Returns an Array of values corresponding to input keys
+     *
+    */
+
+    function retrieveValuesFromMap(inputKeyArray, inputMap) {
+
+        var valueArray = new Array();
+
+        for (var currentKey of inputKeyArray) {
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("currentKey : " + currentKey + ", inputMap.value : " + inputMap.get(currentKey));
+            }
+
+            valueArray.push(inputMap.get(currentKey));
+        }
+
+        return valueArray;
+
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -111,7 +180,10 @@ var HelperUtilsModule = (function () {
         returnUniqueIdBasedOnCurrentTime: returnUniqueIdBasedOnCurrentTime,
         valueDefined: valueDefined,
         fillDataInDocumentElement: setValueOfDocumentElement,
-        fillDataInDocumentElementThroughMap: setValueOfDocumentElementThroughMap
+        fillDataInDocumentElementThroughMap: setValueOfDocumentElementThroughMap,
+        returnObjectString: returnObjectString,
+        retrieveValuesFromMap: retrieveValuesFromMap,
+        returnMapString: returnMapString,
 
     };
 
