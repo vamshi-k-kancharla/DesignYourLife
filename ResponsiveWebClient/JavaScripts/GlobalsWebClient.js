@@ -17,21 +17,21 @@ var GlobalWebClientModule = (function () {
 
     // All Category & SubCategory Names for <Key, Value> Pair Retrieval
 	
-    var categoryNames = ["food", "accommodation", "entertainment", "familycare", "movie", "medicalandfitness",
-        "miscellaneous", "shopping", "transportation", "vacation"];
-    var categoryContainer_ImageNames = ["food.jpg", "accommodation.jpg", "entertainment.jpg", "familycare.jpg", "movie.jpg", "gym.jpg",
-        "miscellaneous.jpg", "shopping.jpg", "transportation.jpg", "vacation.jpg"]
+    var categoryNames = ["food", "accommodation", "entertainment", "familycare", "medicalandfitness", "miscellaneous",
+        "shopping", "transportation", "vacation"];
+    var categoryContainer_ImageNames = ["food.jpg", "accommodation.jpg", "entertainment.jpg", "familycare.jpg", "gym.jpg",
+        "miscellaneous.jpg", "shopping.jpg", "transportation.jpg", "vacation.jpg"];
     var categoryPageNames = ["./Food.html", "./Accommodation.html", "./Entertainment.html", "./FamilyCare.html",
-        "./Entertainment.html", "./MedicalAndFitness.html", "./Miscellaneous.html", "./Shopping.html", "./Transportation.html",
+        "./MedicalAndFitness.html", "./Miscellaneous.html", "./Shopping.html", "./Transportation.html",
         "./Vacation.html"];
 
     var food_SubCategories = ["coffeeshop", "groceries", "restaurants"];
     var foodCategoryContainer_ImageNames = ["coffeeshop.jpg", "groceries.jpg", "restaurants.jpg"];
     var foodCategoryPageNames = ["./Expense_Info.html"];
 
-    var accomodation_SubCategories = ["emi", "housekeeping", "hotel", "rent", "utilities"];
-    var accomodationCategoryContainer_ImageNames = ["emi.jpg", "housekeeping.jpg", "hotel.jpg", "rent.jpg", "utilities.jpg"];
-    var accomodationCategoryPageNames = ["./Expense_Info.html"];
+    var accommodation_SubCategories = ["emi", "housekeeping", "hotel", "rent", "utilities"];
+    var accommodationCategoryContainer_ImageNames = ["emi.jpg", "housekeeping.jpg", "hotel.jpg", "rent.jpg", "utilities.jpg"];
+    var accommodationCategoryPageNames = ["./Expense_Info.html"];
 
     var entertainment_SubCategories = ["movie", "clubs"];
     var entertainmentCategoryContainer_ImageNames = ["movie.jpg", "clubs.jpg"];
@@ -41,9 +41,9 @@ var GlobalWebClientModule = (function () {
     var familycareCategoryContainer_ImageNames = ["childcare.png", "education.jpg", "gifts.jpeg"];
     var familycareCategoryPageNames = ["./Expense_Info.html"];
 
-    var medicalAndFitness_SubCategories = ["gym", "skincare", "generic", "insurance"];
-    var medicalAndFitnessCategoryContainer_ImageNames = ["gym.jpg", "skincare.jpg", "generic.jpg", "insurance.jpg"];
-    var medicalAndFitnessCategoryPageNames = ["./Expense_Info.html"];
+    var medicalandfitness_SubCategories = ["gym", "skincare", "generic", "insurance"];
+    var medicalandfitnessCategoryContainer_ImageNames = ["gym.jpg", "skincare.jpg", "generic.jpg", "insurance.jpg"];
+    var medicalandfitnessCategoryPageNames = ["./Expense_Info.html"];
 
     var miscellaneous_SubCategories = ["charity"];
     var miscellaneousCategoryContainer_ImageNames = ["charity.jpg"];
@@ -77,9 +77,10 @@ var GlobalWebClientModule = (function () {
     var budgetRecordData_Keys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
     var budgetRecordData_RequiredKeys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
 
-    var expenseRecordData_InputIds = ["ExpenseName", "Expense_Type", "Place", "Date", "Amount", "MerchantName"];
-    var expenseRecordData_Keys = ["Expense_Id", "ExpenseName", "Expense_Type", "Place", "Date",
-        "Amount", "MerchantName", "Budget_Id", "Expense_Category", "Expense_SubCategory", "UserName"];
+    var expenseRecordData_InputIds = ["ExpenseCategory", "ExpenseSubCategory", "ExpenseName", "Expense_Type", "Place",
+        "Date", "Amount", "MerchantName"];
+    var expenseRecordData_Keys = ["Expense_Id", "Expense_Category", "Expense_SubCategory", "ExpenseName", "Expense_Type", "Place",
+        "Date", "Amount", "MerchantName", "Budget_Id", "UserName"];
     var expenseRecordData_RequiredKeys = ["Expense_Id", "ExpenseName", "Expense_Type", "Place", "Date", "Amount",
         "MerchantName", "Budget_Id", "Expense_Category", "Expense_SubCategory", "UserName"];
     var expenseRecordKeys_ForDisplay = ["ExpenseName", "Expense_Type", "Place", "Date",
@@ -121,9 +122,9 @@ var GlobalWebClientModule = (function () {
         foodCategoryContainer_ImageNames: foodCategoryContainer_ImageNames,
         foodCategoryPageNames: foodCategoryPageNames,
 
-        accomodation_SubCategories: accomodation_SubCategories,
-        accomodationCategoryContainer_ImageNames: accomodationCategoryContainer_ImageNames,
-        accomodationCategoryPageNames: accomodationCategoryPageNames,
+        accommodation_SubCategories: accommodation_SubCategories,
+        accommodationCategoryContainer_ImageNames: accommodationCategoryContainer_ImageNames,
+        accommodationCategoryPageNames: accommodationCategoryPageNames,
 
         entertainment_SubCategories: entertainment_SubCategories,
         entertainmentCategoryContainer_ImageNames: entertainmentCategoryContainer_ImageNames,
@@ -133,9 +134,9 @@ var GlobalWebClientModule = (function () {
         familycareCategoryContainer_ImageNames: familycareCategoryContainer_ImageNames,
         familycareCategoryPageNames: familycareCategoryPageNames,
 
-        medicalAndFitness_SubCategories: medicalAndFitness_SubCategories,
-        medicalAndFitnessCategoryContainer_ImageNames: medicalAndFitnessCategoryContainer_ImageNames,
-        medicalAndFitnessCategoryPageNames: medicalAndFitnessCategoryPageNames,
+        medicalandfitness_SubCategories: medicalandfitness_SubCategories,
+        medicalandfitnessCategoryContainer_ImageNames: medicalandfitnessCategoryContainer_ImageNames,
+        medicalandfitnessCategoryPageNames: medicalandfitnessCategoryPageNames,
 
         miscellaneous_SubCategories: miscellaneous_SubCategories,
         miscellaneousCategoryContainer_ImageNames: miscellaneousCategoryContainer_ImageNames,

@@ -16,12 +16,8 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
         var userNameValue = window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key);
         var budgetIdValue = window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key);
-        var expenseCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_Category_Key);
-        var expenseSubCategoryValue = window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
 
-        expenseRecordDataMap.set("Expense_Category", expenseCategoryValue);
         expenseRecordDataMap.set("Budget_Id", budgetIdValue);
-        expenseRecordDataMap.set("Expense_SubCategory", expenseSubCategoryValue);
         expenseRecordDataMap.set("UserName", userNameValue);
 
         // Check for required input values

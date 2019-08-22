@@ -55,8 +55,8 @@ var userRegistrationData_UniqueFields = ["User_Id", "Email", "UserName"];
 
 var budgetLevelAnalyticsRecord_RequiredFields = ["AnalyticsRecord_Id", "Budget_Id", "UserName", "Expenditure", "NumOfExpenses", "NumOfPlaces",
     "NumOfMerchants", "NumOfCategories", "NumOfSubCategories", "Categories"];
-var budgetLevelAnalyticsRecord_CategoryFields = ["Food", "Accommodation", "Entertainment", "Familycare", "MedicalAndFitness",
-    "Miscellaneous", "Shopping", "Transportation", "Vacation"];
+var budgetLevelAnalyticsRecord_CategoryFields = ["food", "accommodation", "entertainment", "familycare", "medicalandfitness",
+    "miscellaneous", "shopping", "transportation", "vacation"];
 
 var budgetAnalyticsRecord_RequiredQueryFields = ["Budget_Id", "UserName"];
 

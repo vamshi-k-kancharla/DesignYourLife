@@ -40,6 +40,13 @@ var GlobalsForServiceModule = require('./GlobalsForService');
 
 function addAllCategoriesObjectsFromExistingRecord(analyticsRecord_DocumentObject, currentAnalyticsRecord) {
 
+    console.log("BudgetAnalyticsUpdateUtils.addAllCategoriesObjectsFromExistingRecord => " +
+        "before the addition of current category level details => analyticsRecord_DocumentObject : ");
+    console.log(analyticsRecord_DocumentObject);
+    console.log("BudgetAnalyticsUpdateUtils.addAllCategoriesObjectsFromExistingRecord => " +
+        "before the addition of current category level details => currentAnalyticsRecord : ");
+    console.log(currentAnalyticsRecord);
+
     for (var currentExpenseCategory of GlobalsForServiceModule.budgetLevelAnalyticsRecord_CategoryFields) {
 
         if (HelperUtilsModule.valueDefined(currentAnalyticsRecord[currentExpenseCategory])) {
@@ -47,6 +54,10 @@ function addAllCategoriesObjectsFromExistingRecord(analyticsRecord_DocumentObjec
             analyticsRecord_DocumentObject[currentExpenseCategory] = currentAnalyticsRecord[currentExpenseCategory];
         }
     }
+
+    console.log("BudgetAnalyticsUpdateUtils.addAllCategoriesObjectsFromExistingRecord => " +
+        "After the addition of current category level details => analyticsRecord_DocumentObject : ");
+    console.log(analyticsRecord_DocumentObject);
 
     return analyticsRecord_DocumentObject;
 }
@@ -70,8 +81,8 @@ function updateSubCategoriesObjectWithCurrentExpenseData(document_Object, analyt
 
     if (HelperUtilsModule.valueDefined(analyticsRecord_DocumentObject[expenseCategory][expenseSubCategory])) {
 
-        analyticsRecord_DocumentObject[expenseCategory][expenseSubCategory] = String( parseInt(
-            analyticsRecord_DocumentObject[expenseCategory][expenseSubCategory], 10) + parseInt(document_Object.Amount, 10) );
+        analyticsRecord_DocumentObject[expenseCategory][expenseSubCategory] = checkValidityAndAdd(
+            analyticsRecord_DocumentObject[expenseCategory][expenseSubCategory], document_Object.Amount);
 
     } else {
 
@@ -79,6 +90,29 @@ function updateSubCategoriesObjectWithCurrentExpenseData(document_Object, analyt
     }
 
     return analyticsRecord_DocumentObject;
+}
+
+/**
+ * 
+ * @param {String} inputStrValue1 : First input string value
+ * @param {String} inputStrValue2 : Second input string value
+ *
+ * @returns {String} additionOutput : Output of addition based on number validity
+ *
+ */
+
+function checkValidityAndAdd(inputStrValue1, inputStrValue2) {
+
+    var firstInputValidity = HelperUtilsModule.isNumberOrFloat(inputStrValue1);
+    var secondInputValidity = HelperUtilsModule.isNumberOrFloat(inputStrValue2);
+
+    console.log("HelperUtils.checkValidityAndAdd => firstInputValidity : " + firstInputValidity +
+        "secondInputValidity : " + secondInputValidity);
+
+    var additionOutput = String(((firstInputValidity) ? parseInt(inputStrValue1, 10) : 0) +
+        ((secondInputValidity) ? parseInt(inputStrValue2, 10) : 0));
+
+    return additionOutput;
 }
 
 /**
@@ -94,23 +128,34 @@ function updateCategoriesDataObjectWithCurrentExpenseData(document_Object, analy
 
     var expenseCategory = document_Object.Expense_Category;
 
+    console.log("BudgetAnalyticsUpdateUtils.updateCategoriesDataObjectWithCurrentExpenseData => " +
+        "Analytics Record before updating basic Details at Category Level: ");
+    console.log(analyticsRecord_DocumentObject);
+
+    console.log("BudgetAnalyticsUpdateUtils.updateCategoriesDataObjectWithCurrentExpenseData => " +
+        "Document Object before updating basic Details at Category Level: ");
+    console.log(document_Object);
+
     // Check the presence of Expense Category and update data accordingly.
 
     if (HelperUtilsModule.valueDefined(analyticsRecord_DocumentObject[expenseCategory])) {
 
-        analyticsRecord_DocumentObject[expenseCategory].Expenditure = String( parseInt(analyticsRecord_DocumentObject[expenseCategory].Expenditure, 10) +
-            parseInt(document_Object.Amount, 10) );
+        analyticsRecord_DocumentObject[expenseCategory].Expenditure = checkValidityAndAdd(
+            analyticsRecord_DocumentObject[expenseCategory].Expenditure, document_Object.Amount);
+        analyticsRecord_DocumentObject[expenseCategory].NumOfExpenses = checkValidityAndAdd(
+            analyticsRecord_DocumentObject[expenseCategory].NumOfExpenses, "1");
 
     } else {
 
         var analyticsRecord_CategoriesObject = new Object();
         analyticsRecord_CategoriesObject.Expenditure = document_Object.Amount;
+        analyticsRecord_CategoriesObject.NumOfExpenses = 1;
 
         analyticsRecord_DocumentObject[expenseCategory] = analyticsRecord_CategoriesObject;
     }
 
     console.log("BudgetAnalyticsUpdateUtils.updateCategoriesDataObjectWithCurrentExpenseData => " +
-        "Analytics Record after adding basic Details at Category Level: ");
+        "Analytics Record after updating basic Details at Category Level: ");
     console.log(analyticsRecord_DocumentObject);
 
     // Update Sub Categories Data
@@ -161,8 +206,10 @@ function prepareNewAnalyticsRecord_DocumentObject(document_Object, firstUpdate, 
 
     } else {
 
-        analyticsRecord_DocumentObject.Expenditure = String( parseInt( currentAnalyticsRecord.Expenditure) + parseInt(document_Object.Amount));
-        analyticsRecord_DocumentObject.NumOfExpenses = String( parseInt( currentAnalyticsRecord.NumOfExpenses ) + 1 );
+        analyticsRecord_DocumentObject.Expenditure = checkValidityAndAdd(
+            currentAnalyticsRecord.Expenditure, document_Object.Amount);
+        analyticsRecord_DocumentObject.NumOfExpenses = checkValidityAndAdd(
+            currentAnalyticsRecord.NumOfExpenses, "1");
 
         analyticsRecord_DocumentObject = addAllCategoriesObjectsFromExistingRecord(analyticsRecord_DocumentObject, currentAnalyticsRecord);
     }

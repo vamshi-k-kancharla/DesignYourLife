@@ -80,6 +80,11 @@ function buildAnalyticsRecord_QueryResponse_JSON(queryResult) {
         if (HelperUtilsModule.valueDefined(currentRecord.Budget_Id) ) {
 
             queryResponse_BudgetAnalyticsRecord_JSON_String += JSON.stringify(RecordHelperUtilsModule.buildJSONRecord(currentRecord));
+
+            if (i == queryResult.length-1) {
+
+                continue;
+            }
             queryResponse_BudgetAnalyticsRecord_JSON_String += "\n";
         }
 

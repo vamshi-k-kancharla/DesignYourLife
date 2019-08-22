@@ -421,7 +421,6 @@ var RenderingHelperUtilsModule = (function () {
         return currentElement;
     }
 
-
     /**
      *
      * @param {string} elementType  : Id of main content window
@@ -444,6 +443,38 @@ var RenderingHelperUtilsModule = (function () {
         return currentElement;
     }
 
+    /**
+     *
+     * @param {string} optionText  : Value of Option to be added to Select Element
+     *
+     * @returns {DOMElement} currentElement : Returns newly created Element
+     * 
+     */
+
+    function createOptionForSelectElement(optionText) {
+
+        var currentElement = document.createElement("option");
+        currentElement.text = optionText;
+        return currentElement;
+    }
+
+    /**
+     *
+     * @param {DOMElement} selectOptionElement  : Select Element to be cleaned up
+     *
+     */
+
+    function removeOptionsFromSelectElement(selectOptionElement) {
+
+        var noOfOptions = selectOptionElement.length;
+
+        for (var currentIndex = noOfOptions - 1; currentIndex > 0; currentIndex--) {
+
+            selectOptionElement.remove(currentIndex);
+        }
+
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -455,6 +486,8 @@ var RenderingHelperUtilsModule = (function () {
         createNewElementWithAttributes: createNewElementWithAttributes,
         createNewElementWithAttributeMap: createNewElementWithAttributeMap,
         addCategoryDetailsContainer: addCategoryDetailsContainer,
+        createOptionForSelectElement: createOptionForSelectElement,
+        removeOptionsFromSelectElement: removeOptionsFromSelectElement,
 
     };
 

@@ -35,6 +35,7 @@
     <script src="./JavaScripts/HelperUtils.js"></script>
     <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
     <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+    <script src="./JavaScripts/CategoryHelperUtils.js"></script>
 
 
     <nav id="headerNav" class="navbar navbar-inverse">
@@ -99,6 +100,42 @@
                 <div style="padding-bottom: 5%"></div>
 
                 <form class="form-horizontal" style="align-items: center;" id="validateform">
+
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-4" for=ExpenseCategory>Expense Category</label>
+
+                        <div class="col-sm-6">
+
+                            <select class="form-control" id="ExpenseCategory" onchange="addExpenseSubCategorySelectionOptions()" required>
+
+                                <option disabled selected>enter expense category</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div style="padding-bottom: 20px"></div>
+
+                    <div class="form-group">
+
+                        <label class="control-label col-sm-4" for=ExpenseSubCategory>Expense SubCategory</label>
+
+                        <div class="col-sm-6">
+
+                            <select class="form-control" id="ExpenseSubCategory" required>
+
+                                <option disabled selected>enter expense sub category</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div style="padding-bottom: 20px"></div>
 
                     <div class="form-group">
 
@@ -247,6 +284,47 @@
 
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
                 "rightSideNavigator", "headerNav", "footerNav", 1.01);
+
+            addExpenseCategorySelectionOptions();
+        }
+
+        /**
+         *
+         *  Adds Expense category options
+         *
+         */
+
+        function addExpenseCategorySelectionOptions() {
+
+            var categorySelectElement = document.getElementById("ExpenseCategory");
+
+            for (var currentCategory of GlobalWebClientModule.categoryNames) {
+
+                categorySelectElement.add(RenderingHelperUtilsModule.createOptionForSelectElement(currentCategory));
+
+            }
+        }
+
+        /**
+         *
+         *  Adds Expense SubCategory options based on selected Category
+         *
+         */
+
+        function addExpenseSubCategorySelectionOptions() {
+
+            var currentCategorySelected = document.getElementById("ExpenseCategory").value;
+
+            var subCategorySelectElement = document.getElementById("ExpenseSubCategory");
+            RenderingHelperUtilsModule.removeOptionsFromSelectElement(subCategorySelectElement);
+
+            var subCategories = CategoryHelperUtilsModule.retrieveSubCategoriesForCategory(currentCategorySelected);
+
+            for (var currentSubCategory of subCategories) {
+
+                subCategorySelectElement.add(RenderingHelperUtilsModule.createOptionForSelectElement(currentSubCategory));
+            }
+
         }
 
     </script>

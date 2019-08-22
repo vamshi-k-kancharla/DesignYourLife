@@ -357,3 +357,50 @@ exports.doesValueExistInArray = function (inputArray, findValue) {
     return false;
 }
 
+/**
+ * 
+ * @param {String} inputFloatValue : Value to be checked for floating point number
+ * 
+ * @returns {boolean}  true/false  : True if value is floating point number, false otherwise
+ * 
+*/
+
+exports.isFloatingNumber = function (inputFloatValue) {
+
+    if (!HelperUtilsModule.valueDefined(inputFloatValue)) {
+
+        return false;
+    }
+
+    var inputFloatValueArray = inputFloatValue.split(".");
+
+    if (inputFloatValueArray.length == 2 && Number.isInteger(parseInt(inputFloatValueArray[0])) &&
+        Number.isInteger(parseInt(inputFloatValueArray[1]))) {
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
+ * 
+ * @param {String} inputValue : Value to be checked for floating point or decimal integer
+ * 
+ * @returns {boolean}  true/false  : True if inputValue is floating point or  decimal integer, false otherwise
+ * 
+*/
+
+exports.isNumberOrFloat = function (inputValue) {
+
+    console.log("HelperUtils.isNumberOrFloat => inputValue : " + inputValue);
+
+    if (HelperUtilsModule.valueDefined(inputValue) &&
+        (Number.isInteger(parseInt(inputValue)) || HelperUtilsModule.isFloatingNumber(inputValue))) {
+
+        return true;
+    }
+
+    return false;
+}
+
