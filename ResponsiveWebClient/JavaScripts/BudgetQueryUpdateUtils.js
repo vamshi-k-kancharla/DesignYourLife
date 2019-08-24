@@ -67,6 +67,58 @@ var BudgetQueryUpdateUtilsModule = (function () {
 
     /**
     * 
+    * Takes care of Budget Details Query for Current User
+    * 
+    * @param {Function} postBudgetRecordsQuery_SuccessCallback  : Success Callback Function of Budget Records Query
+    * @param {Function} postBudgetRecordsQuery_FailureCallback  : Failure Callback Function of Budget Records Query
+    *
+    */
+
+    function retrieveBudgetDetailsForCurrentUser(postBudgetRecordsQuery_SuccessCallback, postBudgetRecordsQuery_FailureCallback) {
+
+        var BudgetRecordsQueryMap = new Map();
+
+        var userNameValue = window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key);
+
+        BudgetRecordsQueryMap.set("UserName", userNameValue);
+
+        // Web Client Request for Retrieving Budget Records for Current User
+
+        WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("RetrieveBudgetDetails", BudgetRecordsQueryMap,
+            postBudgetRecordsQuery_SuccessCallback, postBudgetRecordsQuery_FailureCallback);
+    }
+
+    /**
+    * 
+    * Takes care of Retrieving budget names & Types from Budget Record Objects
+    * 
+    * @param {JSON} jsonObject_BudgetRecords  : Budget Records retrieved from Server Response
+    * @param {Array} budgetNames  : Names of Budget Records retrieved from Server Response
+    * @param {Array} budgetTypes  : Types of Budget Records retrieved from Server Response
+    *
+    */
+
+    function retrieveBudgetNamesAndTypes(jsonObject_BudgetRecords, budgetNames, budgetTypes) {
+
+        for (var currentObject of jsonObject_BudgetRecords) {
+
+            budgetNames.push(currentObject.BudgetName);
+
+            if (currentObject.Budget_Type == "Recurring") {
+
+                budgetTypes.push("monthly");
+
+            } else {
+
+                budgetTypes.push(currentObject.Budget_Type);
+            }
+
+        }
+
+    }
+
+    /**
+    * 
     * Reveal Private methods & variables
     *
     */
@@ -74,6 +126,8 @@ var BudgetQueryUpdateUtilsModule = (function () {
     return {
 
         addBudgetRecordFromUserInput: addBudgetRecordFromUserInput,
+        retrieveBudgetDetailsForCurrentUser: retrieveBudgetDetailsForCurrentUser,
+        retrieveBudgetNamesAndTypes: retrieveBudgetNamesAndTypes,
     }
 
 })();

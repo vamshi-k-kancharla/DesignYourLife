@@ -4,7 +4,7 @@
     
 <head>
 
-    <title>Categories</title>
+    <title>Budgets</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,6 +37,7 @@
     <script src="./JavaScripts/AnalyticsQueryUpdateUtils.js"></script>
     <script src="./JavaScripts/ObjectUtilsForRendering.js"></script>
     <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+    <script src="./JavaScripts/BudgetQueryUpdateUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -95,7 +96,7 @@
 
                 <div style="background-color: #4B5246;">
 
-                    <h1 style="text-align: center;color: white">CATEGORIES </h1>
+                    <h1 style="text-align: center;color: white"> USER BUDGETS </h1>
 
                 </div>
 
@@ -141,20 +142,23 @@
          *
          */
 
-        var noOfCategories;
-        var categoryToPageMap;
+        var noOfBudgets;
+        var budgetTypeToImageMap;
+        var budgetTypeToPageMap;
 
         window.onload = function (event) {
 
-            // Fill Category Page map & Render Dynamic Content
+            // Fill Category PageMap & ImageMap
 
-            categoryToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.categoryNames,
-                GlobalWebClientModule.categoryPageNames);
+            budgetTypeToImageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.budgetTypes,
+                GlobalWebClientModule.budgetType_ImageNames);
+            budgetTypeToPageMap = RenderingHelperWrapperUtilsModule.fillCategoryToDetailMap(GlobalWebClientModule.budgetTypes,
+                GlobalWebClientModule.budgetDetailsPageName);
 
-            // Retrieve budget level Analytics from Server for dynamic rendering
+            // Retrieve all user created budgets for current User from Server for dynamic rendering
 
-            AnalyticsQueryUpdateUtilsModule.retrieveBudgetLevelAnalytics(postAnalyticsQuery_SuccessCallback,
-                postAnalyticsQuery_FailureCallback);
+            BudgetQueryUpdateUtilsModule.retrieveBudgetDetailsForCurrentUser(postBudgetRecordsQuery_SuccessCallback,
+                postBudgetRecordsQuery_FailureCallback);
 
         }
 
@@ -162,78 +166,79 @@
         *
         * Post processing call back after Analytics Query
         *
-        * @param {string} webReqResponse  :  Analytics Query Response from Server
+        * @param {string} webReqResponse  :  Budget Records Query Response from Server
         *
         */
 
-        function postAnalyticsQuery_SuccessCallback(webReqResponse) {
+        function postBudgetRecordsQuery_SuccessCallback(webReqResponse) {
 
             var jsonResponseObjectStrings = webReqResponse.split("\n");
 
-            if (!HelperUtilsModule.valueDefined(webReqResponse) || jsonResponseObjectStrings.length != 1) {
+            if (!HelperUtilsModule.valueDefined(webReqResponse)) {
 
                 return;
             }
 
-            var jsonObjectResponse_BudgetAnalytics = JSON.parse(jsonResponseObjectStrings[0]);
+            var jsonObjectResponse_UserBudgetRecords = new Array();
+
+            for (var currentJSONResponseObjectString of jsonResponseObjectStrings) {
+
+                jsonObjectResponse_UserBudgetRecords.push(JSON.parse(currentJSONResponseObjectString));
+            }
+
+            // Retrieve details for each Budget Record and render content dynamically
+
+            var budgetSummaryListForDisplay = ObjectUtilsForRenderingModule.buildObjectListForDisplay(jsonObjectResponse_UserBudgetRecords,
+                GlobalWebClientModule.expenseRecordKeys_ForDisplay);
+
+            var budgetNames = new Array();
+            var budgetTypes = new Array();
+
+            BudgetQueryUpdateUtilsModule.retrieveBudgetNamesAndTypes(jsonObjectResponse_UserBudgetRecords, budgetNames, budgetTypes);
+
+            var budgetSummaryImageNamesForDisplay = HelperUtilsModule.retrieveValuesFromMap(budgetTypes, budgetTypeToImageMap);
+            var budgetSummaryPageNamesForDisplay = HelperUtilsModule.retrieveValuesFromMap(budgetTypes, budgetTypeToPageMap);
 
             if (GlobalWebClientModule.bDebug == true) {
 
-                alert("webReqResponse : " + webReqResponse);
-                alert("Number of keys in Budget Analytics Record : " + Object.keys(jsonObjectResponse_BudgetAnalytics).length);
-                alert("First key of Budget Analytics Record : " + (Object.keys(jsonObjectResponse_BudgetAnalytics))[0] + " , First Value : " +
-                    (Object.values(jsonObjectResponse_BudgetAnalytics))[0]);
-
+                alert("First Budget Summary Details Object : " + HelperUtilsModule.returnObjectString(budgetSummaryListForDisplay[0]));
             }
 
-            var categoryLevelSummaryListForDisplay = ObjectUtilsForRenderingModule.buildCategoryLevelSummaryListForDisplay(
-                jsonObjectResponse_BudgetAnalytics, GlobalWebClientModule.categoryNames, GlobalWebClientModule.requiredKeysForCategorySummary);
-            var categoryNames = ObjectUtilsForRenderingModule.buildCategoryNamesForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
-                GlobalWebClientModule.categoryNames);
-            var categoryImageNames = ObjectUtilsForRenderingModule.buildCategoryDetailsForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
-                GlobalWebClientModule.categoryNames, GlobalWebClientModule.categoryContainer_ImageNames);
-            var categoryPageNames = ObjectUtilsForRenderingModule.buildCategoryDetailsForCurrentBudget(jsonObjectResponse_BudgetAnalytics,
-                GlobalWebClientModule.categoryNames, GlobalWebClientModule.categoryPageNames);
-
-            if (GlobalWebClientModule.bDebug == true) {
-
-                alert("First Category Summary Details Object : " + HelperUtilsModule.returnObjectString(categoryLevelSummaryListForDisplay[0]) );
-            }
-
-            renderCategoryLevelDynamicContent(categoryLevelSummaryListForDisplay, categoryNames, categoryImageNames, categoryPageNames);
+            renderBudgetSummaryDynamicContent(budgetSummaryListForDisplay, budgetNames, budgetSummaryImageNamesForDisplay,
+                budgetSummaryPageNamesForDisplay);
         }
 
-        function postAnalyticsQuery_FailureCallback(webReqResponse) {
+        function postBudgetRecordsQuery_FailureCallback(webReqResponse) {
 
-            alert("Query for Category Level Summary Details has failed : " + webReqResponse);
+            alert("Query for Budget Level Summary Details has failed : " + webReqResponse);
         }
 
         /**
          *
-         *  Render category level dynamic content
+         *  Render budget summary dynamic content
          *
-         * @param {Array} categoryLevelSummaryListForDisplay  : Array of Category Level Summary details objects
-         * @param {Array} categoryNames  : Array of Category names to be rendered
-         * @param {Array} categoryImageNames  : Array of Category Image names to be rendered
-         * @param {Array} categoryPageNames  : Array of Category Page names to be rendered
+         * @param {Array} budgetSummaryListForDisplay  : Array of Budget Summary details objects
+         * @param {Array} budgetNames  : Array of Budget names to be rendered
+         * @param {Array} budgetSummaryImageNamesForDisplay  : Array of Budget Image names to be rendered
+         * @param {Array} budgetSummaryPageNamesForDisplay  : Array of Budget Page names to be rendered
          *
          */
 
-        function renderCategoryLevelDynamicContent(categoryLevelSummaryListForDisplay, categoryNames, categoryImageNames, categoryPageNames) {
+        function renderBudgetSummaryDynamicContent(budgetSummaryListForDisplay, budgetNames, budgetSummaryImageNamesForDisplay,
+            budgetSummaryPageNamesForDisplay) {
 
             if (GlobalWebClientModule.bDebug == true) {
 
                 alert("Current UserName : " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
-                alert("Current Budget Id : " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
             }
 
-            noOfCategories = categoryLevelSummaryListForDisplay.length;
-            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, "mainContentWindow",
-                categoryImageNames, categoryLevelSummaryListForDisplay, categoryNames, categoryPageNames);
+            noOfBudgets = budgetSummaryListForDisplay.length;
+            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfBudgets, "mainContentWindow",
+                budgetSummaryImageNamesForDisplay, budgetSummaryListForDisplay, budgetNames, budgetSummaryPageNamesForDisplay);
 
             // Rendering Adjustments
 
-            var sideNavigatorsBottomBufferHeight = (.05 / noOfCategories);
+            var sideNavigatorsBottomBufferHeight = (.05 / noOfBudgets);
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
                 "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
 

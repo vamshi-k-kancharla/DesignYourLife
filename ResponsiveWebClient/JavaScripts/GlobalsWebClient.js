@@ -15,6 +15,14 @@ var GlobalWebClientModule = (function () {
 	var currentExpense_Category_Key = "currentExpense_Category";
     var currentExpense_SubCategory_Key = "currentExpense_SubCategory";
 
+    // Budget Types
+
+    var budgetTypes = ["monthly", "yearly", "festiveseason", "occasional", "vacation", "unplanned"];
+    var budgetType_ImageNames = ["BudgetType_Monthly.jpg", "BudgetType_Yearly.jpg", "BudgetType_FestiveSeason.jpg",
+        "BudgetType_Occasional.jpg", "BudgetType_Vacation.jpg", "BudgetType_Unplanned.jpg"];
+    var budgetDetailsPageName = ["./Categories.html"];
+    var budgetRecordKeys_ForDisplay = ["BudgetName", "Place", "StartDate", "EndDate", "Amount"];
+
     // All Category & SubCategory Names for <Key, Value> Pair Retrieval
 	
     var categoryNames = ["food", "accommodation", "entertainment", "familycare", "medicalandfitness", "miscellaneous",
@@ -24,6 +32,8 @@ var GlobalWebClientModule = (function () {
     var categoryPageNames = ["./Food.html", "./Accommodation.html", "./Entertainment.html", "./FamilyCare.html",
         "./MedicalAndFitness.html", "./Miscellaneous.html", "./Shopping.html", "./Transportation.html",
         "./Vacation.html"];
+
+    // Sub Categories & Corresponding Details
 
     var food_SubCategories = ["coffeeshop", "groceries", "restaurants"];
     var foodCategoryContainer_ImageNames = ["coffeeshop.jpg", "groceries.jpg", "restaurants.jpg"];
@@ -110,7 +120,14 @@ var GlobalWebClientModule = (function () {
 		currentUserName_Key : currentUserName_Key,
 		currentBudget_Id_Key : currentBudget_Id_Key,
 		currentExpense_Category_Key : currentExpense_Category_Key,
-		currentExpense_SubCategory_Key : currentExpense_SubCategory_Key,
+        currentExpense_SubCategory_Key: currentExpense_SubCategory_Key,
+
+        // Budget Related Parameters
+
+        budgetTypes: budgetTypes,
+        budgetType_ImageNames: budgetType_ImageNames,
+        budgetDetailsPageName: budgetDetailsPageName,
+        budgetRecordKeys_ForDisplay: budgetRecordKeys_ForDisplay,
 
         // Global data related to Categories & SubCategories
 

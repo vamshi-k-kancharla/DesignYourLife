@@ -52,7 +52,7 @@ var UserAuthenticationModule = (function () {
             alert("Current BudgetId Stored in Local Cache: " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
         }
 
-        document.location.replace("./Categories.html");
+        document.location.replace("./UserBudgets.html");
     }
 
     function postUserAuthentication_FailureCallback(webReqResponse, userAuthenticationDataMap) {

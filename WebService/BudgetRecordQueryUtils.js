@@ -81,7 +81,11 @@ function buildQueryResponse_JSON(queryResult) {
 
             queryResponse_BudgetRecord_JSON_String += JSON.stringify(RecordHelperUtilsModule.buildJSONRecord(currentRecord,
                 GlobalsForServiceModule.budgetRecordRequiredFields));
-            queryResponse_BudgetRecord_JSON_String += "\n";
+
+            if (i != queryResult.length - 1) {
+
+                queryResponse_BudgetRecord_JSON_String += "\n";
+            }
         }
 
     }
