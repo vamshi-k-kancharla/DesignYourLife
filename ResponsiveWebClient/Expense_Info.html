@@ -49,9 +49,25 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="./UserBudgets.html" style="color:black">Home</a></li>
-                <li><a href="#" style="color:black"> Page 1 </a></li>
-                <li><a href="#" style="color:black">Page 2</a></li>
-                <li><a href="#" style="color:black">Page 3</a></li>
+                <li>
+
+                    <div class="dropdown" style="padding-top:15px">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">
+                            Add Menu
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li><a href="./AddBudget.html">Add Budget</a></li>
+                            <li><a href="./AddExpense.html">Add Expense</a></li>
+
+                        </ul>
+
+                    </div>
+
+                </li>
 
             </ul>
 
@@ -113,8 +129,9 @@
 
                 <div class="col-sm-12">
 
-                    <button type="submit" class="btn btn-default" style="float: left;" onclick="window.open('./addbudget.html','_self')">Add Budget</button>
-                    <button type="submit" class="btn btn-default" style="float: right;" onclick="window.open('./addexpense.html','_self')">Add Expense</button>
+                    <label class="col-sm-5"></label>
+                    <button type="submit" class="btn btn-primary col-sm-2" onclick="window.open('./addexpense.html','_self')">Add Expense</button>
+                    <label class="col-sm-5"></label>
 
                 </div>
 

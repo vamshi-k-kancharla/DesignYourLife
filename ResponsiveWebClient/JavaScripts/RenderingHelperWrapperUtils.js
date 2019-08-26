@@ -133,8 +133,43 @@ var RenderingHelperWrapperUtilsModule = (function () {
 
             var noOfCategorySummaryDetails = Object.keys(resultObject_SummaryDetailsArray[currentContainerNum - 1]).length;
 
-            RenderingHelperUtilsModule.addCategoryDetailsContainer(mainContentWindowId, currentContainerNum, numOfContainers,
-                textAlignmentArray[(currentContainerNum - 1) % 4], noOfCategorySummaryDetails, categoryNames, categoryPageNames);
+            if (ObjectUtilsForRenderingModule.isResultBudgetRecordObject(resultObject_SummaryDetailsArray[currentContainerNum - 1])) {
+
+                var currentContainerBudgetId = resultObject_SummaryDetailsArray[currentContainerNum - 1].Budget_Id;
+
+                if (GlobalWebClientModule.bDebug == true) {
+
+                    alert("Current Budget Object Record before deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
+                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
+                }
+
+                delete resultObject_SummaryDetailsArray[currentContainerNum - 1].Budget_Id;
+
+                /*
+                var exclusionObjectKeys = ["Budget_Id"];
+                resultObject_SummaryDetailsArray[currentContainerNum - 1] = ObjectUtilsForRenderingModule.buildObjectForDisplay(
+                    resultObject_SummaryDetailsArray[currentContainerNum - 1], GlobalWebClientModule.budgetRecordKeys_ForDisplay,
+                    exclusionObjectKeys);
+                */
+
+                if (GlobalWebClientModule.bDebug == true) {
+
+                    alert("Current Budget Object Record after deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
+                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
+                }
+
+                noOfCategorySummaryDetails = Object.keys(resultObject_SummaryDetailsArray[currentContainerNum - 1]).length;
+                RenderingHelperUtilsModule.addCategoryDetailsContainer(mainContentWindowId, currentContainerNum, numOfContainers,
+                    textAlignmentArray[(currentContainerNum - 1) % 4], noOfCategorySummaryDetails, categoryNames, categoryPageNames,
+                    currentContainerBudgetId);
+
+            } else {
+
+                RenderingHelperUtilsModule.addCategoryDetailsContainer(mainContentWindowId, currentContainerNum, numOfContainers,
+                    textAlignmentArray[(currentContainerNum - 1) % 4], noOfCategorySummaryDetails, categoryNames, categoryPageNames);
+
+            }
+
         }
 
         // Now that dynamic rendering of Category Details happened, display all the category summary details

@@ -3,6 +3,32 @@ var ObjectUtilsForRenderingModule = (function () {
 
     /**
     * 
+    * @param {Array} currentInputObject : Input Object that consisits of Super set of Properties
+    * @param {Array} objectKeysForDisplay : Array of required keys for display ( Subset )
+    * @param {Array} exclusionObjectKeys : Array of Keys to be excluded ( Subset )
+    * 
+    * @returns {Object} currentObject: Returns object with Required Subset of keys
+    *
+    */
+
+    function buildObjectForDisplay(currentInputObject, objectKeysForDisplay, exclusionObjectKeys) {
+
+        var currentObject = new Object();
+
+        for (var currentKey of objectKeysForDisplay) {
+
+            if (HelperUtilsModule.valueDefined(currentInputObject[currentKey]) &&
+                ((exclusionObjectKeys)?!exclusionObjectKeys.includes(currentKey):true) ) {
+
+                currentObject[currentKey] = currentInputObject[currentKey];
+            }
+        }
+
+        return currentObject;
+    }
+
+    /**
+    * 
     * @param {Array} inputObjectArray : Array of raw input objects
     * @param {Array} objectKeysForDisplay : Array of required keys for display
     * 
@@ -16,16 +42,7 @@ var ObjectUtilsForRenderingModule = (function () {
 
         for (var currentInputObject of inputObjectArray) {
 
-            var currentObject = new Object();
-
-            for (var currentKey of objectKeysForDisplay) {
-
-                if (HelperUtilsModule.valueDefined(currentInputObject[currentKey])) {
-
-                    currentObject[currentKey] = currentInputObject[currentKey];
-                }
-            }
-
+            var currentObject = buildObjectForDisplay(currentInputObject, objectKeysForDisplay, null);
             objectListForDisplay.push(currentObject);
         }
 
@@ -208,12 +225,41 @@ var ObjectUtilsForRenderingModule = (function () {
         return subCategoryDetailNames;
     }
 
+    /**
+    * 
+    * @param {Object} budgetRecordInQuestion : Budget Record Object in Question
+    * 
+    * @returns {Boolean} "True/False": Returns true if Budget Record, False otherwise
+    *
+    */
+
+    function isResultBudgetRecordObject(budgetRecordInQuestion) {
+
+        for (var currentReqKey of GlobalWebClientModule.budgetRecordKeys_ToCheckAuthenticity) {
+
+            if (!HelperUtilsModule.valueDefined(budgetRecordInQuestion[currentReqKey])) {
+
+                if (GlobalWebClientModule.bDebug == true) {
+
+                    alert("ObjectUtilsForRenderingModule:isResultBudgetRecordObject => budgetRecordInQuestion : " + HelperUtilsModule.returnObjectString(
+                        budgetRecordInQuestion));
+                    alert("ObjectUtilsForRenderingModule:isResultBudgetRecordObject => Missin Key : " + currentReqKey);
+                }
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
 
     return {
 
+        buildObjectForDisplay: buildObjectForDisplay,
         buildObjectListForDisplay: buildObjectListForDisplay,
 
         buildCategoryLevelSummaryListForDisplay: buildCategoryLevelSummaryListForDisplay,
@@ -222,6 +268,8 @@ var ObjectUtilsForRenderingModule = (function () {
 
         buildSubCategoryLevelSummaryListForDisplay: buildSubCategoryLevelSummaryListForDisplay,
         buildSubCategoryDetailsForCurrentBudget: buildSubCategoryDetailsForCurrentBudget,
+
+        isResultBudgetRecordObject: isResultBudgetRecordObject,
     };
 
 })();

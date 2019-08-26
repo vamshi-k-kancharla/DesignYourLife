@@ -44,7 +44,6 @@ var UserAuthenticationModule = (function () {
 
         alert("User Authentication successful : " + webReqResponse);
         window.localStorage.setItem(GlobalWebClientModule.currentUserName_Key, userAuthenticationDataMap.get("UserName"));
-        window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, GlobalWebClientModule.currentBudgetId_Dummy);
         
         if (GlobalWebClientModule.bDebug == true) {
 

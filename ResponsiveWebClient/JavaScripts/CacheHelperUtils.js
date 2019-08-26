@@ -34,6 +34,11 @@ var CacheHelperUtilsModule = (function () {
                 }
                 break;
 
+            case "budgetId":
+
+                window.localStorage.setItem(GlobalWebClientModule.currentBudget_Id_Key, cacheItemValue);
+                break;
+
             default:
 
                 if (GlobalWebClientModule.bDebug == true) {

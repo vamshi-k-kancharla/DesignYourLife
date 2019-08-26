@@ -52,7 +52,24 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="./UserBudgets.html" style="color:black">Home</a></li>
-                <li><a href="#" style="color:black"> Page 1 </a></li>
+                <li>
+                    
+                    <div class="dropdown" style="padding-top:15px">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="color:black"> Add Menu
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li><a href="./AddBudget.html" >Add Budget</a></li>
+                            <li><a href="./AddExpense.html" >Add Expense</a></li>
+
+                        </ul>
+
+                    </div>
+                
+                </li>
 
             </ul>
 
@@ -92,13 +109,29 @@
 
             <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
 
-            <div id="mainContentWindow" class="col-sm-8">
+            <div id="mainContentWindowWrapper" class="col-sm-8">
 
-                <div style="background-color: #4B5246;">
+                <div id="mainContentWindow">
 
-                    <h1 style="text-align: center;color: white"> USER BUDGETS </h1>
+                    <div style="background-color: #4B5246;">
+
+                        <h1 style="text-align: center;color: white"> USER BUDGETS </h1>
+
+                    </div>
 
                 </div>
+
+                <div class="col-sm-12" style="padding:40px"></div>
+
+                <div class="col-sm-12">
+
+                    <label class="col-sm-5"></label>
+                    <button type="submit" class="btn btn-primary col-sm-2" onclick="window.open('./addbudget.html','_self')">Add Budget</button>
+                    <label class="col-sm-5"></label>
+
+                </div>
+
+                <div class="col-sm-12" style="padding:40px"></div>
 
             </div>
 
@@ -189,7 +222,7 @@
             // Retrieve details for each Budget Record and render content dynamically
 
             var budgetSummaryListForDisplay = ObjectUtilsForRenderingModule.buildObjectListForDisplay(jsonObjectResponse_UserBudgetRecords,
-                GlobalWebClientModule.expenseRecordKeys_ForDisplay);
+                GlobalWebClientModule.budgetRecordKeys_ForDisplay);
 
             var budgetNames = new Array();
             var budgetTypes = new Array();
@@ -202,6 +235,9 @@
             if (GlobalWebClientModule.bDebug == true) {
 
                 alert("First Budget Summary Details Object : " + HelperUtilsModule.returnObjectString(budgetSummaryListForDisplay[0]));
+                alert("budgetSummaryImageNamesForDisplay : " + budgetSummaryImageNamesForDisplay.toString());
+                alert("budgetSummaryPageNamesForDisplay : " + budgetSummaryPageNamesForDisplay.toString());
+
             }
 
             renderBudgetSummaryDynamicContent(budgetSummaryListForDisplay, budgetNames, budgetSummaryImageNamesForDisplay,
@@ -246,15 +282,15 @@
 
         /**
          *
-         * Stores the category value in Local Cache and traverses to appropriate function.
+         * Stores Budget Id value in Local Cache and traverses to appropriate function.
          *
-         * @param {string} categoryId  : Category/SubCategory Id
+         * @param {string} budgetId  : budget_Id of current container
          *
          */
 
-        function traverseToNextPage(categoryId) {
+        function traverseToNextPage(budgetId) {
 
-            CacheHelperUtilsModule.storeValueInLocalCache('category', categoryId);
+            CacheHelperUtilsModule.storeValueInLocalCache('budgetId', budgetId);
         }
 
     </script>

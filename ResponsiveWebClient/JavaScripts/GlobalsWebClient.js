@@ -21,7 +21,8 @@ var GlobalWebClientModule = (function () {
     var budgetType_ImageNames = ["BudgetType_Monthly.jpg", "BudgetType_Yearly.jpg", "BudgetType_FestiveSeason.jpg",
         "BudgetType_Occasional.jpg", "BudgetType_Vacation.jpg", "BudgetType_Unplanned.jpg"];
     var budgetDetailsPageName = ["./Categories.html"];
-    var budgetRecordKeys_ForDisplay = ["BudgetName", "Place", "StartDate", "EndDate", "Amount"];
+    var budgetRecordKeys_ForDisplay = ["Budget_Id", "BudgetName", "Place", "StartDate", "EndDate", "Amount"];
+    var budgetRecordKeys_ToCheckAuthenticity = ["Budget_Id", "BudgetName"];
 
     // All Category & SubCategory Names for <Key, Value> Pair Retrieval
 	
@@ -75,17 +76,25 @@ var GlobalWebClientModule = (function () {
 
     // Form Data Input Ids, Keys & Validation Reqs
 
+    // User Registration Data
+
     var userRegistrationData_InputIds = ["UserType", "Name", "Location", "Email", "Address", "UserName", "Password", "Repeat-Password"];
     var userRegistrationData_Keys = ["User_Id", "UserType", "Name", "Location", "Email", "Address", "UserName", "Password", "Repeat-Password"];
     var userRegistrationData_RequiredKeys = ["User_Id", "UserType", "Name", "Email", "Address", "UserName", "Password"];
+
+    // User Authentication Data
 
     var userAuthenticationData_InputIds = ["UserName", "Pwd"];
     var userAuthenticationData_Keys = ["UserName", "Password"];
     var userAuthenticationData_RequiredKeys = ["UserName", "Password"];
 
+    // Budget Record Data
+
     var budgetRecordData_InputIds = ["BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount"];
     var budgetRecordData_Keys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
     var budgetRecordData_RequiredKeys = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
+
+    // Expense Record Data
 
     var expenseRecordData_InputIds = ["ExpenseCategory", "ExpenseSubCategory", "ExpenseName", "Expense_Type", "Place",
         "Date", "Amount", "MerchantName"];
@@ -128,6 +137,7 @@ var GlobalWebClientModule = (function () {
         budgetType_ImageNames: budgetType_ImageNames,
         budgetDetailsPageName: budgetDetailsPageName,
         budgetRecordKeys_ForDisplay: budgetRecordKeys_ForDisplay,
+        budgetRecordKeys_ToCheckAuthenticity: budgetRecordKeys_ToCheckAuthenticity,
 
         // Global data related to Categories & SubCategories
 

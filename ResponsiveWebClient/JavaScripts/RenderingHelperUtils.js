@@ -184,12 +184,19 @@ var RenderingHelperUtilsModule = (function () {
      * @param {int} numOfDetails  : Number of Category Summary details
      * @param {int} categoryNames  : Array of Category Names
      * @param {int} categoryPageNames  : Array of Category Page Names
+     * @param {String} currentContainerBudgetId  : Budget_Id of Current Container to be stored in local cache
      *
      */
 
-   
     function addCategoryDetailsContainer(mainContentWindowId, containerNumber, numOfContainers, categoryDetailsAlignment, numOfDetails,
         categoryNames, categoryPageNames) {
+
+        addCategoryDetailsContainer(mainContentWindowId, containerNumber, numOfContainers, categoryDetailsAlignment, numOfDetails,
+            categoryNames, categoryPageNames, null);
+    }
+
+    function addCategoryDetailsContainer(mainContentWindowId, containerNumber, numOfContainers, categoryDetailsAlignment, numOfDetails,
+        categoryNames, categoryPageNames, currentContainerBudgetId) {
 
         var mainContentWindow = document.getElementById(mainContentWindowId);
 
@@ -207,7 +214,7 @@ var RenderingHelperUtilsModule = (function () {
         // Fill Left Side of Container 
 
         fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
-            categoryNames, categoryPageNames);
+            categoryNames, categoryPageNames, currentContainerBudgetId);
 
         // Fill Right Side of Container 
 
@@ -225,7 +232,7 @@ var RenderingHelperUtilsModule = (function () {
             }
 
             fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
-                categoryNames, categoryPageNames);
+                categoryNames, categoryPageNames, currentContainerBudgetId);
         }
     }
 
@@ -238,17 +245,20 @@ var RenderingHelperUtilsModule = (function () {
     * @param {int} numOfDetails  : Number of Category Summary details
     * @param {int} categoryNames  : Array of Category Names
     * @param {int} categoryPageNames  : Array of Category Page Names
+    * @param {String} currentContainerBudgetId  : Budget_Id of Current Container to be stored in local cache
     *
     */
 
     function fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailAlignment, numOfDetails,
-        categoryNames, categoryPageNames) {
+        categoryNames, categoryPageNames, currentContainerBudgetId) {
 
         var containerId = "containerNode" + containerNumber.toString();
 
         var mainContentWindow = document.getElementById(mainContentWindowId);
 
-        var traveToNextPageFunction = "traverseToNextPage('" + categoryNames[containerNumber - 1] + "')";
+        var traveToNextPageFunction = (currentContainerBudgetId) ? "traverseToNextPage('" + currentContainerBudgetId + "')" :
+            "traverseToNextPage('" + categoryNames[containerNumber - 1] + "')";
+
         var attributeMap_HyperLinkNode = new Map();
 
         if (categoryPageNames.length == 1) {
