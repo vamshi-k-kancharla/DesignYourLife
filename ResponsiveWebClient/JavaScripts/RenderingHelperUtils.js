@@ -455,6 +455,27 @@ var RenderingHelperUtilsModule = (function () {
 
     /**
      *
+     * @param {DOMElement} currentElement  : Current Element for which attributes are to be configured
+     * @param {string} elementAttributeMap  : Attribute Map with all the input attributes
+     *
+     * @returns {DOMElement} currentElement : Returns Current Element after setting new properties
+     * 
+     */
+
+    function setElementWithAttributeMap(currentElement, elementAttributeMap) {
+
+        var elementAttributeKeys = elementAttributeMap.keys();
+
+        for (var currentKey of elementAttributeKeys) {
+
+            currentElement.setAttribute(currentKey, elementAttributeMap.get(currentKey));
+        }
+
+        return currentElement;
+    }
+
+    /**
+     *
      * @param {string} optionText  : Value of Option to be added to Select Element
      *
      * @returns {DOMElement} currentElement : Returns newly created Element
@@ -485,6 +506,51 @@ var RenderingHelperUtilsModule = (function () {
 
     }
 
+    /**
+     *
+     * @param {DOMElement} detailsContainerNode : Current Container Node to Render Details
+     * @param {int} containerNumber : Current container number
+     * @param {int} numOfDetails : Total Number of details to be displayed for current container
+     * @param {string} textAlignment : Text alignment for container content
+     *
+     */
+
+    function renderIdValuePairParagraphChildNode(detailsContainerNode, currentRowNumber, currentColumnNumber, numOfDetails, textAlignment) {
+
+        var idValuePairParagraphNode = createNewElementWithAttributes("P", null, null, "text-align:" +
+            textAlignment + ";");
+        {
+
+            var paragraphContent = "";
+
+            for (var detailNum = 1; detailNum <= numOfDetails; detailNum++) {
+
+                var currentDetailKeyId = "row" + String(currentRowNumber) + "_column" + String(currentColumnNumber) + "_" +
+                    "id" + String(detailNum);
+                var currentDetailValueId = "row" + String(currentRowNumber) + "_column" + String(currentColumnNumber) + "_" +
+                    "value" + String(detailNum);
+
+                paragraphContent += "<span id=" + currentDetailKeyId + "></span> : <span id=" +
+                    currentDetailValueId + "></span>";
+
+                if (detailNum != numOfDetails) {
+
+                    paragraphContent += " ,";
+                }
+            }
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("renderIdValuePairParagraphChildNode: paragraphContent => " + paragraphContent);
+            }
+
+            idValuePairParagraphNode.innerHTML = paragraphContent;
+        }
+
+        detailsContainerNode.appendChild(idValuePairParagraphNode);
+    }
+
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -498,6 +564,8 @@ var RenderingHelperUtilsModule = (function () {
         addCategoryDetailsContainer: addCategoryDetailsContainer,
         createOptionForSelectElement: createOptionForSelectElement,
         removeOptionsFromSelectElement: removeOptionsFromSelectElement,
+        setElementWithAttributeMap: setElementWithAttributeMap,
+        renderIdValuePairParagraphChildNode: renderIdValuePairParagraphChildNode,
 
     };
 

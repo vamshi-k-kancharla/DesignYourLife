@@ -38,6 +38,12 @@
     <script src="./JavaScripts/RenderingHelperUtils.js"></script>
     <script src="./JavaScripts/UserAuthentication.js"></script>
     <script src="./JavaScripts/CacheHelperUtils.js"></script>
+    <script src="./JavaScripts/AnalyticsQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/ObjectUtilsForRendering.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
+    <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+    <script src="./JavaScripts/HelperUtils.js"></script>
+    <script src="./JavaScripts/CategoryHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse ">
 
@@ -52,6 +58,7 @@
             <ul class="nav navbar-nav">
 
                 <li><a href="./UserBudgets.html" style="color:black">Home</a></li>
+
                 <li>
 
                     <div class="dropdown" style="padding-top:15px">
@@ -65,6 +72,25 @@
 
                             <li><a href="./AddBudget.html">Add Budget</a></li>
                             <li><a href="./AddExpense.html">Add Expense</a></li>
+
+                        </ul>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <div class="dropdown" style="padding-top:15px; padding-left:15px">
+
+                        <a class="dropdown-toggle" data-toggle="dropdown" style="color:black">
+                            Summary Menu
+                            <span class="caret"></span>
+                        </a>
+
+                        <ul class="dropdown-menu">
+
+                            <li><a href="./Square_Design.html">Expenditure Summary</a></li>
 
                         </ul>
 
@@ -108,151 +134,10 @@
 
         <div class="row content">
 
-            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;">
+            </div>
 
             <div id="mainContentWindow" class="col-sm-8 text-left" style="background-color: #D5D9D3;">
-
-                <table class="table table-border" id="mytable">
-
-                    <tbody>
-
-                        <tr>
-
-                            <td></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/accommodation.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/carinsurance.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/charity.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/childcare.png" style="height:100%;width:100%"></td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td></td>
-                            <td>
-                                <p><span id="row1_column1_id1"></span>:<span id="row1_column1_value1"></span></p>
-                                <p><span id="row1_column1_id2"></span>:<span id="row1_column1_value2"></span></p>
-                                <p><span id="row1_column1_id3"></span>:<span id="row1_column1_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row1_column2_id1"></span>:<span id="row1_column2_value1"></span></p>
-                                <p><span id="row1_column2_id2"></span>:<span id="row1_column2_value2"></span></p>
-                                <p><span id="row1_column2_id3"></span>:<span id="row1_column2_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row1_column3_id1"></span>:<span id="row1_column3_value1"></span></p>
-                                <p><span id="row1_column3_id2"></span>:<span id="row1_column3_value2"></span></p>
-                                <p><span id="row1_column3_id3"></span>:<span id="row1_column3_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row1_column4_id1"></span>:<span id="row1_column4_value1"></span></p>
-                                <p><span id="row1_column4_id2"></span>:<span id="row1_column4_value2"></span></p>
-                                <p><span id="row1_column4_id3"></span>:<span id="row1_column4_value3"></span></p>
-                            </td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td class="col-sm-1"><img src="./Resources/Pictures/clubs.jpg" style="height:100%;width:100%"></td>
-                            <td>
-                                <p><span id="row2_column1_id1"></span>:<span id="row2_column1_value1"></span></p>
-                                <p><span id="row2_column1_id2"></span>:<span id="row2_column1_value2"></span></p>
-                                <p><span id="row2_column1_id3"></span>:<span id="row2_column1_value3"></span></p>
-                            </td>
-
-                            <td></td>
-                            <td></td>
-
-                            <td>
-                                <p><span id="row2_column4_id1"></span>:<span id="row2_column4_value1"></span></p>
-                                <p><span id="row2_column4_id2"></span>:<span id="row2_column4_value2"></span></p>
-                                <p><span id="row2_column4_id3"></span>:<span id="row2_column4_value3"></span></p>
-                            </td>
-
-                            <td class="col-sm-1"><img src="./Resources/Pictures/coffeeshop.jpg" style="height:100%;width:100%"></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td class="col-sm-1"><img src="./Resources/Pictures/education.jpg" style="height:100%;width:100%"></td>
-                            <td>
-                                <p><span id="row3_column1_id1"></span>:<span id="row3_column1_value1"></span></p>
-                                <p><span id="row3_column1_id2"></span>:<span id="row3_column1_value2"></span></p>
-                                <p><span id="row3_column1_id3"></span>:<span id="row3_column1_value3"></span></p>
-                            </td>
-
-                            <td></td>
-                            <td></td>
-
-                            <td>
-                                <p><span id="row3_column4_id1"></span>:<span id="row3_column4_value1"></span></p>
-                                <p><span id="row3_column4_id2"></span>:<span id="row3_column4_value2"></span></p>
-                                <p><span id="row3_column4_id3"></span>:<span id="row3_column4_value3"></span></p>
-                            </td>
-
-                            <td class="col-sm-1"><img src="./Resources/Pictures/emi.jpg" style="height:100%;width:100%"></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td></td>
-                            <td>
-                                <p><span id="row4_column1_id1"></span>:<span id="row4_column1_value1"></span></p>
-                                <p><span id="row4_column1_id2"></span>:<span id="row4_column1_value2"></span></p>
-                                <p><span id="row4_column1_id3"></span>:<span id="row4_column1_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row4_column2_id1"></span>:<span id="row4_column2_value1"></span></p>
-                                <p><span id="row4_column2_id2"></span>:<span id="row4_column2_value2"></span></p>
-                                <p><span id="row4_column2_id3"></span>:<span id="row4_column2_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row4_column3_id1"></span>:<span id="row4_column3_value1"></span></p>
-                                <p><span id="row4_column3_id2"></span>:<span id="row4_column3_value2"></span></p>
-                                <p><span id="row4_column3_id3"></span>:<span id="row4_column3_value3"></span></p>
-                            </td>
-
-                            <td>
-                                <p><span id="row4_column4_id1"></span>:<span id="row4_column4_value1"></span></p>
-                                <p><span id="row4_column4_id2"></span>:<span id="row4_column4_value2"></span></p>
-                                <p><span id="row4_column4_id3"></span>:<span id="row4_column4_value3"></span></p>
-                            </td>
-                            <td></td>
-
-                        </tr>
-
-                        <tr>
-
-                            <td></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/entertainment.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/familycare.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/fashion.jpg" style="height:100%;width:100%"></td>
-                            <td class="col-sm-1"><img src="./Resources/Pictures/fitness.jpg" style="height:100%;width:100%"></td>
-                            <td></td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-                <div>
-
-                    <button type="button" class="btn btn-default" onclick="table_info()">add</button>
-                    <button type="button" class="btn btn-default" onclick="table_delete()">delete</button>
-
-                </div>
-
             </div>
 
             <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
@@ -297,68 +182,76 @@
 
         window.onload = function (event) {
 
-            displaySummaryGridData();
-            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
-                "rightSideNavigator", "headerNav", "footerNav", 1.01);
+            // Retrieve budget level Analytics from Server for dynamic rendering of Summary Grid
 
+            AnalyticsQueryUpdateUtilsModule.retrieveBudgetLevelAnalytics(postAnalyticsQuery_SuccessCallback,
+                postAnalyticsQuery_FailureCallback);
         }
 
         /**
-         *
-         *  Displays Summary Grid Data values onload by retrieving data from Server.
-         *
-         */
+        *
+        * Post processing Callback after Analytics Query
+        *
+        * @param {string} webReqResponse  :  Analytics Query Response from Server
+        *
+        */
 
-        function displaySummaryGridData() {
+        function postAnalyticsQuery_SuccessCallback(webReqResponse) {
 
-            var totalNumberOfRows = 4;
-            var totalNumberOfColumns = 4;
-            var totalNumberOfDetails = 3;
+            var jsonResponseObjectStrings = webReqResponse.split("\n");
 
-            //var imageSource = "./Resources/Pictures/" + window.localStorage.getItem(GlobalWebClientModule.currentExpense_SubCategory_Key);
+            if (!HelperUtilsModule.valueDefined(webReqResponse) || jsonResponseObjectStrings.length != 1) {
 
-            for (var currentRow = 1; currentRow <= totalNumberOfRows; currentRow++) {
-
-                for (var currentColumn = 1; currentColumn <= totalNumberOfColumns; currentColumn++) {
-
-                    if (currentRow != 1 && currentRow != totalNumberOfRows && currentColumn != 1 && currentColumn != totalNumberOfColumns)
-                        continue;
-
-                    var keyIdArray = keyValueMapModule.deduceSummaryGridKeyValueIdArray(currentRow, currentColumn,
-                        totalNumberOfDetails, "id");
-                    var valueIdArray = keyValueMapModule.deduceSummaryGridKeyValueIdArray(currentRow, currentColumn,
-                        totalNumberOfDetails, "value");
-
-                    var keyValueMap = keyValueMapModule.deduceKeyValueMap(keyIdArray, valueIdArray,
-                        GlobalWebClientModule.dummyResultObject_SummaryDetails);
-
-                    if (GlobalWebClientModule.bDebug == true) {
-
-                        alert("keyIdArray : " + keyIdArray);
-                        alert("valueIdArray : " + valueIdArray);
-                        alert("keyValueMap : " + keyValueMap);
-                    }
-
-                    keyValueMapModule.displaySingleContainerValues(keyIdArray, valueIdArray, keyValueMap);
-                }
+                return;
             }
+
+            var jsonObjectResponse_BudgetAnalytics = JSON.parse(jsonResponseObjectStrings[0]);
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("webReqResponse : " + webReqResponse);
+                alert("Number of keys in Budget Analytics Record : " + Object.keys(jsonObjectResponse_BudgetAnalytics).length);
+                alert("First key of Budget Analytics Record : " + (Object.keys(jsonObjectResponse_BudgetAnalytics))[0] + " , First Value : " +
+                    (Object.values(jsonObjectResponse_BudgetAnalytics))[0]);
+
+            }
+
+            SummaryGridHelperModule.displaySummaryGridForCurrentInfo("mainContentWindow", jsonObjectResponse_BudgetAnalytics);
+        }
+
+        function postAnalyticsQuery_FailureCallback(webReqResponse) {
+
+            alert("Query for Category Level Summary Details has failed : " + webReqResponse);
         }
 
         /**
          *
-         *  Helper functions of Summary Grid Table
+         *  Render category level dynamic content
+         *
+         * @param {Array} categoryLevelSummaryListForDisplay  : Array of Category Level Summary details objects
+         * @param {Array} categoryNames  : Array of Category names to be rendered
+         * @param {Array} categoryImageNames  : Array of Category Image names to be rendered
+         * @param {Array} categoryPageNames  : Array of Category Page names to be rendered
          *
          */
 
-        function table_info() {
+        function renderCategoryLevelDynamicContent(categoryLevelSummaryListForDisplay, categoryNames, categoryImageNames, categoryPageNames) {
 
-            SummaryGridHelperModule.tableData();
+            if (GlobalWebClientModule.bDebug == true) {
 
-        }
+                alert("Current UserName : " + window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key));
+                alert("Current Budget Id : " + window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key));
+            }
 
-        function table_delete() {
+            noOfCategories = categoryLevelSummaryListForDisplay.length;
+            RenderingHelperWrapperUtilsModule.retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, "mainContentWindow",
+                categoryImageNames, categoryLevelSummaryListForDisplay, categoryNames, categoryPageNames);
 
-            SummaryGridHelperModule.delete_table_data();
+            // Rendering Adjustments
+
+            var sideNavigatorsBottomBufferHeight = (.05 / noOfCategories);
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1 + sideNavigatorsBottomBufferHeight);
 
         }
 

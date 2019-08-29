@@ -227,6 +227,40 @@ var ObjectUtilsForRenderingModule = (function () {
 
     /**
     * 
+    * @param {JSON} jsonObjectResponse : JSON Object consisting of multi level <k,v> pairs Response from Server
+    * @param {Array} categoryNames : Array of category names for which details have to be Sub Categorized
+    * 
+    * @returns {Array} objectListForDisplay: Returns array of objects with required display values for Sub Categories
+    *
+    */
+
+    function getAllSubCategorySummaryGridObjectsForDisplay(jsonObjectResponse, categoryNames) {
+
+        var objectListForDisplay = new Array();
+
+        for (var currentCategoryName of categoryNames) {
+
+            var currentCategoryJsonObject = JSON.parse(jsonObjectResponse[currentCategoryName]);
+
+            for (var currentKey of CategoryHelperUtilsModule.retrieveSubCategoriesForCategory(currentCategoryName)) {
+
+                if (HelperUtilsModule.valueDefined(currentCategoryJsonObject[currentKey])) {
+
+                    var currentObject = new Object();
+
+                    currentObject.Expenditure = currentCategoryJsonObject[currentKey];
+                    currentObject.SubCategoryName = currentKey;
+
+                    objectListForDisplay.push(currentObject);
+                }
+            }
+        }
+
+        return objectListForDisplay;
+    }
+
+    /**
+    * 
     * @param {Object} budgetRecordInQuestion : Budget Record Object in Question
     * 
     * @returns {Boolean} "True/False": Returns true if Budget Record, False otherwise
@@ -253,6 +287,35 @@ var ObjectUtilsForRenderingModule = (function () {
         return true;
     }
 
+    /**
+    * 
+    * @param {Array} categoryNames : Array of Category Names for filling SubCategoryToImageMap
+    * 
+    * @returns {Map} subCategoryNamesToImageMap: Returns Map of Sub Category Names to Images for given Categories
+    *
+    */
+
+    function buildSubCategoryToImageMapForGivenCategories(categoryNames) {
+
+        var subCategoryNamesToImageMap = new Map();
+
+        for (var currentCategoryName of categoryNames) {
+
+            var currentSubCategoryNames = CategoryHelperUtilsModule.retrieveSubCategoriesForCategory(currentCategoryName);
+            var currentSubCategoryImages = CategoryHelperUtilsModule.retrieveSubCategoryImagesForCategory(currentCategoryName);
+
+            var currentIndex = 0;
+
+            for (var currentSubCategoryName of currentSubCategoryNames) {
+
+                subCategoryNamesToImageMap.set(currentSubCategoryName, currentSubCategoryImages[currentIndex++]);
+            }
+
+        }
+
+        return subCategoryNamesToImageMap;
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -270,6 +333,9 @@ var ObjectUtilsForRenderingModule = (function () {
         buildSubCategoryDetailsForCurrentBudget: buildSubCategoryDetailsForCurrentBudget,
 
         isResultBudgetRecordObject: isResultBudgetRecordObject,
+
+        getAllSubCategorySummaryGridObjectsForDisplay: getAllSubCategorySummaryGridObjectsForDisplay,
+        buildSubCategoryToImageMapForGivenCategories: buildSubCategoryToImageMapForGivenCategories,
     };
 
 })();
