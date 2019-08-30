@@ -35,6 +35,7 @@
     <script src="./JavaScripts/HelperUtils.js"></script>
     <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
     <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
+    <script src="./JavaScripts/FormAddition.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -132,107 +133,6 @@
                 <h2 style="font: bold; text-align:left; padding-left:15%">ADD BUDGET</h2>
                 <div style="padding-bottom: 6%"></div>
 
-                <form class="form-horizontal" style="align-items: center;">
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="BudgetName">BudgetName</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="text" class="form-control" id="BudgetName" placeholder="enter budget Name" name="Name">
-
-                        </div>
-
-                    </div>
-
-                    <div style="padding-bottom: 20px"></div>
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="Budget_Type">Budget Type</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="text" class="form-control" id="Budget_Type" placeholder="Budget_Type" name="Budget_Type">
-
-                        </div>
-
-                    </div>
-
-                    <div style="padding-bottom: 20px"></div>
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="Place">Place</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="text" class="form-control" id="Place" placeholder="enter current location" name="Place">
-
-                        </div>
-
-                    </div>
-
-                    <div style="padding-bottom: 20px"></div>
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="StartDate">StartDate</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="date" class="form-control" id="StartDate" name="StartDate">
-
-                        </div>
-
-                    </div>
-
-                    <div style="padding-bottom: 20px"></div>
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="EndDate">EndDate</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="date" class="form-control" id="EndDate" name="EndDate">
-
-                        </div>
-
-                    </div>
-
-                    <div style="padding-bottom: 20px"></div>
-
-                    <div class="form-group">
-
-                        <label class="control-label col-sm-2" for="Amount">Amount</label>
-
-                        <div class="col-sm-8">
-
-                            <input type="text" class="form-control" id="Amount" placeholder="enter the amount" name="Amount">
-
-                        </div>
-
-                    </div>
-
-                </form>
-
-                <div style="padding-bottom: 6%"></div>
-
-                <div class="form-group">
-
-                    <div class=" col-sm-12">
-
-                        <label class="col-sm-1"></label>
-                        <button type="submit" class="btn btn-primary col-sm-4" onclick='BudgetQueryUpdateUtilsModule.addBudgetRecordFromUserInput();'>Submit</button>
-
-                    </div>
-
-                </div>
-
-                <div style="padding-bottom: 15%"></div>
-
             </div>
 
             <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
@@ -278,6 +178,14 @@
          */
 
         window.onload = function (event) {
+
+            var formLayoutRatio = ["2", "8", "col-sm-1"];
+            FormAdditionModule.renderInputFormDynamically("mainContentWindow", "budgetAdditionForm", formLayoutRatio,
+                GlobalWebClientModule.budgetFormInputData_InputIds, GlobalWebClientModule.budgetFormInputData_InputTypes, 
+                GlobalWebClientModule.budgetFormInputData_InputLabels, "BudgetQueryUpdateUtilsModule.addBudgetRecordFromUserInput();",
+                GlobalWebClientModule.budgetFormInputData_SelectInputInvokeFunctions);
+
+            RenderingHelperUtilsModule.addSelectionOptions("Budget_Type", GlobalWebClientModule.budgetTypes);
 
             RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
                 "rightSideNavigator", "headerNav", "footerNav", 1.01);

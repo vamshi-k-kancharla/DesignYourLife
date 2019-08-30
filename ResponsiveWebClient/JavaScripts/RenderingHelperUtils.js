@@ -550,6 +550,150 @@ var RenderingHelperUtilsModule = (function () {
         detailsContainerNode.appendChild(idValuePairParagraphNode);
     }
 
+    /**
+     *
+     *  Adds Options to selection element
+     *
+     * @param {string} selectElementId : Selection Element Id to which options have to be added
+     * @param {Array} optionsArray : Array of options to be added to the selection element
+     *
+     */
+
+    function addSelectionOptions(selectElementId, optionsArray) {
+
+        var selectElement = document.getElementById(selectElementId);
+
+        for (var currentOption of optionsArray) {
+
+            selectElement.add(RenderingHelperUtilsModule.createOptionForSelectElement(currentOption));
+
+        }
+    }
+
+    /**
+     *
+     * @param {DOMElement} formNode : Element id of Form Node
+     * @param {string} formInputType : Input Type of form node element to be added
+     * @param {string} formInputLabel : Label value of form Input node
+     * @param {string} formInputId : Form Input Element Id
+     * @param {Array} formLayoutRatio : Array of layout ratio for "Label: Input Node" of current form
+     * @param {string} inputOnChangeInvokeFunction : Form input onchange Event trigger function
+     *
+     */
+
+    function renderFormInputNode(formNode, formInputType, formInputLabel, formInputId, formLayoutRatio, inputOnChangeInvokeFunction) {
+
+        var divNode = RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, "form-group", null);
+        {
+
+            var lableNodeClass = "control-label col-sm-" + formLayoutRatio[0];
+            var labelNode = RenderingHelperUtilsModule.createNewElementWithAttributes("LABEL", null, lableNodeClass, null);
+            labelNode.innerHTML = formInputLabel;
+
+            divNode.appendChild(labelNode);
+
+            var inputDivNodeClass = "col-sm-" + formLayoutRatio[1];
+            var inputDivNode = RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, inputDivNodeClass, null);
+
+            var childInputNode = createFormInputElement(formInputType, formInputLabel, formInputId, inputOnChangeInvokeFunction);
+            inputDivNode.appendChild(childInputNode);
+
+            divNode.appendChild(inputDivNode);
+        }
+
+        formNode.appendChild(divNode);
+        formNode.appendChild(RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, null, "padding-bottom:20px"));
+    }
+
+    /**
+     *
+     * @param {string} inputNodeType : Input Type of form node element to be added
+     * @param {string} formInputLabel : Label value of form Input node
+     * @param {string} formInputId : Form Input Element Id
+     * @param {string} inputOnChangeInvokeFunction : Form input onchange Event trigger function
+     *
+     */
+
+    function createFormInputElement(inputNodeType, formInputLabel, formInputId, inputOnChangeInvokeFunction) {
+
+        var inputNodeAttributeMap = new Map();
+        var createdInputElement = null;
+
+        if (inputNodeType == "text" || inputNodeType == "date") {
+
+            inputNodeAttributeMap.set("type", inputNodeType);
+            inputNodeAttributeMap.set("class", "form-control");
+            inputNodeAttributeMap.set("id", formInputId);
+
+            if (inputNodeType == "text") {
+
+                inputNodeAttributeMap.set("placeholder", "enter " + formInputLabel);
+            }
+
+            inputNodeAttributeMap.set("name", formInputId);
+
+            createdInputElement = createNewElementWithAttributeMap("INPUT", inputNodeAttributeMap);
+
+        } else if (inputNodeType == "select") {
+
+            var selectNodeAttributeMap = new Map();
+
+            selectNodeAttributeMap.set("id", formInputId);
+            selectNodeAttributeMap.set("class", "form-control");
+
+            if (inputOnChangeInvokeFunction != null) {
+
+                selectNodeAttributeMap.set("onchange", inputOnChangeInvokeFunction);
+            }
+
+            var selectNode = createNewElementWithAttributeMap("SELECT", selectNodeAttributeMap);
+            selectNode.required = true;
+
+            var optionNode = RenderingHelperUtilsModule.createOptionForSelectElement("enter " + formInputLabel);
+            optionNode.disabled = true;
+            optionNode.selected = true;
+
+            selectNode.add(optionNode);
+            createdInputElement = selectNode;
+
+        }
+
+        return createdInputElement;
+    }
+
+    /**
+     *
+     * @param {DOMElement} contentWindowNode : Main content Window Node of current form
+     * @param {string} submitInvokeFunction : Function to be invoked on Submit Button click Event
+     * @param {string} submitButtonBufferClass : Left side padding for the Submit button
+     *
+     */
+
+    function renderFormSubmissionNode(contentWindowNode, submitInvokeFunction, submitButtonBufferClass) {
+
+        contentWindowNode.appendChild(RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, null, "padding-bottom:3%"));
+
+        var divNode = RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, "col-sm-12", null);
+        {
+
+            var labelNode = RenderingHelperUtilsModule.createNewElementWithAttributes("LABEL", null, submitButtonBufferClass, null);
+            divNode.appendChild(labelNode);
+
+            var formSubmitButtonAttributeMap = new Map();
+
+            formSubmitButtonAttributeMap.set("type", "submit");
+            formSubmitButtonAttributeMap.set("class", "btn btn-primary col-sm-4");
+            formSubmitButtonAttributeMap.set("onclick", submitInvokeFunction);
+
+            formSubmitElement = createNewElementWithAttributeMap("BUTTON", formSubmitButtonAttributeMap);
+            formSubmitElement.innerHTML = "Submit";
+
+            divNode.appendChild(formSubmitElement);
+        }
+
+        contentWindowNode.appendChild(divNode);
+        contentWindowNode.appendChild(RenderingHelperUtilsModule.createNewElementWithAttributes("DIV", null, null, "padding-bottom:15%"));
+    }
 
     /****************************************************************************************
         Reveal private methods & variables
@@ -558,14 +702,22 @@ var RenderingHelperUtilsModule = (function () {
     return {
 
         changeHeightOfSideNavigators: changeHeightOfSideNavigators,
-        addExpenseDetailContainer: addExpenseDetailContainer,
-        createNewElementWithAttributes: createNewElementWithAttributes,
-        createNewElementWithAttributeMap: createNewElementWithAttributeMap,
+
         addCategoryDetailsContainer: addCategoryDetailsContainer,
+        renderIdValuePairParagraphChildNode: renderIdValuePairParagraphChildNode,
+        addExpenseDetailContainer: addExpenseDetailContainer,
+
         createOptionForSelectElement: createOptionForSelectElement,
         removeOptionsFromSelectElement: removeOptionsFromSelectElement,
+        addSelectionOptions: addSelectionOptions,
+
+        createNewElementWithAttributes: createNewElementWithAttributes,
+        createNewElementWithAttributeMap: createNewElementWithAttributeMap,
         setElementWithAttributeMap: setElementWithAttributeMap,
-        renderIdValuePairParagraphChildNode: renderIdValuePairParagraphChildNode,
+
+        renderFormInputNode: renderFormInputNode,
+        createFormInputElement: createFormInputElement,
+        renderFormSubmissionNode: renderFormSubmissionNode,
 
     };
 

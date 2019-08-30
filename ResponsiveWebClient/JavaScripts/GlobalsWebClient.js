@@ -88,6 +88,23 @@ var GlobalWebClientModule = (function () {
     var userAuthenticationData_Keys = ["UserName", "Password"];
     var userAuthenticationData_RequiredKeys = ["UserName", "Password"];
 
+    // Budget Form Input Data
+
+    var budgetFormInputData_InputLabels = ["BudgetName", "Budget Type", "Place", "StartDate", "EndDate", "Amount"];
+    var budgetFormInputData_InputIds = ["BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount"];
+    var budgetFormInputData_InputTypes = ["text", "select", "text", "date", "date", "text"];
+    var budgetFormInputData_SelectInputInvokeFunctions = [null, null, null, null, null, null];
+    var globalFormLayoutRatio = ["2", "8", "col-sm-1"];
+
+    // Expense Form Input Data
+
+    var expenseFormInputData_InputLabels = ["Expense Category", "Expense SubCategory", "ExpenseName", "Expense Type", "Place", "Date",
+        "Amount", "Merchant Name"];
+    var expenseFormInputData_InputIds = ["ExpenseCategory", "ExpenseSubCategory", "ExpenseName", "Expense_Type", "Place", "Date",
+        "Amount", "MerchantName"];
+    var expenseFormInputData_InputTypes = ["select", "select", "text", "select", "text", "date", "text", "text"];
+    var expenseFormInputData_SelectInputInvokeFunctions = ["addExpenseSubCategorySelectionOptions()", null, null, null, null, null, null, null];
+
     // Budget Record Data
 
     var budgetRecordData_InputIds = ["BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount"];
@@ -104,6 +121,7 @@ var GlobalWebClientModule = (function () {
         "MerchantName", "Budget_Id", "Expense_Category", "Expense_SubCategory", "UserName"];
     var expenseRecordKeys_ForDisplay = ["ExpenseName", "Expense_Type", "Place", "Date",
         "Amount", "MerchantName"];
+    var expenseTypes = ["recurring", "festiveseason", "occasional", "vacation", "unplanned"];
 
     // dummy Result Object For <Key, Value> Pairs display
 
@@ -195,10 +213,22 @@ var GlobalWebClientModule = (function () {
         budgetRecordData_Keys: budgetRecordData_Keys,
         budgetRecordData_RequiredKeys: budgetRecordData_RequiredKeys,
 
+        budgetFormInputData_InputLabels: budgetFormInputData_InputLabels,
+        budgetFormInputData_InputIds: budgetFormInputData_InputIds,
+        budgetFormInputData_InputTypes: budgetFormInputData_InputTypes,
+        budgetFormInputData_SelectInputInvokeFunctions: budgetFormInputData_SelectInputInvokeFunctions,
+        globalFormLayoutRatio: globalFormLayoutRatio,
+
+        expenseFormInputData_InputLabels: expenseFormInputData_InputLabels,
+        expenseFormInputData_InputIds: expenseFormInputData_InputIds,
+        expenseFormInputData_InputTypes: expenseFormInputData_InputTypes,
+        expenseFormInputData_SelectInputInvokeFunctions: expenseFormInputData_SelectInputInvokeFunctions,
+
         expenseRecordData_InputIds: expenseRecordData_InputIds,
         expenseRecordData_Keys: expenseRecordData_Keys,
         expenseRecordData_RequiredKeys: expenseRecordData_RequiredKeys,
         expenseRecordKeys_ForDisplay: expenseRecordKeys_ForDisplay,
+        expenseTypes: expenseTypes,
 
         // Dummy Result Objects
 
