@@ -14,7 +14,8 @@ var UserAuthenticationModule = (function () {
 
         // Check for required input values
 
-        if (FormDataInputHelperUtilsModule.checkForRequiredInputData(userAuthenticationDataMap,
+        if (HelperUtilsModule.valueDefined(userAuthenticationDataMap) && 
+            FormDataInputHelperUtilsModule.checkForRequiredInputData(userAuthenticationDataMap,
             GlobalWebClientModule.userAuthenticationData_RequiredKeys)) {
 
             if (GlobalWebClientModule.bDebug == true) {

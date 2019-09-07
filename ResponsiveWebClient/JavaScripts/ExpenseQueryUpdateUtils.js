@@ -22,7 +22,8 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
         // Check for required input values
 
-        if (FormDataInputHelperUtilsModule.checkForRequiredInputData(expenseRecordDataMap,
+        if (HelperUtilsModule.valueDefined(expenseRecordDataMap) && 
+            FormDataInputHelperUtilsModule.checkForRequiredInputData(expenseRecordDataMap,
             GlobalWebClientModule.expenseRecordData_RequiredKeys)) {
 
             if (GlobalWebClientModule.bDebug == true) {

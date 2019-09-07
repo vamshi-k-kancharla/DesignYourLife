@@ -14,7 +14,20 @@ var SummaryGridHelperModule = (function () {
             jsonObjectResponse, GlobalWebClientModule.categoryNames);
 
         var totalNumberOfSummaryGridContainers = Object.keys(subCategorySummaryGridDisplayObjectList).length;
-        var totalNumberOfTableRows = 4 + (totalNumberOfSummaryGridContainers - 8) / 2;
+        var totalNumberOfTableRows = 2;
+
+        if (totalNumberOfSummaryGridContainers <= 4) {
+
+            totalNumberOfTableRows = 2;
+
+        } else if (totalNumberOfSummaryGridContainers <= 8) {
+
+            totalNumberOfTableRows = 4;
+
+        } else {
+
+            totalNumberOfTableRows = 4 + (totalNumberOfSummaryGridContainers - 8) / 2;
+        }
 
         if (GlobalWebClientModule.bDebug == true) {
 
@@ -150,7 +163,7 @@ var SummaryGridHelperModule = (function () {
 
             } else {
 
-                if (currentRow == 1 || currentRow == tableCellId_2D_Array.length - 2) {
+                if (currentRow == 1 || (tableCellId_2D_Array.length > 4 && currentRow == tableCellId_2D_Array.length - 2) ) {
 
                     currentColumn++;
 
@@ -203,7 +216,7 @@ var SummaryGridHelperModule = (function () {
 
             var currentSubCategoryName = currentSummaryGridSubCategoryObject.SubCategoryName;
             var currentSubCategoryImageName = subCategoryNamesToImageMap.get(currentSubCategoryName);
-            var currentImageSource = "./Resources/Pictures/" + currentSubCategoryImageName;
+            var currentImageSource = GlobalWebClientModule.imageResourcePath + currentSubCategoryImageName;
 
             var currentCellId = tableCellId_2D_Array[currentRow][currentColumn];
 
@@ -214,7 +227,7 @@ var SummaryGridHelperModule = (function () {
             var currentImageElement = RenderingHelperUtilsModule.createNewElementWithAttributeMap("IMG", currentCellAttributeMap);
             currentCellId.appendChild(currentImageElement);
 
-            if (currentRow == 0 || currentRow == (tableCellId_2D_Array.length - 1)) {
+            if (currentRow == 0 || (tableCellId_2D_Array.length > 4 && currentRow == (tableCellId_2D_Array.length - 1) ) ) {
 
                 if (currentColumn < 4) {
 
@@ -228,7 +241,7 @@ var SummaryGridHelperModule = (function () {
 
             } else {
 
-                if (currentRow < tableCellId_2D_Array.length - 3) {
+                if (tableCellId_2D_Array.length == 4 || currentRow < tableCellId_2D_Array.length - 3) {
 
                     if (currentColumn == 0) {
 
@@ -256,7 +269,7 @@ var SummaryGridHelperModule = (function () {
 
                 }
 
-            }
+            } 
             
         }
 

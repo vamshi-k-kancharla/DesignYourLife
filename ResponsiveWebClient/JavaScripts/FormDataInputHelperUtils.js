@@ -30,6 +30,13 @@ var FormDataInputHelperUtilsModule = (function () {
             }
 
             var currentInputValue = document.getElementById(currentInputId).value;
+
+            if (currentInputValue.includes("&") || currentInputValue.includes("=") || currentInputValue.includes("?")) {
+
+                alert("Special characters from list (&, =, ?) are not allowed in user input");
+                return null;
+            }
+
             dataObjectMap.set(dataObjectKeys[currentIndex], currentInputValue);
             currentIndex++;
         }

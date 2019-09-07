@@ -29,7 +29,8 @@ var UserRegistrationModule = (function () {
 
         // Check for required input values
 
-        if (FormDataInputHelperUtilsModule.checkForRequiredInputData(userRegistrationDataMap,
+        if (HelperUtilsModule.valueDefined(userRegistrationDataMap) && 
+            FormDataInputHelperUtilsModule.checkForRequiredInputData(userRegistrationDataMap,
             GlobalWebClientModule.userRegistrationData_RequiredKeys)) {
 
             if (GlobalWebClientModule.bDebug == true) {

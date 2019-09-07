@@ -136,10 +136,14 @@ exports.removeUrlSpacesFromMapValues = function (inputMap) {
     for (var currentKey of keys) {
 
         var currentValue = inputMap.get(currentKey);
-        var regExpr = /%20/gi;
-        currentValue = currentValue.replace(regExpr, " ");
 
-        inputMap.set(currentKey, currentValue);
+        if (HelperUtilsModule.valueDefined(currentValue)) {
+
+            var regExpr = /%20/gi;
+            currentValue = currentValue.replace(regExpr, " ");
+
+            inputMap.set(currentKey, currentValue);
+        }
     }
 
     return inputMap;

@@ -240,6 +240,11 @@ var ObjectUtilsForRenderingModule = (function () {
 
         for (var currentCategoryName of categoryNames) {
 
+            if (!HelperUtilsModule.valueDefined(jsonObjectResponse[currentCategoryName])) {
+
+                continue;
+            }
+
             var currentCategoryJsonObject = JSON.parse(jsonObjectResponse[currentCategoryName]);
 
             for (var currentKey of CategoryHelperUtilsModule.retrieveSubCategoriesForCategory(currentCategoryName)) {

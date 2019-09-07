@@ -18,7 +18,8 @@ var BudgetQueryUpdateUtilsModule = (function () {
 
         // Check for required input values
 
-        if (FormDataInputHelperUtilsModule.checkForRequiredInputData(budgetRecordDataMap,
+        if (HelperUtilsModule.valueDefined(budgetRecordDataMap) && 
+            FormDataInputHelperUtilsModule.checkForRequiredInputData(budgetRecordDataMap,
             GlobalWebClientModule.budgetRecordData_RequiredKeys)) {
 
             if (GlobalWebClientModule.bDebug == true) {
