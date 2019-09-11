@@ -294,6 +294,29 @@ var ObjectUtilsForRenderingModule = (function () {
 
     /**
     * 
+    * @param {Array} budgetResultObjectArray : Array of Budget Records from which budget_id's need to be extracted
+    * 
+    * @returns {Array} budgetIdArray: Returns Budget Id Array extracted from Budget result object
+    *
+    */
+
+    function extractBudgetIdsFromBudgetResultObjectArray(budgetResultObjectArray) {
+
+        var budgetIdArray = new Array();
+
+        for (var currentBudget = 1; currentBudget <= budgetResultObjectArray.length; currentBudget++) {
+
+            if (ObjectUtilsForRenderingModule.isResultBudgetRecordObject(budgetResultObjectArray[currentBudget - 1])) {
+
+                budgetIdArray.push(budgetResultObjectArray[currentBudget - 1].Budget_Id);
+            }
+        }
+
+        return budgetIdArray;
+    }
+
+    /**
+    * 
     * @param {Array} categoryNames : Array of Category Names for filling SubCategoryToImageMap
     * 
     * @returns {Map} subCategoryNamesToImageMap: Returns Map of Sub Category Names to Images for given Categories
@@ -338,6 +361,7 @@ var ObjectUtilsForRenderingModule = (function () {
         buildSubCategoryDetailsForCurrentBudget: buildSubCategoryDetailsForCurrentBudget,
 
         isResultBudgetRecordObject: isResultBudgetRecordObject,
+        extractBudgetIdsFromBudgetResultObjectArray: extractBudgetIdsFromBudgetResultObjectArray,
 
         getAllSubCategorySummaryGridObjectsForDisplay: getAllSubCategorySummaryGridObjectsForDisplay,
         buildSubCategoryToImageMapForGivenCategories: buildSubCategoryToImageMapForGivenCategories,

@@ -31,9 +31,11 @@ var FormDataInputHelperUtilsModule = (function () {
 
             var currentInputValue = document.getElementById(currentInputId).value;
 
-            if (currentInputValue.includes("&") || currentInputValue.includes("=") || currentInputValue.includes("?")) {
+            var inputValidationPatternRegExp = /[^a-z,^A-Z,^0-9,^.,^,,^\s,^@,^_,^\/,^-]/g;
+            if (currentInputValue.search(inputValidationPatternRegExp) != -1) {
 
-                alert("Special characters from list (&, =, ?) are not allowed in user input");
+                alert("Invalid input entered..Only allowed characters are => (alphaNumeric, '.',',',' ','@','_','/','-'), Invalid Input => " +
+                    currentInputValue);
                 return null;
             }
 

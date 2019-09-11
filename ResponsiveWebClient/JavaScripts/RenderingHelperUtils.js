@@ -184,7 +184,7 @@ var RenderingHelperUtilsModule = (function () {
      * @param {int} numOfDetails  : Number of Category Summary details
      * @param {int} categoryNames  : Array of Category Names
      * @param {int} categoryPageNames  : Array of Category Page Names
-     * @param {String} currentContainerBudgetId  : Budget_Id of Current Container to be stored in local cache
+     * @param {String} currentContainerBudgetIdArr  : Array of Budget_Ids of Current Containers
      *
      */
 
@@ -196,9 +196,11 @@ var RenderingHelperUtilsModule = (function () {
     }
 
     function addCategoryDetailsContainer(mainContentWindowId, containerNumber, numOfContainers, categoryDetailsAlignment, numOfDetails,
-        categoryNames, categoryPageNames, currentContainerBudgetId) {
+        categoryNames, categoryPageNames, currentContainerBudgetIdArr) {
 
         var mainContentWindow = document.getElementById(mainContentWindowId);
+        var leftContainerBudgetId = (currentContainerBudgetIdArr == null) ? null : currentContainerBudgetIdArr[0];
+        var rightContainerBudgetId = (currentContainerBudgetIdArr == null) ? null : currentContainerBudgetIdArr[1];
 
         if (numOfContainers != 1 && numOfContainers != 2) {
 
@@ -214,7 +216,7 @@ var RenderingHelperUtilsModule = (function () {
         // Fill Left Side of Container 
 
         fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
-            categoryNames, categoryPageNames, currentContainerBudgetId);
+            categoryNames, categoryPageNames, leftContainerBudgetId);
 
         // Fill Right Side of Container 
 
@@ -232,7 +234,7 @@ var RenderingHelperUtilsModule = (function () {
             }
 
             fillCategoryDetailsContainer(mainContentWindowId, containerNumber, categoryDetailsAlignment, numOfDetails,
-                categoryNames, categoryPageNames, currentContainerBudgetId);
+                categoryNames, categoryPageNames, rightContainerBudgetId);
         }
     }
 

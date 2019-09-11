@@ -107,6 +107,52 @@ var RenderingHelperWrapperUtilsModule = (function () {
     /**
      *
      * @param {int} noOfCategories : Number of Category/SubCategory Names
+     * @param {Array} resultObject_SummaryDetailsArray : Array of Category/SubCategory Summary Object Details
+     * 
+     * @returns {Object} resultObject_SummaryDetailsArray: Returns summary details Array object after excluding Budget_Id
+     *
+     */
+
+    function excludeBudgetIdFromDisplay(noOfBudgets, resultObject_SummaryDetailsArray) {
+
+        for (var currentContainerNum = 1; currentContainerNum <= noOfBudgets; currentContainerNum++) {
+
+            if (GlobalWebClientModule.bDebugFlag == true) {
+
+                alert("Category Summary Details Object : " + HelperUtilsModule.returnObjectString(
+                    resultObject_SummaryDetailsArray[currentContainerNum - 1]));
+                alert("Number of Category Summary Details : " + Object.keys(resultObject_SummaryDetailsArray[currentContainerNum - 1]).length);
+
+            }
+
+            if (ObjectUtilsForRenderingModule.isResultBudgetRecordObject(resultObject_SummaryDetailsArray[currentContainerNum - 1])) {
+
+                if (GlobalWebClientModule.bDebugFlag == true) {
+
+                    alert("Current Budget Object Record before deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
+                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
+                }
+
+                delete resultObject_SummaryDetailsArray[currentContainerNum - 1].Budget_Id;
+
+                if (GlobalWebClientModule.bDebugFlag == true) {
+
+                    alert("Current Budget Object Record after deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
+                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
+                }
+
+            }
+        }
+
+        // Now that dynamic rendering of Category Details happened, display all the category summary details
+
+        return resultObject_SummaryDetailsArray;
+    }
+
+
+    /**
+     *
+     * @param {int} noOfCategories : Number of Category/SubCategory Names
      * @param {String} mainContentWindowId : Main Content Window Id
      * @param {Array} categoryContainer_ImageNames : Array of all Category/SubCategory Image Names
      * @param {Array} resultObject_SummaryDetailsArray : Array of Category/SubCategory Summary Object Details
@@ -118,12 +164,25 @@ var RenderingHelperWrapperUtilsModule = (function () {
     function retrieveCategoryDetailsAndRenderDynamicContent(noOfCategories, mainContentWindowId,
         categoryContainer_ImageNames, resultObject_SummaryDetailsArray, categoryNames, categoryPageNames) {
 
+        // Exclude Budget_Id from Result Object Array
+
+        var budgetIdsCurrentResult = null;
+        var bAreBudgetRecords = false;
+
+        if (ObjectUtilsForRenderingModule.isResultBudgetRecordObject(resultObject_SummaryDetailsArray[0])) {
+
+            budgetIdsCurrentResult = ObjectUtilsForRenderingModule.extractBudgetIdsFromBudgetResultObjectArray(
+                resultObject_SummaryDetailsArray);
+            resultObject_SummaryDetailsArray = excludeBudgetIdFromDisplay(noOfBudgets, resultObject_SummaryDetailsArray);
+            bAreBudgetRecords = true;
+        }
+
         for (var currentContainerNum = 1; currentContainerNum <= noOfCategories; currentContainerNum += 2) {
 
             var textAlignmentArray = ["left", "right", "right", "right"];
             var numOfContainers = (currentContainerNum == noOfCategories) ? 1 : 2;
 
-            if (GlobalWebClientModule.bDebug == true) {
+            if (GlobalWebClientModule.bDebugFlag == true) {
 
                 alert("Category Summary Details Object : " + HelperUtilsModule.returnObjectString(
                     resultObject_SummaryDetailsArray[currentContainerNum - 1]));
@@ -133,35 +192,16 @@ var RenderingHelperWrapperUtilsModule = (function () {
 
             var noOfCategorySummaryDetails = Object.keys(resultObject_SummaryDetailsArray[currentContainerNum - 1]).length;
 
-            if (ObjectUtilsForRenderingModule.isResultBudgetRecordObject(resultObject_SummaryDetailsArray[currentContainerNum - 1])) {
+            if (bAreBudgetRecords == true) {
 
-                var currentContainerBudgetId = resultObject_SummaryDetailsArray[currentContainerNum - 1].Budget_Id;
-
-                if (GlobalWebClientModule.bDebug == true) {
-
-                    alert("Current Budget Object Record before deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
-                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
-                }
-
-                delete resultObject_SummaryDetailsArray[currentContainerNum - 1].Budget_Id;
-
-                /*
-                var exclusionObjectKeys = ["Budget_Id"];
-                resultObject_SummaryDetailsArray[currentContainerNum - 1] = ObjectUtilsForRenderingModule.buildObjectForDisplay(
-                    resultObject_SummaryDetailsArray[currentContainerNum - 1], GlobalWebClientModule.budgetRecordKeys_ForDisplay,
-                    exclusionObjectKeys);
-                */
-
-                if (GlobalWebClientModule.bDebug == true) {
-
-                    alert("Current Budget Object Record after deleting Budget_Id : " + HelperUtilsModule.returnObjectString(
-                        resultObject_SummaryDetailsArray[currentContainerNum - 1]));
-                }
+                var currentContainerBudgetIdArray = (currentContainerNum == noOfCategories) ?
+                    [budgetIdsCurrentResult[currentContainerNum - 1]] :
+                    [budgetIdsCurrentResult[currentContainerNum - 1], budgetIdsCurrentResult[currentContainerNum]];
 
                 noOfCategorySummaryDetails = Object.keys(resultObject_SummaryDetailsArray[currentContainerNum - 1]).length;
                 RenderingHelperUtilsModule.addCategoryDetailsContainer(mainContentWindowId, currentContainerNum, numOfContainers,
                     textAlignmentArray[(currentContainerNum - 1) % 4], noOfCategorySummaryDetails, categoryNames, categoryPageNames,
-                    currentContainerBudgetId);
+                    currentContainerBudgetIdArray);
 
             } else {
 
@@ -225,6 +265,7 @@ var RenderingHelperWrapperUtilsModule = (function () {
         retrieveCategoryDetailsAndRenderDynamicContent: retrieveCategoryDetailsAndRenderDynamicContent,
         displayCategoryContainerDetails: displayCategoryContainerDetails,
         subCategorizeServerResponseAndRenderDynamically: subCategorizeServerResponseAndRenderDynamically,
+        excludeBudgetIdFromDisplay: excludeBudgetIdFromDisplay,
 
     };
 
