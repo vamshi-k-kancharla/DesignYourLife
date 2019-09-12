@@ -306,16 +306,118 @@ exports.valueDefined = function (inputValue) {
 exports.parseWebClientRequest = function (clientRequestCollection) {
 
     var webClientRequestParamsMap = new Map();
+    var bFileUploadRequests = false;
+
     console.log("ParseWebClientRequest : ClientRequest Collection =>")
     console.log(clientRequestCollection);
 
     for (var index = 0; index < clientRequestCollection.length; index++) {
 
         var currentKeyValuePair = clientRequestCollection[index].split("=");
+
+        // Parse the File upload requests separately
+
+        if (index == 0 && currentKeyValuePair[0] == "Client_Request" && currentKeyValuePair[1] == "CustomUploadFile") {
+
+            bFileUploadRequests = true;
+            break;
+        }
+
         webClientRequestParamsMap = webClientRequestParamsMap.set(currentKeyValuePair[0], currentKeyValuePair[1]);
     }
 
+    if (bFileUploadRequests == true) {
+
+        webClientRequestParamsMap = HelperUtilsModule.parseFileUploadClientRequests(clientRequestCollection);
+    }
+
     return webClientRequestParamsMap;
+}
+
+
+/**
+ * 
+ * @param {String} clientRequestCollection  : List of <K,V> pairs from input http_request "k=v" format
+ * 
+ * @returns {Map} webClientRequestParamsMap  : Map of <K,V> pairs that were obtained from input request
+ * 
+ */
+
+exports.parseFileUploadClientRequests = function (clientRequestCollection) {
+
+    var webClientRequestParamsMap = new Map();
+
+    console.log("parseFileUploadClientRequests : ClientRequest Collection =>")
+    console.log(clientRequestCollection);
+
+    for (var index = 0; index < clientRequestCollection.length; index++) {
+
+        var currentKeyValuePair = clientRequestCollection[index].split("=");
+        var currentValue = currentKeyValuePair[1];
+
+        // File data may have special characters of URL String parser separators
+        // Works without condition as well
+
+        if (currentKeyValuePair[0] == "FileData" && currentKeyValuePair.length > 2) {
+
+            for (var valueIndex = 2; valueIndex < currentKeyValuePair.length; valueIndex++) {
+
+                currentValue += "=";
+                currentValue += currentKeyValuePair[valueIndex];
+            }
+
+        }
+
+        webClientRequestParamsMap = webClientRequestParamsMap.set(currentKeyValuePair[0], currentValue);
+    }
+
+    return webClientRequestParamsMap;
+}
+
+
+/**
+ * 
+ * @param {String} clientRequestCollection  : List of <K,V> pairs from input http_request "k=v" format
+ * 
+ * @returns {Array} resultRequestCollection  : List of <K,V> pairs of input http_request in "k=v" format with special characters(&) 
+ *                                             of file data taken care of
+ * 
+ */
+
+exports.handleSpecialCharacters_FileUploadRequests = function (clientRequestCollection) {
+
+    console.log("handleSpecialCharacters_FileUploadRequests : ClientRequest Collection =>")
+    console.log(clientRequestCollection);
+
+    var resultRequestCollection = new Array();
+
+    for (var index = 0; index < clientRequestCollection.length; index++) {
+
+        var currentKeyValuePair = clientRequestCollection[index].split("=");
+
+        // File data may have special characters(&) to be taken care of with sincere care
+
+        if (currentKeyValuePair[0] == "FileData") {
+
+            var currentValue = clientRequestCollection[index];
+
+            for (var currentIndex = index + 1; currentIndex < clientRequestCollection.length; currentIndex++) {
+
+                currentValue += "&";
+                currentValue += clientRequestCollection[currentIndex];
+            }
+
+            resultRequestCollection.push(currentValue);
+
+            break;
+
+        } else {
+
+            resultRequestCollection.push(clientRequestCollection[index]);
+        }
+    }
+
+    return resultRequestCollection;
 }
 
 

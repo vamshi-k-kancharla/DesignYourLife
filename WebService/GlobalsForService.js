@@ -36,6 +36,10 @@ var budgetAnalytics_TableName = "budgetAnalyticsCollection";
 var mongoDesignYourLifeDbUrl = 'mongodb://127.0.0.1:27017/' + designYourLife_Database_Name;
 var designYourLifeDbConnection;
 
+// File Upload Request Globals
+
+var expenseFilesUploadDirectory = "./UploadedExpenseFiles/";
+
 // Budget & Expense Details : Required Fields
 
 var budgetRecordRequiredFields = ["Budget_Id", "BudgetName", "Budget_Type", "Place", "StartDate", "EndDate", "Amount", "UserName"];
@@ -92,6 +96,8 @@ exports.userDetails_TableName = userDetails_TableName;
 exports.budgetAnalytics_TableName = budgetAnalytics_TableName;
 
 exports.mongoDesignYourLifeDbUrl = mongoDesignYourLifeDbUrl;
+
+exports.expenseFilesUploadDirectory = expenseFilesUploadDirectory;
 
 exports.budgetRecordRequiredFields = budgetRecordRequiredFields;
 

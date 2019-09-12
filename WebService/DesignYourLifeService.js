@@ -24,6 +24,7 @@
 
 var http = require('http');
 var url = require('url');
+var fileSystem = require('fs');
 
 var globalsForServiceModule = require('./GlobalsForService');
 var HelperUtilsModule = require('./HelperUtils');
@@ -89,6 +90,10 @@ http.createServer(function (http_request, http_response) {
 
     var requestParamsCollection = requestParams.split("&");
 
+    // Handle special characters (&) of file data ( File Upload Requests )
+
+    requestParamsCollection = HelperUtilsModule.handleSpecialCharacters_FileUploadRequests(requestParamsCollection);
+
     console.log("requestParamsMap after parsing URL : ");
     console.log(requestParamsCollection);
 
@@ -117,6 +122,10 @@ http.createServer(function (http_request, http_response) {
         // Connect to "DesignYourLife" db for "Expense Related CRUD operations"
 
         handleExpensesDatabaseRequests(webClientRequest, clientRequestWithParamsMap, http_response);
+
+    } else if (webClientRequest == "CustomUploadFile") {
+
+        handleFileUploadRequests(webClientRequest, clientRequestWithParamsMap, http_response);
 
     } else if (webClientRequest == "RetrieveBudgetAnalytics") {
 
@@ -654,6 +663,73 @@ function handleBudgetAnalyticsDatabaseRequests(webClientRequest, clientRequestWi
         }
 
     });
+
+}
+
+
+/**
+ * 
+ * @param {String} webClientRequest  : http client request 
+ * @param {Map} clientRequestWithParamsMap  : Map of <K,V> pairs corresponding to query of Web Client Request
+ *
+ * @returns {HTTPResponse} http_response  : http_response to be formulated with respective status codes
+ * 
+*/
+
+function handleFileUploadRequests(webClientRequest, clientRequestWithParamsMap, http_response) {
+
+    switch (webClientRequest) {
+
+        case "CustomUploadFile":
+
+            console.log("DesignYourLifeWebService.handleFileUploadRequests : Uploaded File : " + clientRequestWithParamsMap.get("FileName"));
+
+            var clientRequestWithParamsMap = HelperUtilsModule.removeUrlSpacesFromMapValues(clientRequestWithParamsMap);
+
+            fileSystem.writeFile(globalsForServiceModule.expenseFilesUploadDirectory + clientRequestWithParamsMap.get("FileName"),
+                clientRequestWithParamsMap.get("FileData"),
+                function (err) {
+
+                    if (err) {
+
+                        console.error("DesignYourLifeWebService.handleFileUploadRequests : Error while creating recently uploaded file: "
+                            + clientRequestWithParamsMap.get("FileName"));
+
+                        var failureMessage = "DesignYourLifeWebService.handleFileUploadRequests: Error while creating recently uploaded file: "
+                            + clientRequestWithParamsMap.get("FileName");
+                        HelperUtilsModule.logInternalServerError("DesignYourLifeWebService.handleFileUploadRequests",
+                            failureMessage, http_response);
+
+                        return;
+
+                    } else {
+
+                        console.error("DesignYourLifeWebService.handleFileUploadRequests : Successfully created new file: "
+                            + clientRequestWithParamsMap.get("FileName"));
+
+                        var successMessage = "DesignYourLifeWebService.handleFileUploadRequests: Successfully created new file: "
+                            + clientRequestWithParamsMap.get("FileName");
+                        HelperUtilsModule.buildSuccessResponse_Generic("DesignYourLifeWebService.handleFileUploadRequests",
+                            successMessage, http_response);
+
+                        return;
+
+                    }
+
+                });
+
+            break;
+
+        default:
+
+            console.error("DesignYourLifeWebService.handleFileUploadRequests : Inappropriate WebClient Request received...exiting");
+
+            var failureMessage = "DesignYourLifeWebService : Inappropriate WebClient Request received...exiting";
+            HelperUtilsModule.logBadHttpRequestError("DesignYourLifeWebService", failureMessage, http_response);
+
+            break;
+
+    }
 
 }
 
