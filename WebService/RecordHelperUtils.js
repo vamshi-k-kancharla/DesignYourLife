@@ -37,7 +37,8 @@ var GlobalsForServiceModule = require('./GlobalsForService');
 /**
  * 
  * @param {Map} recordMap  : Map of <K,V> pairs of Record
- * 
+ * @param {Array} requiredDetailsOfRecord : Array of all the required fields to be present in Map before building document object
+ *
  * @returns {Object} record_DocumentObject : Document Object of Record
  *
  */
@@ -71,7 +72,8 @@ exports.prepareRecord_DocumentObject = function (recordMap, requiredDetailsOfRec
 /**
  * 
  * @param {Object} queryResult : query Result from mongo DB
- * 
+ * @param {Array} requiredDetailsOfRecord : Array of all the required fields to be present (in DB Record) before building response
+ *
  * @returns {JSON} record_JSON : Record in JSON format
  * 
  */

@@ -70,6 +70,59 @@ http.createServer(function (http_request, http_response) {
         return;
     }
 
+
+
+
+
+
+    console.log("Content-Length : " + http_request.headers["content-length"]);
+    console.log("Content-Disposition : " + http_request.headers["content-disposition"]);
+    console.log("Content-Type : " + http_request.headers["content-type"]);
+    console.log("referer : " + http_request.headers.referer);
+
+
+    console.log("==============================================================================");
+    console.log("http_request => ");
+    HelperUtilsModule.returnRecursiveObjectString(http_request);
+    console.log("==============================================================================");
+
+
+    console.log("==============================================================================");
+    console.log("http_request.body : " + http_request.body);
+    console.log("==============================================================================");
+
+
+    console.log("==============================================================================");
+    console.log("http_request.body : " + http_request.end);
+    console.log("http_request.body.type : " + (typeof http_request.end));
+    console.log("==============================================================================");
+
+
+
+
+    console.log("==============================================================================");
+    console.log("trailers.type : " + (typeof http_request.trailers));
+    console.log("trailers.type.length : " + Object.keys(http_request.trailers).length);
+    console.log("trailers.First Key : " + Object.keys(http_request.trailers)[0]);
+    console.log("trailers.First Value : " + Object.values(http_request.trailers)[0]);
+    console.log("trailers.toString : " + http_request.trailers.toString());
+    console.log("==============================================================================");
+    console.log("trailers.Buffer: ");
+    console.log(Buffer.from(http_request.trailers));
+    console.log("==============================================================================");
+
+    if (http_request.rawTrailers) {
+
+        console.log("rawTrailers : " + HelperUtilsModule.returnStringFromArrayBuffer(http_request.rawTrailers));
+    }
+
+    console.log("==============================================================================");
+
+
+
+
+
+
     http_response.setHeader("Access-Control-Allow-Origin", "*");
     http_response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 
@@ -684,10 +737,12 @@ function handleFileUploadRequests(webClientRequest, clientRequestWithParamsMap, 
 
             console.log("DesignYourLifeWebService.handleFileUploadRequests : Uploaded File : " + clientRequestWithParamsMap.get("FileName"));
 
-            var clientRequestWithParamsMap = HelperUtilsModule.removeUrlSpacesFromMapValues(clientRequestWithParamsMap);
+            //var clientRequestWithParamsMap = HelperUtilsModule.removeUrlSpacesFromMapValues(clientRequestWithParamsMap);
+            var currentFileDataTypedArray = HelperUtilsModule.convertCustomEncodedStringDataToUint8TypedArray(
+                clientRequestWithParamsMap.get("FileData"));
 
             fileSystem.writeFile(globalsForServiceModule.expenseFilesUploadDirectory + clientRequestWithParamsMap.get("FileName"),
-                clientRequestWithParamsMap.get("FileData"),
+                currentFileDataTypedArray,
                 function (err) {
 
                     if (err) {

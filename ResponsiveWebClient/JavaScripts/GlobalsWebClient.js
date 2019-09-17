@@ -5,7 +5,11 @@ var GlobalWebClientModule = (function () {
 
     var bDebug = false;
     var bCurrentDebugFlag = true;
+
     var webServerPrefix = "http://127.0.0.1:4500/?";
+    var fileUploadServerPrefix = "http://52.172.9.165:4501/";
+    var currentFileUploadMethod = "JsonDataFetch";
+
     var imageResourcePath = "./Resources/Pictures/";
 
     // Current User Context : Local cache
@@ -131,6 +135,10 @@ var GlobalWebClientModule = (function () {
 
     var requiredKeysForCategorySummary = ["Expenditure", "NumOfExpenses"];
 
+    // File Upload JSON Content Globals
+
+    var uploadFileContent_RequiredFields = ["FileType", "FileData"];
+
     // Expose local variables for global access
 
     return {
@@ -139,7 +147,11 @@ var GlobalWebClientModule = (function () {
 
         bDebug: bDebug,
         bCurrentDebugFlag: bCurrentDebugFlag,
+
         webServerPrefix: webServerPrefix,
+        fileUploadServerPrefix: fileUploadServerPrefix,
+        currentFileUploadMethod: currentFileUploadMethod,
+
         imageResourcePath: imageResourcePath,
 
         // Current User Context : Local cache
@@ -237,6 +249,8 @@ var GlobalWebClientModule = (function () {
         dummyResultObject_ExpenseDetails: dummyResultObject_ExpenseDetails,
 
         requiredKeysForCategorySummary: requiredKeysForCategorySummary,
+
+        uploadFileContent_RequiredFields: uploadFileContent_RequiredFields,
 	}
 
 }) ();

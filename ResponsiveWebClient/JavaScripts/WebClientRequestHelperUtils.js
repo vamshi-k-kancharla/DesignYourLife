@@ -169,6 +169,91 @@ var WebClientRequestHelperModule = (function () {
     }
 
 
+    /**
+     * 
+     * @param {any} client_request : Http Client Request API Name
+     * @param {any} httpClientRequestParamsMap : Request Parameters Map consisting of http client request params
+     *
+    */
+
+    function webClientRequestAPIWrapper_JSONContent(client_request, httpClientRequestParamsMap, jsonObjectString) {
+
+        var xmlhttp;
+        var httpRequestString = GlobalWebClientModule.webServerPrefix;
+
+        xmlhttp = new XMLHttpRequest();
+        httpRequestString += "Client_Request=" + client_request;
+
+        if (httpClientRequestParamsMap != null && httpClientRequestParamsMap != undefined) {
+
+            var httpRequestDetailsKeys = httpClientRequestParamsMap.keys();
+
+            for (var currentKey of httpRequestDetailsKeys) {
+
+                httpRequestString += "&";
+                httpRequestString += currentKey;
+                httpRequestString += "=";
+                httpRequestString += httpClientRequestParamsMap.get(currentKey);
+            }
+        }
+
+        httpRequestString += jsonObjectString;
+
+        xmlhttp.open("POST", httpRequestString, true);
+        xmlhttp.setRequestHeader("Content-type", "application/json");
+        xmlhttp.setRequestHeader("accept", "application/json");
+
+        // Wait for Async response and Handle it in web page
+
+        xmlhttp.onreadystatechange = function () {
+
+            if (this.status == 200) {
+
+                if (this.readyState == 4) {
+
+                    //Parse the JSON Response Object
+
+                    if (GlobalWebClientModule.bDebug == true) {
+
+                        alert("Success Response for " + client_request);
+
+                        var responseObject = JSON.parse(this.response);
+                        alert(responseObject.Status);
+                    }
+
+                } else {
+
+                    if (GlobalWebClientModule.bDebug == true) {
+
+                        alert("Intermediate Success Response while placing webClientRequestAPIWrapper : " + client_request +
+                            " => Status: " + this.status + " readyState: " + this.readyState);
+                    }
+                }
+
+            } else {
+
+                if (this.readyState == 4) {
+
+                    alert("Failure to place webClientRequestAPIWrapper : " + client_request + " => Status : " +
+                        this.status + " readyState : " + this.readyState);
+
+                    var responseObject = JSON.parse(this.response);
+                    alert(responseObject.Status);
+                }
+
+            }
+
+        };
+
+        if (GlobalWebClientModule.bDebug == true) {
+
+            alert("Placing webClientRequestAPIWrapper => httpRequest : " + httpRequestString);
+        }
+
+        xmlhttp.send();
+
+    }
+
     /****************************************************************************************
         Reveal private methods
     *****************************************************************************************/
@@ -176,7 +261,8 @@ var WebClientRequestHelperModule = (function () {
     return {
 
         webClientRequestAPIWrapper: webClientRequestAPIWrapper,
-        webClientRequestAPIWrapperWithCallback: webClientRequestAPIWrapperWithCallback
+        webClientRequestAPIWrapperWithCallback: webClientRequestAPIWrapperWithCallback,
+        webClientRequestAPIWrapper_JSONContent: webClientRequestAPIWrapper_JSONContent,
     };
 
 })();

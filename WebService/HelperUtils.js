@@ -510,3 +510,113 @@ exports.isNumberOrFloat = function (inputValue) {
     return false;
 }
 
+/**
+ * 
+ * @param {String} customEncodedInputData : Custom encoded string from Typed_Array_Data of input file at web Client
+ * 
+ * @returns {Uint8Array}  resultUint8TypedArray  : Uint8 Typed Array derived from Custom Encoded input data
+ * 
+*/
+
+exports.convertCustomEncodedStringDataToUint8TypedArray = function (customEncodedInputData) {
+
+    console.log("HelperUtils.convertStringDataToUint8TypedArray => customEncodedInputData : " + customEncodedInputData);
+
+    var inputDataBytes = customEncodedInputData.split(",");
+    var resultUint8TypedArray = new Uint8Array(inputDataBytes.length);
+    var currentPos = 0;
+
+    for (var currentByteStr of inputDataBytes) {
+
+        if (currentPos < 5) {
+
+            console.log("currentByteStr : " + currentByteStr + ", currentByteNumber : " + Number(currentByteStr) );
+        }
+
+        resultUint8TypedArray[currentPos++] = Number(currentByteStr);
+    }
+
+    return resultUint8TypedArray;
+}
+
+/**
+ *
+ * @param {ArrayBuffer} inputArrayBuffer : Input array buffer to be converted to String
+ * 
+ * @returns {string} resultStr: Returns string corresponding to input Array Buffer
+ *
+*/
+
+exports.returnStringFromArrayBuffer = function (inputArrayBuffer) {
+
+    var resultStr = "";
+    var currentArrayBufferContent = new Uint8Array(inputArrayBuffer);
+
+    for (var currentByte of currentArrayBufferContent) {
+
+        resultStr += currentByte;
+    }
+
+    return resultStr;
+}
+
+/**
+ *
+ * @param {Object} inputObject  : Input Object to be converted to String Display format
+ * 
+ * @returns {string} objectStr: Returns string corresponding to input object
+ *
+*/
+
+exports.returnObjectString = function (inputObject) {
+
+    var objectStr = "{";
+    var currentPosition = 0;
+
+    for (var currentKey in inputObject) {
+
+        objectStr += currentKey + " : " + inputObject[currentKey];
+
+        if (currentPosition != (Object.keys(inputObject).length - 1)) {
+
+            objectStr += ",";
+        }
+        ++currentPosition;
+    }
+    objectStr += "}";
+
+    return objectStr;
+}
+
+/**
+ *
+ * @param {Object} inputObject  : Input Object to be converted to String Display format
+ * 
+ * @returns {string} objectStr: Returns string corresponding to input object
+ *
+*/
+
+exports.returnRecursiveObjectString = function (inputObject) {
+
+    for (var currentProperty in inputObject) {
+
+        console.log("==============================================================================");
+
+        if (HelperUtilsModule.valueDefined(inputObject[currentProperty])) {
+
+            if ((typeof inputObject[currentProperty]) == "object") {
+
+                console.log("currentProperty => " + currentProperty + ", currentValue => " + "Object");
+
+            } else {
+
+                console.log("Type => " + (typeof inputObject[currentProperty]));
+                console.log("currentProperty => " + currentProperty + ", currentValue => " + inputObject[currentProperty]);
+            }
+        }
+
+        console.log("==============================================================================");
+    }
+
+}
+

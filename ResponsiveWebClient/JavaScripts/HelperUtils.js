@@ -112,10 +112,16 @@ var HelperUtilsModule = (function () {
     function returnObjectString(inputObject) {
 
         var objectStr = "{";
+        var currentPos = 0;
 
         for (var currentKey in inputObject) {
 
-            objectStr += currentKey + " : " + inputObject[currentKey] + ",";
+            objectStr += currentKey + " : " + inputObject[currentKey];
+
+            if (currentPos++ != Object.keys(inputObject).length - 1) {
+
+                objectStr += ",";
+            }
         }
         objectStr += "}";
 
@@ -170,6 +176,42 @@ var HelperUtilsModule = (function () {
 
     }
 
+    /**
+     *
+     * @param {ArrayBuffer} inputArrayBuffer : Input array buffer to be converted to String
+     * 
+     * @returns {string} resultStr: Returns string corresponding to input Array Buffer
+     *
+    */
+
+    function returnStringFromArrayBuffer(inputArrayBuffer) {
+
+        var resultStr = "";
+        var currentArrayBufferContent = new Uint8Array(inputArrayBuffer);
+        var currentPos = 0;
+
+        for (var currentByte of currentArrayBufferContent) {
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                if (currentPos < 5) {
+
+                    alert("currentPos = " + currentPos + ", currentByte = " + currentByte);
+                }
+            }
+
+            resultStr += currentByte;
+
+            if (currentPos != currentArrayBufferContent.length - 1) {
+
+                resultStr += ",";
+            }
+            currentPos++;
+        }
+
+        return resultStr;
+    }
+
     /****************************************************************************************
         Reveal private methods & variables
     *****************************************************************************************/
@@ -184,6 +226,7 @@ var HelperUtilsModule = (function () {
         returnObjectString: returnObjectString,
         retrieveValuesFromMap: retrieveValuesFromMap,
         returnMapString: returnMapString,
+        returnStringFromArrayBuffer: returnStringFromArrayBuffer,
 
     };
 

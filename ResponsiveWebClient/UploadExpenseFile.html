@@ -33,6 +33,7 @@
     <script src="./JavaScripts/WebClientRequestHelperUtils.js"></script>
     <script src="./JavaScripts/FileReaderHelperUtils.js"></script>
     <script src="./JavaScripts/FileUploadToServerUtils.js"></script>
+    <script src="./JavaScripts/JSONRecordUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -220,10 +221,53 @@
 
             for (var currentFileObject of selectedFileListObject) {
 
-                FileReaderHelperUtilsModule.readFromFileObjectWithCallback(currentFileObject, uploadFileAfterSuccessfulRead,
-                    handleFailureFileRead);
-            }
+                switch (GlobalWebClientModule.currentFileUploadMethod) {
 
+                    case "XmlHttpURL":
+
+                        // Read Each fileData and send upload file through XMLHttpRequest
+
+                        FileReaderHelperUtilsModule.readFromFileObjectWithCallback(currentFileObject, uploadFileAfterSuccessfulRead,
+                            handleFailureFileRead);
+
+                        break;
+
+                    case "JsonDataFetch":
+
+                        // Read Each fileData and send upload file through XMLHttpRequest
+
+                        FileReaderHelperUtilsModule.readFromFileObjectWithCallback(currentFileObject, uploadFileUsingJSONData,
+                            handleFailureFileRead);
+
+                        break;
+
+                    case "FormDataFetch":
+
+                        // Using Fetch API to send File using FormData
+
+                        var fileUploadFormData = new FormData();
+                        var webURL = GlobalWebClientModule.fileUploadServerPrefix + "CustomUploadFile_Fetch_FormData";
+
+                        fileUploadFormData.append("FileData", currentFileObject, currentFileObject.fileName);
+                        fileUploadFormData.append("filename", currentFileObject.name);
+                        alert("Selected File Name : " + currentFileObject.name);
+
+                        fetch(webURL,
+                            {
+
+                                method: "POST",
+                                body: fileUploadFormData,
+
+                            }).catch(error => alert("Error occured while upload file using fetch : " + error))
+                            .then(response => alert("Successful response from server : " + JSON.stringify(response.json()) ));
+
+                        break;
+
+                    default:
+
+                }
+
+            }
         }
 
         /**
@@ -260,6 +304,44 @@
         function handleFailureFileRead(uploadFileName, uploadFileType) {
 
             alert("Error occured while reading & uploading File : " + uploadFileName + ", File Type : " + uploadFileType);
+        }
+
+        /**
+        *
+        * Post processing call back on successful read of upload File
+        *
+        * @param {string} uploadFileContent  :  Content of file to be uploaded/read
+        * @param {string} uploadFileName     :  Name of file to be uploaded
+        * @param {string} uploadFileType     :  MIME type of file to be uploaded
+        *
+        */
+
+        function uploadFileUsingJSONData(uploadFileContent, uploadFileName, uploadFileType) {
+
+            // Using Fetch API to send File using FormData
+
+            var fileUploadJsonData = new Object();
+            var webURL = GlobalWebClientModule.fileUploadServerPrefix + "CustomUploadFile_Fetch_JsonData";
+
+            fileUploadJsonData.fileName = uploadFileName;
+            fileUploadJsonData.fileType = uploadFileType;
+            fileUploadJsonData.fileData = uploadFileContent;
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("fileUploadJsonData => " + HelperUtilsModule.returnObjectString(fileUploadJsonData));
+            }
+
+            fetch(webURL,
+                {
+
+                    method: "POST",
+                    //headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(fileUploadJsonData),
+
+                }).catch(error => alert("Error occured while uploading file using fetch-json-data : " + error))
+                .then(response => alert("Successful response from server while uploading file through json data : " +
+                    JSON.stringify(response.json())));
         }
 
     </script>

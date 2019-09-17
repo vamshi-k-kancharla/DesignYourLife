@@ -43,15 +43,25 @@ var FileReaderHelperUtilsModule = (function () {
 
         fileReader.onload = function () {
 
+            var base64EncodedString = btoa(fileReader.result);
+            var fileContentArrayBufferString = HelperUtilsModule.returnStringFromArrayBuffer(fileReader.result);
+
             if (GlobalWebClientModule.bCurrentDebugFlag == true) {
 
                 alert("FileReaderHelperUtils.readFromFileObjectWithCallback : Reading task completed..Current Ready State : "
                     + fileReader.readyState);
+                alert("FileReaderHelperUtils.readFromFileObjectWithCallback : Array buffer Value Read : "
+                    + HelperUtilsModule.returnStringFromArrayBuffer(fileReader.result));
+                alert("FileReaderHelperUtils.readFromFileObjectWithCallback : Base64 Encoded String of input file content : "
+                    + base64EncodedString);
+                alert("FileReaderHelperUtils.readFromFileObjectWithCallback : After decoding encoded string : "
+                    + HelperUtilsModule.returnStringFromArrayBuffer(atob(base64EncodedString)));
             }
-            return handleSuccessResponse(fileReader.result, inputFileObject.name, inputFileObject.type);
+
+            return handleSuccessResponse(fileContentArrayBufferString, inputFileObject.name, inputFileObject.type);
         }
 
-        fileReader.readAsBinaryString(inputFileObject);
+        fileReader.readAsArrayBuffer(inputFileObject);
     }
 
     /****************************************************************************************
