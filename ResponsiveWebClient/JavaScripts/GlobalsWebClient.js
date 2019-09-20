@@ -127,6 +127,10 @@ var GlobalWebClientModule = (function () {
         "Amount", "MerchantName"];
     var expenseTypes = ["recurring", "festiveseason", "occasional", "vacation", "unplanned"];
 
+    // Expense File Related Data
+
+    var expenseRecordsFileData_Keys = ["FileName", "FileType", "Budget_Id", "UserName"];
+
     // dummy Result Object For <Key, Value> Pairs display
 
     var currentBudgetId_Dummy = "BudgetId_46013020198516384440";
@@ -241,6 +245,8 @@ var GlobalWebClientModule = (function () {
         expenseRecordData_RequiredKeys: expenseRecordData_RequiredKeys,
         expenseRecordKeys_ForDisplay: expenseRecordKeys_ForDisplay,
         expenseTypes: expenseTypes,
+
+        expenseRecordsFileData_Keys: expenseRecordsFileData_Keys,
 
         // Dummy Result Objects
 

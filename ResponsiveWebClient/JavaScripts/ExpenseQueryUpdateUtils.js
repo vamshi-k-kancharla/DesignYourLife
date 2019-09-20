@@ -92,6 +92,63 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
     /**
     * 
+    * Post processing call backs after Web Client Requests
+    *
+    */
+
+    function postExpenseAdditionThruFile_SuccessCallback(webReqResponse) {
+
+        alert("Expense addition through XL file upload got successful : " + webReqResponse);
+        document.location.replace("./UploadExpenseFile.html");
+    }
+
+    function postExpenseAdditionThruFile_FailureCallback(webReqResponse) {
+
+        alert("Expense addition through XL file upload failed : " + webReqResponse);
+        document.location.replace("./UploadExpenseFile.html");
+    }
+
+    /**
+    * 
+    * Takes care of Expense Record Addition through uploaded File
+    * 
+    * @param {Map} expenseRecordsFileDataMap : Uploaded expense Records File data Map
+    *
+    */
+
+    function addExpenseRecordsThroughUploadedFile(expenseRecordsFileDataMap) {
+
+        var userNameValue = window.localStorage.getItem(GlobalWebClientModule.currentUserName_Key);
+        var budgetIdValue = window.localStorage.getItem(GlobalWebClientModule.currentBudget_Id_Key);
+
+        expenseRecordsFileDataMap.set("Budget_Id", budgetIdValue);
+        expenseRecordsFileDataMap.set("UserName", userNameValue);
+
+        // Check for required input values
+
+        if (HelperUtilsModule.valueDefined(expenseRecordsFileDataMap) &&
+            FormDataInputHelperUtilsModule.checkForRequiredInputData(expenseRecordsFileDataMap,
+            GlobalWebClientModule.expenseRecordsFileData_Keys)) {
+
+            if (GlobalWebClientModule.bDebug == true) {
+
+                alert("All the Required Input Values are Present related to uploaded expense file..Proceeding further");
+            }
+
+        } else {
+
+            alert("One of the Required Input Values are missing related to uploaded expense file..Please upload file again");
+            return;
+        }
+
+        // Web Client Request for Expense Record Addition
+
+        WebClientRequestHelperModule.webClientRequestAPIWrapperWithCallback("AddExpensesThroughFile", expenseRecordsFileDataMap,
+            postExpenseAdditionThruFile_SuccessCallback, postExpenseAdditionThruFile_FailureCallback);
+    }
+
+    /**
+    * 
     * Reveal Private methods & variables
     *
     */
@@ -100,6 +157,7 @@ var ExpenseQueryUpdateUtilsModule = (function () {
 
         addExpenseRecordFromUserInput: addExpenseRecordFromUserInput,
         retrieveExpenseDetails: retrieveExpenseDetails,
+        addExpenseRecordsThroughUploadedFile: addExpenseRecordsThroughUploadedFile,
     }
 
 })();

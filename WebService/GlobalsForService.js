@@ -38,7 +38,7 @@ var designYourLifeDbConnection;
 
 // File Upload Request Globals
 
-var expenseFilesUploadDirectory = "./UploadedExpenseFiles/";
+var expenseFilesUploadDirectory = "./FileUploadServer/DesignYourLife-UploadedFiles/";
 
 // Budget & Expense Details : Required Fields
 
@@ -63,6 +63,12 @@ var budgetLevelAnalyticsRecord_CategoryFields = ["food", "accommodation", "enter
     "miscellaneous", "shopping", "transportation", "vacation"];
 
 var budgetAnalyticsRecord_RequiredQueryFields = ["Budget_Id", "UserName"];
+
+// Budget & Expense Input File Related Details : Required Fields
+
+var expenseFileDataColumnKeys = ["Expense_Category", "Expense_SubCategory", "ExpenseName", "Expense_Type", "Place", "Date", "Amount",
+    "MerchantName"];
+
 
 // Global variables
 
@@ -116,4 +122,6 @@ exports.budgetRecordData_AtleastOneValueShouldBeDifferent = budgetRecordData_Atl
 exports.budgetLevelAnalyticsRecord_CategoryFields = budgetLevelAnalyticsRecord_CategoryFields;
 exports.budgetAnalyticsRecord_RequiredQueryFields = budgetAnalyticsRecord_RequiredQueryFields;
 exports.budgetLevelAnalyticsRecord_RequiredFields = budgetLevelAnalyticsRecord_RequiredFields;
+
+exports.expenseFileDataColumnKeys = expenseFileDataColumnKeys;
 

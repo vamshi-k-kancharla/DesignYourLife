@@ -19,6 +19,7 @@ var GlobalsForServiceModule = require('./GlobalsForService');
 var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 var QueryBuilderModule = require('./QueryBuilder');
 var BudgetAnalyticsUpdateModule = require('./BudgetAnalyticsUpdateUtils');
+var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
 
 
 /**********************************************************************************
@@ -489,4 +490,43 @@ exports.removeExpenseRecordsForBudgetId = function (dbConnection, queryObject, h
         GlobalsForServiceModule.expenseRecordRequiredFields, http_response);
 
 }
+
+
+
+/**
+ *
+ * @param {DbConnection} dbConnection  : Connection to database
+ * @param {String} collectionName  : Name of Table ( Collection )
+ *
+ * @param {Map} expenseFileDataMap : Map of <K,V> Pairs ( Expenses_File_Data ) to be used for deriving Expense Record Map
+ * @param {Collection} requiredDetailsCollection : required keys for Expense record addition
+ * @param {XMLHttpRequestResponse} http_response : http response to be filled while responding to web client request
+ *
+ */
+
+exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collectionName, expenseFileDataMap, requiredDetailsCollection,
+    http_response) {
+
+    var addExpenseCallBackParams = new Map();
+    var recordObjectMap = new Map();
+
+    var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
+    recordObjectMap.set("Expense_Id", uniqueExpenseId);
+    recordObjectMap.set("Budget_Id", expenseFileDataMap.get("Budget_Id"));
+    recordObjectMap.set("UserName", expenseFileDataMap.get("UserName"));
+
+    addExpenseCallBackParams.set("dbConnection", dbConnection);
+    addExpenseCallBackParams.set("collectionName", collectionName);
+    addExpenseCallBackParams.set("requiredDetailsCollection", requiredDetailsCollection);
+    addExpenseCallBackParams.set("http_response", http_response);
+    addExpenseCallBackParams.set("recordObjectMap", recordObjectMap);
+
+    // Build Expense RecordObjectMap
+
+    ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
+        GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
+        ExpenseRecordsUpdateModule.addExpenseRecordToDatabase, addExpenseCallBackParams);
+
+}
+
 

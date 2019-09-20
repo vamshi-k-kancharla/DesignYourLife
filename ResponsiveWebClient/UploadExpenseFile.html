@@ -34,6 +34,8 @@
     <script src="./JavaScripts/FileReaderHelperUtils.js"></script>
     <script src="./JavaScripts/FileUploadToServerUtils.js"></script>
     <script src="./JavaScripts/JSONRecordUtils.js"></script>
+    <script src="./JavaScripts/ExpenseQueryUpdateUtils.js"></script>
+    <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -236,8 +238,15 @@
 
                         // Read Each fileData and send upload file through XMLHttpRequest
 
-                        FileReaderHelperUtilsModule.readFromFileObjectWithCallback(currentFileObject, uploadFileUsingJSONData,
-                            handleFailureFileRead);
+                        //FileReaderHelperUtilsModule.readFromFileObjectWithCallback(currentFileObject, uploadFileUsingJSONData,
+                        //    handleFailureFileRead);
+
+                        var expenseRecordsFileDataMap = new Map();
+
+                        expenseRecordsFileDataMap.set("FileName", currentFileObject.name);
+                        expenseRecordsFileDataMap.set("FileType", "xlsx");
+
+                        ExpenseQueryUpdateUtilsModule.addExpenseRecordsThroughUploadedFile(expenseRecordsFileDataMap);
 
                         break;
 
@@ -259,7 +268,7 @@
                                 body: fileUploadFormData,
 
                             }).catch(error => alert("Error occured while upload file using fetch : " + error))
-                            .then(response => alert("Successful response from server : " + JSON.stringify(response.json()) ));
+                            .then(response => alert("Successful response from server : " + JSON.stringify(response.json())));
 
                         break;
 

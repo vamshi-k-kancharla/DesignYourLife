@@ -10,6 +10,8 @@
 var HelperUtilsModule = require('./HelperUtils');
 var GlobalsForServiceModule = require('./GlobalsForService');
 
+var randomNumberSeed = 1000000;
+
 /**
  * 
  * @param {any} clientRequest  : Web Client Request
@@ -167,19 +169,7 @@ exports.removeStartingAndTrailingSpacesFromObjectValues = function (inputObject)
 
     for (var i = 0; i < values.length; i++) {
 
-        /*****************************************************
-         *
-         * To do : Give exception for password value depending on Password guidelines
-         *
-         
-        if (keys[i] == "Password") {
-
-            continue;
-        }
-
-        *****************************************************/
-
-        var newValueWithoutSpaces = removeStartingAndTrailingSpacesFromString(values[i]);
+        var newValueWithoutSpaces = HelperUtilsModule.removeStartingAndTrailingSpacesFromString(values[i]);
         inputObject[keys[i]] = newValueWithoutSpaces;
     }
 
@@ -195,7 +185,7 @@ exports.removeStartingAndTrailingSpacesFromObjectValues = function (inputObject)
  * 
 */
 
-function removeStartingAndTrailingSpacesFromString(currentValue) {
+exports.removeStartingAndTrailingSpacesFromString = function (currentValue) {
 
     if (GlobalsForServiceModule.bDebug == true) {
 
@@ -232,7 +222,7 @@ function removeStartingAndTrailingSpacesFromString(currentValue) {
 
     for (var j = startPointer; j <= endPointer; j++) {
 
-        newValueWithoutSpaces = newValueWithoutSpaces + currentValue.substring(j, j + 1);
+        newValueWithoutSpaces = newValueWithoutSpaces + String(currentValue).substring(j, j + 1);
     }
 
     if (GlobalsForServiceModule.bDebug == true) {
@@ -267,7 +257,7 @@ exports.removeStartingAndTrailingSpacesFromMapValues = function (inputMap) {
 
         var currentValue = inputMap.get(currentKey);
 
-        var newValueWithoutSpaces = removeStartingAndTrailingSpacesFromString(currentValue);
+        var newValueWithoutSpaces = HelperUtilsModule.removeStartingAndTrailingSpacesFromString(currentValue);
         inputMap.set(currentKey, newValueWithoutSpaces);
     }
 
@@ -618,5 +608,53 @@ exports.returnRecursiveObjectString = function (inputObject) {
         console.log("==============================================================================");
     }
 
+}
+
+/**
+ *
+ * @param {Map} inputMap  : Input Map to be converted to String Display format
+ * 
+ * @returns {string} mapStr: Returns string corresponding to input map
+ *
+*/
+
+exports.returnMapString = function (inputMap) {
+
+    var mapStr = "{";
+
+    for (var currentKey of inputMap.keys()) {
+
+        mapStr += currentKey + " : " + inputMap.get(currentKey) + ",";
+    }
+    mapStr += "}";
+
+    return mapStr;
+}
+
+
+/**
+ * 
+ * @returns {string} uniqueIdBasedOnCurrentTime: Returns UniqueId derived out of Current Instance Time
+ *                                             : Todo => Doesn't work for multiple concurrent requests at exact instance
+ *                                               => Add client's source IP
+ *                                               => And also Add Randomly Generated Number
+ *                                               => "SourceIP+RandomNumber+CurrentInstance" Id should be good enough for consumer web client
+ *
+*/
+
+exports.returnUniqueIdBasedOnCurrentTime = function () {
+
+    var todaysDate = new Date();
+    var todaysMonth = parseInt(todaysDate.getMonth().toString());
+    todaysMonth += 1;
+    var todaysYear = parseInt(todaysDate.getYear().toString());
+    todaysYear += 1900;
+    var randomNumber = Math.floor(Math.random() * randomNumberSeed);
+
+    var uniqueIdBasedOnCurrentTime = randomNumber.toString() + todaysYear + todaysMonth + todaysDate.getDay().toString() +
+        todaysDate.getHours().toString() + todaysDate.getMinutes().toString() + todaysDate.getSeconds().toString() +
+        todaysDate.getMilliseconds().toString();
+
+    return uniqueIdBasedOnCurrentTime;
 }
 
