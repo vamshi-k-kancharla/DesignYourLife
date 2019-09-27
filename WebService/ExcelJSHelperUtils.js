@@ -23,7 +23,7 @@ var ExcelModule = require('exceljs');
 */
 
 exports.buildRecordObjectMapFromInputFile = function (inputFileDataMap, inputFileLocation, inputFileColumnKeys,
-    addRecordToDatabase, addRecordCallbackParams) {
+    addRecordsToDatabase, addRecordCallbackParams) {
 
     var inputFileName = inputFileDataMap.get("FileName");
     var inputFileFullPath = inputFileLocation + inputFileName;
@@ -51,8 +51,8 @@ exports.buildRecordObjectMapFromInputFile = function (inputFileDataMap, inputFil
 
             if (HelperUtilsModule.valueDefined(columnKeysRowMap)) {
 
-                buildRecordAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFileColumnKeys,
-                    addRecordToDatabase, addRecordCallbackParams);
+                buildRecordsArrayAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFileColumnKeys,
+                    addRecordsToDatabase, addRecordCallbackParams);
 
             }
 
@@ -142,20 +142,20 @@ function determineColumnKeysRowMap(currentWorkSheet, inputFileColumnKeys) {
  *
 */
 
-function buildRecordAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFileColumnKeys,
-    addRecordToDatabase, addRecordCallbackParams) {
+function buildRecordsArrayAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFileColumnKeys,
+    addRecordsToDatabase, addRecordCallbackParams) {
 
     var totalNumOfRows = currentWorkSheet.rowCount;
-    var currentRecordObjectMap = new Map();
+    var currentRecordObjectArray = new Array();
 
     for (var currentRowIndex = 1; currentRowIndex <= totalNumOfRows; currentRowIndex++) {
 
-        currentRecordObjectMap.clear();
+        var currentRecordObject = new Object();
         var currentRow = currentWorkSheet.getRow(currentRowIndex);
 
         if (GlobalsForServiceModule.bDebug == true) {
 
-            console.debug("ExcelJSHelperUtils.determineColumnKeysRowMap.CurrentRowValues => " + currentRow.values.toString());
+            console.debug("ExcelJSHelperUtils.buildRecordsArrayAndAddToDB.CurrentRowValues => " + currentRow.values.toString());
         }
 
         if (currentRow.hasValues == false || currentRowIndex == columnKeysRowMap.get("columnKeysRow")) {
@@ -184,35 +184,91 @@ function buildRecordAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFileColu
 
             if (HelperUtilsModule.valueDefined(currentColumnValue)) {
 
-                currentRecordObjectMap.set(currentColumnKey, currentColumnValue);
+                currentRecordObject[currentColumnKey] = currentColumnValue;
             }
 
         }
 
-        console.debug("currentRecordObjectMap before adding callback params => " +
-            HelperUtilsModule.returnMapString(currentRecordObjectMap) + "currentRecordObjectMap.size => " + currentRecordObjectMap.size +
+        console.debug("currentRecordObject before adding callback params => " +
+            HelperUtilsModule.returnObjectString(currentRecordObject) + "currentRecordObject.size => " + Object.keys(currentRecordObject).length +
             "inputFileColumnKeys.length => " + inputFileColumnKeys.length);
 
-        if (currentRecordObjectMap.size == inputFileColumnKeys.length) {
+        if (Object.keys(currentRecordObject).length == inputFileColumnKeys.length) {
 
-            var currentRecordKeysFromCallbackParams = addRecordCallbackParams.get("recordObjectMap").keys();
-
-            for (var currentKey of currentRecordKeysFromCallbackParams) {
-
-                currentRecordObjectMap.set(currentKey, addRecordCallbackParams.get("recordObjectMap").get(currentKey));
-            }
-
-            console.debug("currentRecordObjectMap after adding callback params => " +
-                HelperUtilsModule.returnMapString(currentRecordObjectMap));
-
-            return addRecordToDatabase(addRecordCallbackParams.get("dbConnection"),
-                addRecordCallbackParams.get("collectionName"),
-                currentRecordObjectMap,
-                addRecordCallbackParams.get("requiredDetailsCollection"),
-                addRecordCallbackParams.get("http_response"));
+            addCurrentRecordObjectIfDoesntExist(currentRecordObjectArray, currentRecordObject);
         }
 
     }
+
+    addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray);
+}
+
+
+/**
+ * 
+ * @param {Array} currentRecordObjectArray  : Array of Record objects to be added to database in single instance
+ * @param {Object} inputRecordObject  : Record object to be added to the current collection of records
+ *
+*/
+
+function addCurrentRecordObjectIfDoesntExist(currentRecordObjectArray, inputRecordObject) {
+
+    if (currentRecordObjectArray.length == 0) {
+
+        currentRecordObjectArray.push(inputRecordObject);
+        return;
+    }
+
+    for (var currentFindRecord of currentRecordObjectArray) {
+
+        if (Object.values(currentFindRecord).toString() == Object.values(inputRecordObject).toString()) {
+
+            return;
+        }
+    }
+
+    currentRecordObjectArray.push(inputRecordObject);
+}
+
+
+/**
+ * 
+ * @param {Function} addRecordsToDatabase  : Callback function to add multiple records to database
+ * @param {Map} addRecordCallbackParams  : Map of <k,v> pairs of Callback function parameters
+ * @param {Array} currentRecordObjectArray  : Array of record objects to be added to database
+ *
+*/
+
+function addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray) {
+
+    for (var i = 0; i < currentRecordObjectArray.length; i++) {
+
+        var currentRecordKeysFromCallbackParams = addRecordCallbackParams.get("recordObjectMap").keys();
+
+        for (var currentKey of currentRecordKeysFromCallbackParams) {
+
+            if (currentKey == "Record_Id") {
+
+                currentRecordObjectArray[i][addRecordCallbackParams.get("recordObjectMap").get(currentKey)] =
+                    addRecordCallbackParams.get("recordObjectMap").get(currentKey) + "_" +
+                    HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
+
+                continue;
+            }
+
+            currentRecordObjectArray[i][currentKey] = addRecordCallbackParams.get("recordObjectMap").get(currentKey);
+        }
+
+        console.debug("currentRecordObjectMap after adding callback params => " +
+            HelperUtilsModule.returnObjectString(currentRecordObjectArray[i]));
+
+    }
+
+    return addRecordsToDatabase(addRecordCallbackParams.get("dbConnection"),
+        addRecordCallbackParams.get("collectionName"),
+        currentRecordObjectArray,
+        addRecordCallbackParams.get("requiredDetailsCollection"),
+        addRecordCallbackParams.get("http_response"));
 
 }
 

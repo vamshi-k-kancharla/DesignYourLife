@@ -633,6 +633,34 @@ exports.returnMapString = function (inputMap) {
 
 
 /**
+ *
+ * @param {Array} inputObjectArr : Array of input Objects to be converted to String Display format
+ * 
+ * @returns {string} objectStr: Returns string corresponding to input object Array
+ *
+*/
+
+exports.returnStringForArrayOfObjects = function (inputObjectArr) {
+
+    var objectStr = "[";
+    var currentPosition = 0;
+
+    for (var currentObject of inputObjectArr) {
+
+        objectStr += HelperUtilsModule.returnObjectString(currentObject);
+
+        if (currentPosition != (inputObjectArr.length - 1)) {
+
+            objectStr += ";";
+        }
+        ++currentPosition;
+    }
+    objectStr += "]";
+
+    return objectStr;
+}
+
+/**
  * 
  * @returns {string} uniqueIdBasedOnCurrentTime: Returns UniqueId derived out of Current Instance Time
  *                                             : Todo => Doesn't work for multiple concurrent requests at exact instance

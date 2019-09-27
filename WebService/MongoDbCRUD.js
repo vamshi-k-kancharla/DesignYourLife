@@ -49,7 +49,7 @@ exports.directAdditionOfRecordToDatabase = function (dbConnection, collectionNam
 
             if (HelperUtilsModule.valueDefined(http_response)) {
 
-                var failureMessage = "MongoDbCRUD.directAdditionOfRecordToDatabase : Internal Server Error adding the Record to Database collection => " +
+                var failureMessage = "MongoDbCRUD.directAdditionOfRecordToDatabase : Internal Server Error while adding the Record to Database collection => " +
                     collectionName;
                 HelperUtilsModule.logInternalServerError("directAdditionOfRecordToDatabase", failureMessage, http_response);
 
@@ -274,6 +274,76 @@ exports.retrieveRecordsFromDatabase = function (dbConnection, collectionName, qu
         });
 
     }
+
+}
+
+/**
+ * 
+ * @param {DbConnection} dbConnection  : Connection to database 
+ * @param {String} collectionName  : Name of Table ( Collection )
+ * @param {Record} document_Object_Arr : Array of document objects to be added ( Records, Rows in Table )
+ * @param {String} clientRequest : Request from Web Client
+ * 
+ * @returns {XMLHttpRequestResponse} http_response : HTTP Response to be formulated based on DB operations
+ *
+ */
+
+exports.directAdditionOfMultipleRecordsToDatabase = function (dbConnection, collectionName, document_Object_Arr, clientRequest,
+    http_response) {
+
+    directAdditionOfRecordToDatabase(dbConnection, collectionName, document_Object_Arr, clientRequest, http_response, null);
+}
+
+exports.directAdditionOfMultipleRecordsToDatabase = function (dbConnection, collectionName, document_Object_Arr, clientRequest, http_response,
+    postAdditionCallbackFunc) {
+
+    console.log("MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase => " +
+        "Bulk addition of unique Records : document_Object_Arr => " +
+        HelperUtilsModule.returnStringForArrayOfObjects(document_Object_Arr));
+
+    // Addition of Multiple Records
+
+    dbConnection.collection(collectionName).insertMany(document_Object_Arr, function (err, result) {
+
+        if (err) {
+
+            console.error("MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase : Error while adding records to Database collection => " +
+                collectionName + " , Error => " + err);
+            console.error("document_Object_Arr getting added => " + HelperUtilsModule.returnStringForArrayOfObjects(document_Object_Arr));
+
+            if (HelperUtilsModule.valueDefined(http_response)) {
+
+                var failureMessage = "MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase : " +
+                "Internal Server Error while adding multiple records to Database collection => " + collectionName;
+                HelperUtilsModule.logInternalServerError("directAdditionOfMultipleRecordsToDatabase", failureMessage, http_response);
+
+            }
+            return;
+        }
+
+        console.log("MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase : Successfully added records to the Collection : " +
+            collectionName);
+
+        if (HelperUtilsModule.valueDefined(http_response)) {
+
+            var successMessage = "Successfully added records to the Collection : " + collectionName;
+            HelperUtilsModule.buildSuccessResponse_Generic(successMessage, clientRequest, http_response);
+
+            console.log(result);
+        }
+
+        // Post Addition Callback Function
+
+        console.log("MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase : Post Addition Callback Function : For Client Request : " +
+            clientRequest);
+
+        if (HelperUtilsModule.valueDefined(postAdditionCallbackFunc)) {
+
+            console.log("MongoDbCRUD.directAdditionOfMultipleRecordsToDatabase : Placed the call for postAdditionCallbackFunc");
+            return postAdditionCallbackFunc(document_Object_Arr, dbConnection);
+        }
+
+    });
 
 }
 

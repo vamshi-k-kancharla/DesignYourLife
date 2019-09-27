@@ -231,12 +231,67 @@ function prepareNewAnalyticsRecord_DocumentObject(document_Object, firstUpdate, 
 
 
 /**
+ * 
+ * @param {Array} currentExpenseRecords : Array of Expenses to be updated in Analytics Record
+ * @param {Boolean} firstUpdate : New Analytics record ? Update on existing record ?
+ * @param {Object} currentAnalyticsRecord : Existing Analytics Record
+ *
+ * @returns {Object} analyticsRecord_DocumentObject : Document Object of newly built Analytics Record
+ *
+ */
+
+function prepareNewAnalyticsRecordWithCurrentExpenseRecords(currentExpenseRecords, firstUpdate, currentAnalyticsRecord) {
+
+    var analyticsRecord_DocumentObject;
+    var currentRecordIndex = 0;
+
+    for (var currentRecord of currentExpenseRecords) {
+
+        if (!currentRecordIndex) {
+
+            analyticsRecord_DocumentObject = prepareNewAnalyticsRecord_DocumentObject(currentRecord, firstUpdate, currentAnalyticsRecord);
+
+        } else {
+
+            analyticsRecord_DocumentObject = prepareNewAnalyticsRecord_DocumentObject(currentRecord, firstUpdate, analyticsRecord_DocumentObject);
+
+        }
+
+        firstUpdate = false;
+        currentRecordIndex++;
+    }
+
+    return analyticsRecord_DocumentObject;
+}
+
+
+/**
  *
  * @param {Object} document_Object  : Document Object consisting of Expense Details
  *
  */
 
 exports.updateExpenseData = function (document_Object, dbConnection) {
+
+    var currentExpenseRecords = new Array();
+
+    if (document_Object.length == undefined && HelperUtilsModule.valueDefined(Object.keys(document_Object).length)) {
+
+        console.log("BudgetAnalyticsUpdateUtils.updateExpenseData => Expense_Id : " + document_Object.Expense_Id +
+            ",Budget_Id : " + document_Object.Budget_Id + ",UserName : " + document_Object.UserName);
+
+        currentExpenseRecords.push(document_Object);
+
+    } else if (HelperUtilsModule.valueDefined(document_Object.length)) {
+
+        console.log("BudgetAnalyticsUpdateUtils.updateExpenseData => for expense Records : " + document_Object.length);
+        currentExpenseRecords = document_Object;
+
+    } else {
+
+        console.log("BudgetAnalyticsUpdateUtils.updateExpenseData => Unexpected Expense Records : Returning back....");
+        return;
+    }
 
     var queryBudgetAnalyticsRecord = new Object();
 
@@ -246,18 +301,17 @@ exports.updateExpenseData = function (document_Object, dbConnection) {
 
     // building query for Budget Analytics Record
 
-    console.log("BudgetAnalyticsUpdateUtils.updateExpenseData => Expense_Id : " + document_Object.Expense_Id +
-        ",Budget_Id : " + document_Object.Budget_Id + ",UserName : " + document_Object.UserName );
+    if (HelperUtilsModule.valueDefined(currentExpenseRecords[0].Budget_Id) &&
+        HelperUtilsModule.valueDefined(currentExpenseRecords[0].UserName)) {
 
-    if (HelperUtilsModule.valueDefined(document_Object.Budget_Id) && HelperUtilsModule.valueDefined(document_Object.UserName)) {
-
-        queryBudgetAnalyticsRecord.Budget_Id = document_Object.Budget_Id;
-        queryBudgetAnalyticsRecord.UserName = document_Object.UserName;
+        queryBudgetAnalyticsRecord.Budget_Id = currentExpenseRecords[0].Budget_Id;
+        queryBudgetAnalyticsRecord.UserName = currentExpenseRecords[0].UserName;
 
     } else {
 
         console.error("BudgetAnalyticsUpdateUtils.updateExpenseData : " +
-            " Expense Record Must have Budget_Id & UserName in order to be included in Budget Analytics");
+            " Expense Record Must have Budget_Id & UserName in order to be included in Budget Analytics : Current Object => " +
+            HelperUtilsModule.returnObjectString(currentExpenseRecords[0]));
 
         return;
     }
@@ -282,14 +336,15 @@ exports.updateExpenseData = function (document_Object, dbConnection) {
 
         // Execute Query and Add/Update Analytics Record accordingly
 
-        console.log("Checking the presence of Budget Analytics Record: CollectionName : " + collectionName);
+        console.log("Checking the presence of Budget Analytics Record: CollectionName : " + collectionName +
+            " , Budget_Id : " + queryBudgetAnalyticsRecord.Budget_Id);
 
         dbConnection.collection(collectionName).findOne(queryBudgetAnalyticsRecord, function (err, result) {
 
             if (err) {
 
                 console.error("BudgetAnalyticsUpdateUtils.updateExpenseData : " +
-                    "Internal Server Error while querying for Analytics Record");
+                    "Internal Server Error while querying for BudgetAnalytics Record");
 
                 return;
             }
@@ -299,12 +354,12 @@ exports.updateExpenseData = function (document_Object, dbConnection) {
 
                 // Record Addition
 
-                console.log("Record Not Found, Adding New Analytics Record with expense details => " + " Expense_Id : " +
-                    document_Object.Expense_Id);
+                console.log("BudgetAnalyticsUpdateUtils.updateExpenseData : Analytics Record is not found => " + " ,Budget_Id : " +
+                    queryBudgetAnalyticsRecord.Budget_Id);
 
-                var analyticsRecord_DocumentObject = prepareNewAnalyticsRecord_DocumentObject(document_Object, true, result);
+                var analyticsRecord_DocumentObject = prepareNewAnalyticsRecordWithCurrentExpenseRecords(currentExpenseRecords, true, result);
 
-                console.log("Adding new Analytics Record for Expense_Id : " + document_Object.Expense_Id);
+                console.log("Adding new Analytics Record for No Of Expense Records : " + currentExpenseRecords.length);
                 console.log(analyticsRecord_DocumentObject);
 
                 MongoDbCrudModule.directAdditionOfRecordToDatabase(dbConnection, collectionName, analyticsRecord_DocumentObject,
@@ -314,12 +369,12 @@ exports.updateExpenseData = function (document_Object, dbConnection) {
 
                 // Record Updation
 
-                console.log("Record Found, Updating Analytics Record with expense details => " + " Expense_Id : " +
-                    document_Object.Expense_Id);
+                console.log("Record Found, Updating Analytics Record with current Expense Record data => " + " ,Budget_Id : " +
+                    queryBudgetAnalyticsRecord.Budget_Id);
 
-                var analyticsRecord_DocumentObject = prepareNewAnalyticsRecord_DocumentObject(document_Object, false, result);
+                var analyticsRecord_DocumentObject = prepareNewAnalyticsRecordWithCurrentExpenseRecords(currentExpenseRecords, false, result);
 
-                console.log("Updating existing Analytics Record for Expense_Id : " + document_Object.Expense_Id);
+                console.log("Updating existing Analytics Record for No Of Expense Records : " + currentExpenseRecords.length);
                 console.log(analyticsRecord_DocumentObject);
 
                 MongoDbCrudModule.directUpdationOfRecordToDatabase(dbConnection, collectionName, analyticsRecord_DocumentObject,

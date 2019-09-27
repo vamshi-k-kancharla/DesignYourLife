@@ -20,6 +20,7 @@ var ExpenseRecordsUpdateModule = require('./ExpenseRecordUpdateUtils');
 var QueryBuilderModule = require('./QueryBuilder');
 var BudgetAnalyticsUpdateModule = require('./BudgetAnalyticsUpdateUtils');
 var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
+var ExpenseMultipleRecordsUpdateModule = require('./Expense_MultipleRecords_UpdateUtils');
 
 
 /**********************************************************************************
@@ -492,7 +493,6 @@ exports.removeExpenseRecordsForBudgetId = function (dbConnection, queryObject, h
 }
 
 
-
 /**
  *
  * @param {DbConnection} dbConnection  : Connection to database
@@ -510,10 +510,11 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
     var addExpenseCallBackParams = new Map();
     var recordObjectMap = new Map();
 
-    var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
-    recordObjectMap.set("Expense_Id", uniqueExpenseId);
+    //var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
+    //recordObjectMap.set("Expense_Id", uniqueExpenseId);
     recordObjectMap.set("Budget_Id", expenseFileDataMap.get("Budget_Id"));
     recordObjectMap.set("UserName", expenseFileDataMap.get("UserName"));
+    recordObjectMap.set("Record_Id", "Expense_Id");
 
     addExpenseCallBackParams.set("dbConnection", dbConnection);
     addExpenseCallBackParams.set("collectionName", collectionName);
@@ -525,8 +526,7 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
 
     ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
         GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
-        ExpenseRecordsUpdateModule.addExpenseRecordToDatabase, addExpenseCallBackParams);
+        ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
 
 }
-
 
