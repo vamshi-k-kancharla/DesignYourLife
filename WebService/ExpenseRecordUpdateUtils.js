@@ -21,6 +21,7 @@ var QueryBuilderModule = require('./QueryBuilder');
 var BudgetAnalyticsUpdateModule = require('./BudgetAnalyticsUpdateUtils');
 var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
 var ExpenseMultipleRecordsUpdateModule = require('./Expense_MultipleRecords_UpdateUtils');
+var PdfJSHelperUtilsModule = require('./PDFJSHelperUtils');
 
 
 /**********************************************************************************
@@ -510,8 +511,6 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
     var addExpenseCallBackParams = new Map();
     var recordObjectMap = new Map();
 
-    //var uniqueExpenseId = "ExpenseId_" + HelperUtilsModule.returnUniqueIdBasedOnCurrentTime();
-    //recordObjectMap.set("Expense_Id", uniqueExpenseId);
     recordObjectMap.set("Budget_Id", expenseFileDataMap.get("Budget_Id"));
     recordObjectMap.set("UserName", expenseFileDataMap.get("UserName"));
     recordObjectMap.set("Record_Id", "Expense_Id");
@@ -524,7 +523,11 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
 
     // Build Expense RecordObjectMap
 
-    ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
+    //ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
+    //    GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
+    //    ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+
+    PdfJSHelperUtilsModule.buildRecordObjectMapFromPDFFile(expenseFileDataMap,
         GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
         ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
 

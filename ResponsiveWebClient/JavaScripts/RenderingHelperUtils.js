@@ -24,6 +24,14 @@ var RenderingHelperUtilsModule = (function () {
             alert("document.height : " + $(document).height() + "; document.width : " + $(document).width());
         }
 
+        //  Hardcoded hack for device detection
+        //  To be improvised.
+
+        if (screen.width <= 600) {
+
+            return;
+        }
+
         var sideNavigatorHeightWithPadding = 0;
         var currentPageHeight = $(document).height();
 

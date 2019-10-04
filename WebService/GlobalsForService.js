@@ -69,7 +69,6 @@ var budgetAnalyticsRecord_RequiredQueryFields = ["Budget_Id", "UserName"];
 var expenseFileDataColumnKeys = ["Expense_Category", "Expense_SubCategory", "ExpenseName", "Expense_Type", "Place", "Date", "Amount",
     "MerchantName"];
 
-
 // Global variables
 
 var bDebug = true;

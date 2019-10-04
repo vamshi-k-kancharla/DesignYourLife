@@ -36,6 +36,7 @@
     <script src="./JavaScripts/JSONRecordUtils.js"></script>
     <script src="./JavaScripts/ExpenseQueryUpdateUtils.js"></script>
     <script src="./JavaScripts/FormDataInputHelperUtils.js"></script>
+    <script src="./JavaScripts/RenderingHelperUtils.js"></script>
 
     <nav id="headerNav" class="navbar navbar-inverse">
 
@@ -127,7 +128,20 @@
 
         <div class="row content">
 
-            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;"></div>
+            <div id="leftSideNavigator" class="col-sm-2 sidenav" style="background-color:#9FF2BD;">
+
+                <p>
+
+                    <div style="padding-bottom: 20px"></div>
+
+                    REPORTING AND INSIGHTS
+                    See all charges—across different payment types, countries, and currencies—in the Stripe Dashboard or extract the data directly from the API.
+
+                    <div style="padding-bottom: 20px"></div>
+
+                </p>
+
+            </div>
 
             <div id="mainContentWindow" class="col-sm-8 text-left" style="background-color: #D5D9D3; border:groove">
 
@@ -155,7 +169,22 @@
             </div>
 
             <div id="rightSideNavigator" class="col-sm-2 sidenav" style="background-color: #8EEEE8;">
+
+                <p>
+
+                    <div style="padding-bottom: 20px"></div>
+
+                    REPORTING AND INSIGHTS
+                    See all charges—across different payment types, countries, and currencies—in the Stripe Dashboard or extract the data directly from the API.
+
+                    <div style="padding-bottom: 20px"></div>
+
+                </p>
+
             </div>
+
+
+        </div>
 
         </div>
 
@@ -197,6 +226,13 @@
         */
 
         window.onload = function (event) {
+
+            // Rendering Adjustments
+
+            RenderingHelperUtilsModule.changeHeightOfSideNavigators("mainContentWindow", "leftSideNavigator",
+                "rightSideNavigator", "headerNav", "footerNav", 1.002);
+
+
 
         }
 
