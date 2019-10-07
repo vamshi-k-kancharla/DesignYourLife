@@ -523,13 +523,19 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
 
     // Build Expense RecordObjectMap
 
-    //ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
-    //    GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
-    //    ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+    if (expenseFileDataMap.get("FileType") == "xls") {
 
-    PdfJSHelperUtilsModule.buildRecordObjectMapFromPDFFile(expenseFileDataMap,
-        GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
-        ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+        ExcelJSHelperUtilsModule.buildRecordObjectMapFromInputFile(expenseFileDataMap,
+            GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
+            ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+
+    } else if (expenseFileDataMap.get("FileType") == "pdf") {
+
+        PdfJSHelperUtilsModule.buildRecordObjectMapFromPDFFile(expenseFileDataMap,
+            GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
+            ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+
+    }
 
 }
 

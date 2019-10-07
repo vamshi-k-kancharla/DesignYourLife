@@ -3,11 +3,13 @@
 
 /*************************************************************************
  * 
- * Globals : Module that handles Helper Utils
+ * Globals : Module that handles PDF Text Parsing Utils
  * 
  *************************************************************************/
 
 var HelperUtilsModule = require('./HelperUtils');
+var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
+var ExpTextClassificationUtilsModule = require('./ExpenseTextClassificationUtils');
 
 var PdfReaderModule = require('pdfreader');
 
@@ -61,7 +63,8 @@ exports.buildRecordObjectMapFromPDFFile = function (inputFileDataMap, inputFileL
                 "parsedFileContents[0].yCoOrdinate : " + parsedFileContents[0].yCoOrdinate +
                 "parsedFileContents[0].xCoOrdinate : " + parsedFileContents[0].xCoOrdinate);
 
-            retrieveExpensesAndAddRecordsToDatabase(parsedFileContents);
+            retrieveExpensesAndAddRecordsToDatabase(parsedFileContents, inputFileColumnKeys,
+                addRecordsToDatabase, addRecordCallbackParams);
 
         } else {
 
@@ -108,10 +111,14 @@ function buildPDFFileContentObject(currentPageNumber, fileStreamBuffer) {
 /**
  * 
  * @param {Array} parsedFileContents  : Array of Parsed File contents including Meta_Data
+ * @param {Array} inputFileColumnKeys : Expected column keys of input ( Min Req ) File to build RecordObjectMap
+ * @param {Function} addRecordToDatabase  : Callback function from caller to add Record to given database
+ * @param {Map} addRecordCallbackParams : Map of <k,v> pairs of Callback function Parameters
  *
 */
 
-function retrieveExpensesAndAddRecordsToDatabase(parsedFileContents) {
+function retrieveExpensesAndAddRecordsToDatabase(parsedFileContents, inputFileColumnKeys,
+    addRecordsToDatabase, addRecordCallbackParams) {
 
     var horizontalMinMax = findMinMaxCoordinates(parsedFileContents, false);
     var verticalMinMax = findMinMaxCoordinates(parsedFileContents, true);
@@ -120,8 +127,12 @@ function retrieveExpensesAndAddRecordsToDatabase(parsedFileContents) {
     console.log("Vertial Min : " + verticalMinMax.min + " ,Vertial Max : " + verticalMinMax.max);
 
     var tableRecordObjects = parseTablesFromFileContents(parsedFileContents, horizontalMinMax, verticalMinMax);
+    var parsedFileContents = retrieveExpenseRecordsFromTables(parsedFileContents, tableRecordObjects);
 
-    retrieveExpenseRecordsFromTables(parsedFileContents, tableRecordObjects);
+    var currentRecordObjectArray = ExpTextClassificationUtilsModule.classifyAndRetrieveExpenseRecords(parsedFileContents, 
+        tableRecordObjects, inputFileColumnKeys);
+    ExcelJSHelperUtilsModule.addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray);
+
 }
 
 
@@ -397,6 +408,8 @@ function retrieveExpenseRecordsFromTables(parsedFileContents, tableRecordObjects
 
         console.log(HelperUtilsModule.returnObjectString(currentContent));
     }
+
+    return parsedFileContents;
 
 }
 

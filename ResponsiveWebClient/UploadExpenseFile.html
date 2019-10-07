@@ -280,7 +280,8 @@
                         var expenseRecordsFileDataMap = new Map();
 
                         expenseRecordsFileDataMap.set("FileName", currentFileObject.name);
-                        expenseRecordsFileDataMap.set("FileType", "xlsx");
+                        var fileNameTokens = currentFileObject.name.split(".")
+                        expenseRecordsFileDataMap.set("FileType", fileNameTokens[1]);
 
                         ExpenseQueryUpdateUtilsModule.addExpenseRecordsThroughUploadedFile(expenseRecordsFileDataMap);
 

@@ -68,6 +68,7 @@ var budgetAnalyticsRecord_RequiredQueryFields = ["Budget_Id", "UserName"];
 
 var expenseFileDataColumnKeys = ["Expense_Category", "Expense_SubCategory", "ExpenseName", "Expense_Type", "Place", "Date", "Amount",
     "MerchantName"];
+var expenseDataFileTypes = ["xls", "pdf", "jpeg"];
 
 // Global variables
 
@@ -123,4 +124,5 @@ exports.budgetAnalyticsRecord_RequiredQueryFields = budgetAnalyticsRecord_Requir
 exports.budgetLevelAnalyticsRecord_RequiredFields = budgetLevelAnalyticsRecord_RequiredFields;
 
 exports.expenseFileDataColumnKeys = expenseFileDataColumnKeys;
+exports.expenseDataFileTypes = expenseDataFileTypes;
 

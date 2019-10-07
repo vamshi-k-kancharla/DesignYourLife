@@ -1,14 +1,15 @@
 
 'use strict';
 
-/*************************************************************************
+/*************************************************************************************************
  * 
- * Globals : Module that handles Helper Utils
+ * Globals : Module that handles Excel File Data Parsing & Expense Records Upload Utils
  * 
- *************************************************************************/
+ *************************************************************************************************/
 
 var HelperUtilsModule = require('./HelperUtils');
 var GlobalsForServiceModule = require('./GlobalsForService');
+var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
 
 var ExcelModule = require('exceljs');
 
@@ -200,7 +201,7 @@ function buildRecordsArrayAndAddToDB(currentWorkSheet, columnKeysRowMap, inputFi
 
     }
 
-    addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray);
+    ExcelJSHelperUtilsModule.addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray);
 }
 
 
@@ -239,7 +240,7 @@ function addCurrentRecordObjectIfDoesntExist(currentRecordObjectArray, inputReco
  *
 */
 
-function addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray) {
+exports.addMultipleRecordsToDB = function (addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray) {
 
     for (var i = 0; i < currentRecordObjectArray.length; i++) {
 
