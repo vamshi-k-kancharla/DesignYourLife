@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "design-your-life-92aea",
+  "private_key_id": "174623b06d673048cacef217034ea617ee47731e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCneLgyZHY8nX6z\n2ix1ifK4Ihn9XafjM6z2u/QFc1ni8eKjVolCexHwTbKFDniMksYpTJ+v2d6JiVeD\n+fX0MWcfdhNsSzziaRYs1wcoxVeGtEHUYUSW7kQO1SXEOCxfCotTRN4vHa3CGGF7\nOw25HfKhVcB1cdyGGOtCL0p+mel7LACdOt+yPc3puMsMu5/ao2WIVHQ0Lk2M1kN0\nKTTxfwXckMvL7f820uRzMZx45x2f+dbihFey3UN5I83cxtPITbTWOYDT2TaiBaJ3\n9k9de/W/yG+omsIrAwexC8sKGgUvZsc6r+o+Cc22e870kXj3zA0T7A92bQ8raSxJ\nFy3sCB/dAgMBAAECggEAElzoRY5CcK8MP4hCq7iuhoYmt2NXj1ARPRSq0xYs2veO\n1D4e2s1H0EOUuYY2raNCWzDtqYiIICiREgWMdHQeTJLT2mH9kQ3Ywp3pSQ0qZbjK\nJxFrRelmSQISHAvUwa8US9MXUa89aDToK2z0OkIQYqRWcApGFeYRlbY9wtf5g+nH\nzXHE/Oh4v5EPmR0LvdbVWPcCZeJpbXoTxF49z23dlRYPmDRj57doLpMgavSa45gD\nSicvjiOcJ/Wj9a/t0Zl0uchScLz+v0au5SC7Nr8ts4Hj09iAZijjZ7kRyA1w0SFY\ntpkaYEOrJtAbwuGV7IWUs+BYk8xh9zc9wlr36uyLOQKBgQDXr57ZXFK8GRGgap7o\no602/HXgeq0UjZCZqub+QTZ9h5nkbObFUMSxKkPsjLnLiTaHl0Bm9lJq5Hep3Ngy\ntVsVyGR1EnBhMYIj52k2CfbPrznf+qHCa7WCQd95RJuAg7P7IKnAUAVdItalLMZ+\neICXzE9CwndCN8YRX3F0KaPv/wKBgQDGxhTHCrKm8G/oFHHmWbYDzcM9aNJCDMGF\npY/wze9KvQBtT6OLQw+OxSQoZx4UKneKNiiXRV8WlVInuon4ldvzzAgNf7zIv1YH\n8NKgXOk9Dcru8yTzij9Ja5f+zAFxsqzRYEhkKctRfqcjQu+AOqCzSUj+bhnuvQRT\nf9DSamGwIwKBgDKzuBXEnDZXdktNhRmPEHLymgsxC2rfdHSLNk3iqpqLu+N0rjMI\nL5SuKNV8p1hvYwAw0BTkJq+2EWM+5RvWghj2yJa0xPI0HzGtfpATe4+K04IReuEn\nTL3YGl55gEyPqUmJfh4VMY2ZWPfvNKIaVbBZePBqonpQfiErXJJAD6elAoGAfFNi\npYgka9QROoinIRvVg5WMW3mXoSZXWJ9QY5564DVM8hIQycb9ESBvWDH/Fz/kmvb6\n9nq2Weq1gxHiwDADbf6cvsy5qJo8ViUjqJfUbpKU7lX4M7exk9uPKxgwgwvtmdvu\nC3A0sllUcvKn2H1TDDB3TmRRJgjljtBwLVvKlB8CgYEAzcso383LxsDrquG1mg39\n9Zg8vPARN7qoUairvVwNkx4/DP8kVL6PLXZ8+tpRo0F9BK3a/XINLhnQ/lGfhlXj\nlKrQiAaZSL+yPkHHAUn9JyvdP8e2sN6964oX2m1VZLCq8zz9GZpEA+xNaHPTTJJ8\nGScrkWaGlfjdUTD7G5Wlzps=\n-----END PRIVATE KEY-----\n",
+  "client_email": "design-your-life@design-your-life-92aea.iam.gserviceaccount.com",
+  "client_id": "104730318700432107232",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/design-your-life%40design-your-life-92aea.iam.gserviceaccount.com"
+}

@@ -8,8 +8,11 @@
  *************************************************************************/
 
 var HelperUtilsModule = require('./HelperUtils');
+
 var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
 var ExpTextClassificationUtilsModule = require('./ExpenseTextClassificationUtils');
+var PDFJSHelperUtilsModule = require('./PDFJSHelperUtils');
+var ImageJSHelperUtilsModule = require('./ImageJSHelperUtils');
 
 var PdfReaderModule = require('pdfreader');
 
@@ -30,11 +33,20 @@ exports.tableRowSeparatorKeys = tableRowSeparatorKeys;
  * @param {Array} inputFileColumnKeys : Expected column keys of input ( Min Req ) File to build RecordObjectMap
  * @param {Function} addRecordToDatabase  : Callback function from caller to add Record to given database
  * @param {Map} addRecordCallbackParams : Map of <k,v> pairs of Callback function Parameters
+ * @param {boolean} bImgConverted : "true/false" ? Was pdf converted file ?
  *
 */
 
 exports.buildRecordObjectMapFromPDFFile = function (inputFileDataMap, inputFileLocation, inputFileColumnKeys,
     addRecordsToDatabase, addRecordCallbackParams) {
+
+    PDFJSHelperUtilsModule.buildRecordObjectMapFromPDFFile(inputFileDataMap, inputFileLocation, inputFileColumnKeys,
+        addRecordsToDatabase, addRecordCallbackParams, false);
+
+}
+
+exports.buildRecordObjectMapFromPDFFile = function (inputFileDataMap, inputFileLocation, inputFileColumnKeys,
+    addRecordsToDatabase, addRecordCallbackParams, bImgConverted) {
 
     var inputFileName = inputFileDataMap.get("FileName");
     var inputFileFullPath = inputFileLocation + inputFileName;
@@ -57,11 +69,17 @@ exports.buildRecordObjectMapFromPDFFile = function (inputFileDataMap, inputFileL
 
         } else if (!HelperUtilsModule.valueDefined(fileStreamBuffer)) {
 
-            console.debug("Error while parsing PDF File : " + inputFileFullPath + " , Error => Undefined fileStreamBuffer");
+            console.debug("Error while parsing PDF File : " + inputFileFullPath +
+                " , Error => Undefined fileStreamBuffer / End of File Reached");
             console.debug("End of PDF File parsing : " + inputFileFullPath);
-            console.debug("parsedFileContents.length : " + parsedFileContents.length +
-                "parsedFileContents[0].yCoOrdinate : " + parsedFileContents[0].yCoOrdinate +
-                "parsedFileContents[0].xCoOrdinate : " + parsedFileContents[0].xCoOrdinate);
+
+            if (HelperUtilsModule.valueDefined(parsedFileContents) && parsedFileContents.length >= 1) {
+
+                console.debug("parsedFileContents.length : " + parsedFileContents.length +
+                    "parsedFileContents[0].yCoOrdinate : " + parsedFileContents[0].yCoOrdinate +
+                    "parsedFileContents[0].xCoOrdinate : " + parsedFileContents[0].xCoOrdinate);
+
+            }
 
             retrieveExpensesAndAddRecordsToDatabase(parsedFileContents, inputFileColumnKeys,
                 addRecordsToDatabase, addRecordCallbackParams);
@@ -127,10 +145,33 @@ function retrieveExpensesAndAddRecordsToDatabase(parsedFileContents, inputFileCo
     console.log("Vertial Min : " + verticalMinMax.min + " ,Vertial Max : " + verticalMinMax.max);
 
     var tableRecordObjects = parseTablesFromFileContents(parsedFileContents, horizontalMinMax, verticalMinMax);
-    var parsedFileContents = retrieveExpenseRecordsFromTables(parsedFileContents, tableRecordObjects);
+    var bTablePresent = false;
 
-    var currentRecordObjectArray = ExpTextClassificationUtilsModule.classifyAndRetrieveExpenseRecords(parsedFileContents, 
-        tableRecordObjects, inputFileColumnKeys);
+    for (var currentTableRecordObject of tableRecordObjects) {
+
+        if (currentTableRecordObject.NoOfRows > 1 && currentTableRecordObject.NoOfColumns > 2) {
+
+            bTablePresent = true;
+            break;
+        }
+    }
+
+    var parsedFileContents = (bTablePresent == true) ? retrieveExpenseRecordsFromTables(parsedFileContents, tableRecordObjects) :
+        parsedFileContents;
+
+    var currentRecordObjectArray = null;
+
+    if (bTablePresent == true) {
+
+        currentRecordObjectArray = ExpTextClassificationUtilsModule.classifyAndRetrieveExpenseRecords(parsedFileContents,
+            tableRecordObjects, inputFileColumnKeys);
+
+    } else {
+
+        currentRecordObjectArray = ImageJSHelperUtilsModule.retrieveExpenseRecordsFromRawFileContents(parsedFileContents,
+            inputFileColumnKeys);
+    }
+    
     ExcelJSHelperUtilsModule.addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, currentRecordObjectArray);
 
 }

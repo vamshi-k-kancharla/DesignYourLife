@@ -3,7 +3,7 @@
 
 /*************************************************************************
  * 
- * Globals : Module that handles Helper Utils
+ * Globals : Module that handles Expense Text Classification
  * 
  *************************************************************************/
 
@@ -13,8 +13,10 @@ var ExpTextClassificationUtilsModule = require('./ExpenseTextClassificationUtils
 // PDF Helper Records
 
 var expenseTextClassificationCategories = ["Date", "Place", "Merchant", "Amount", "Currency", "Address", "Picture", "Time"];
+var rawTextClassificationCategories = ["Noun", "Pronoun", "Verb", "Adjective", "Adverb", "Number", "CurrencyNumber", "Currency", "Date"];
 
 exports.expenseTextClassificationCategories = expenseTextClassificationCategories;
+exports.rawTextClassificationCategories = rawTextClassificationCategories;
 
 
 /**
@@ -121,6 +123,33 @@ exports.buildExpenseRecordObjectsFromAvailableData = function (currentRecordValu
     currentExpenseRecord.Amount = currentRecordValues[currentRecordValues.length-1];
 
     return currentExpenseRecord;
+}
+
+
+/**
+ * 
+ * @param {Array} parsedFileContents  : Array of Parsed File contents including Meta_Data
+ * 
+ * @returns {Array} expenseContentArray  : Array of Expense Content values
+ *
+*/
+
+exports.classifyExpenseContentFromRawText = function (parsedFileContents) {
+
+    var expenseContentArray = new Array();
+
+    for (var currentFileContent of parsedFileContents) {
+
+        // ToDo: Classify Raw Text Category
+        // var rawTextCategory = classifyRawText();
+        
+        if (doesContentFallInExpenseCategory(currentFileContent.text, rawTextCategory) == true) {
+
+            expenseContentArray.push(currentFileContent);
+        }
+    }
+
+    return expenseContentArray;
 }
 
 

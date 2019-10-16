@@ -22,6 +22,7 @@ var BudgetAnalyticsUpdateModule = require('./BudgetAnalyticsUpdateUtils');
 var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
 var ExpenseMultipleRecordsUpdateModule = require('./Expense_MultipleRecords_UpdateUtils');
 var PdfJSHelperUtilsModule = require('./PDFJSHelperUtils');
+var ImageJSHelperUtilsModule = require('./ImageJSHelperUtils');
 
 
 /**********************************************************************************
@@ -532,6 +533,13 @@ exports.addExpenseRecordsToDatabase_ThroughFile = function (dbConnection, collec
     } else if (expenseFileDataMap.get("FileType") == "pdf") {
 
         PdfJSHelperUtilsModule.buildRecordObjectMapFromPDFFile(expenseFileDataMap,
+            GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
+            ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
+
+    } else if (expenseFileDataMap.get("FileType") == "jpg" || expenseFileDataMap.get("FileType") == "tif"
+        || expenseFileDataMap.get("FileType") == "png" || expenseFileDataMap.get("FileType") == "gif") {
+
+        ImageJSHelperUtilsModule.buildRecordObjectMapFromImageFile(expenseFileDataMap,
             GlobalsForServiceModule.expenseFilesUploadDirectory, GlobalsForServiceModule.expenseFileDataColumnKeys,
             ExpenseMultipleRecordsUpdateModule.addExpenseRecordsToDatabase, addExpenseCallBackParams);
 
