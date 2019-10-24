@@ -153,3 +153,76 @@ exports.classifyExpenseContentFromRawText = function (parsedFileContents) {
 }
 
 
+/**
+ * 
+ * @param {Array} recordObjectValuesArray  : Array of Record object values retrieved from table contents
+ * @param {Array} inputFileColumnKeys : Expected column keys of input ( Min Req ) data to build RecordObjectMap
+ *
+ * @returns {Array} expenseRecordObjectsArray  : Array of Expense Record objects that got built
+ *
+*/
+
+exports.classifyAndBuildExpenseRecordObjects = function(recordObjectValuesArray, inputFileColumnKeys) {
+
+    var expenseRecordObjectsArray = new Array();
+
+    for (var currentRecordValues of recordObjectValuesArray) {
+
+        var currentExpenseRecord = ExpTextClassificationUtilsModule.buildExpenseRecordObjectsFromAvailableData(currentRecordValues,
+            inputFileColumnKeys);
+
+        if (HelperUtilsModule.valueDefined(currentExpenseRecord)) {
+
+            expenseRecordObjectsArray.push(currentExpenseRecord);
+        }
+    }
+
+    return expenseRecordObjectsArray;
+}
+
+/**
+ * 
+ * @param {String} inputStrValue  : Input string value in potential date format
+ *
+ * @returns {Boolean} true/false  : true if date input; false otherwise
+ *
+*/
+
+exports.isDate = function (inputStrValue) {
+
+    // ToDo : Classify and check if Date Input
+
+    return false;
+}
+
+/**
+ * 
+ * @param {String} inputStrValue  : Input string value ( Potential Place )
+ *
+ * @returns {Boolean} true/false  : true if place input; false otherwise
+ *
+*/
+
+exports.isPlace = function (inputStrValue) {
+
+    // ToDo : Classify and check if Input is place
+
+    return false;
+}
+
+
+/**
+ * 
+ * @param {String} inputStrValue  : Input string value ( Potential Merchant Name )
+ *
+ * @returns {Boolean} true/false  : true if merchant input; false otherwise
+ *
+*/
+
+exports.isMerchant = function (inputStrValue) {
+
+    // ToDo : Classify and check if Input is place
+
+    return false;
+}
+

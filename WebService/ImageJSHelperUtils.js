@@ -11,6 +11,9 @@ var HelperUtilsModule = require('./HelperUtils');
 var ExpTextClassificationUtilsModule = require('./ExpenseTextClassificationUtils');
 var PdfJSHelperUtilsModule = require('./PDFJSHelperUtils');
 var ImageJSHelperUtilsModule = require('./ImageJSHelperUtils');
+var TableHelperUtilsModule = require('./TableHelperUtils');
+var ExcelJSHelperUtilsModule = require('./ExcelJSHelperUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
 
 var ImageToPdfModule = require('images-to-pdf');
 var GoogleCloudVisionAPIModule = require('@google-cloud/vision');
@@ -66,7 +69,8 @@ exports.buildRecordObjectMapFromImageFile = function (inputFileDataMap, inputFil
         console.log("File Name => " + inputFileName);
         console.log("Text description of starting content  => " + textContentArr[0].description);
 
-        ImageJSHelperUtilsModule.buildRecordObjectsFromImageFilesAndAddToDatabase(textContentArr);
+        ImageJSHelperUtilsModule.buildRecordObjectsFromImageFilesAndAddToDatabase(textContentArr, inputFileColumnKeys,
+            addRecordsToDatabase, addRecordCallbackParams);
 
     });
 
@@ -84,18 +88,20 @@ exports.buildRecordObjectMapFromImageFile = function (inputFileDataMap, inputFil
 /**
  * 
  * @param {Array} textContentArr  : Array of Parsed File contents including Meta_Data
- * 
+ * @param {Array} inputFileColumnKeys : Expected column keys of input ( Min Req ) File to build RecordObjectMap
+ * @param {Function} addRecordToDatabase  : Callback function from caller to add Record to given database
+ * @param {Map} addRecordCallbackParams : Map of <k,v> pairs of Callback function Parameters
+ *
 */
 
-exports.buildRecordObjectsFromImageFilesAndAddToDatabase = function (textContentArr) {
+exports.buildRecordObjectsFromImageFilesAndAddToDatabase = function (textContentArr, inputFileColumnKeys,
+    addRecordsToDatabase, addRecordCallbackParams) {
 
-    for (var currentText of textContentArr) {
+    if (GlobalsForServiceModule.bDebug == true) {
 
-        console.log(currentText.description);
+        for (var currentText of textContentArr) {
 
-        for (var currentObject of currentText.boundingPoly.vertices) {
-
-            console.log(HelperUtilsModule.returnObjectString(currentObject));
+            ImageJSHelperUtilsModule.printImageLineContent(currentText);
         }
     }
 
@@ -126,8 +132,52 @@ exports.buildRecordObjectsFromImageFilesAndAddToDatabase = function (textContent
         console.debug(currentLineText);
     }
 
+    console.debug("Sorted line content of image file :=> ");
+
     var sortedImageFileLines = ImageJSHelperUtilsModule.sortImageContentLines(textContentArr, lineMarkingsArray);
-    printImageLines(sortedImageFileLines);
+    ImageJSHelperUtilsModule.printImageLines(sortedImageFileLines);
+
+    var matchColumns3DArray = TableHelperUtilsModule.checkForTableInImageFileContents(sortedImageFileLines);
+    var recordObjectValuesArray;
+
+    if (!HelperUtilsModule.valueDefined(matchColumns3DArray)) {
+
+        // ToDo : Raw Content ( No Tables ) => Needs further processing => Classify and add Records
+
+    } else if (matchColumns3DArray[0].length == 1 && matchColumns3DArray[1].length == 1) {
+
+        recordObjectValuesArray = TableHelperUtilsModule.buildRecordObjectValuesFromTableContents(sortedImageFileLines,
+            matchColumns3DArray[1], matchColumns3DArray[2]);
+
+    } else {
+
+        recordObjectValuesArray = TableHelperUtilsModule.buildRecordObjectValuesFromMultipleTables(sortedImageFileLines,
+            matchColumns3DArray[0], matchColumns3DArray[1], matchColumns3DArray[2]);
+
+    }
+
+    if (!HelperUtilsModule.valueDefined(recordObjectValuesArray)) {
+
+        console.error("ImageJSHelperUtils.buildRecordObjectsFromImageFilesAndAddToDatabase : " +
+            "Some error while retrieving Record Values from image file (invalid record values)");
+
+        var failureMessage = "Some error while retrieving Record Values from image file (parsed record values are incorrect)";
+        HelperUtilsModule.logBadHttpRequestError("buildRecordObjectsFromImageFilesAndAddToDatabase", failureMessage,
+            addRecordCallbackParams.get("http_response"));
+
+        return;
+    }
+
+    console.debug("buildRecordObjectsFromImageFilesAndAddToDatabase :=> recordObjectValuesArray => ");
+    for (var currentIndex = 0; currentIndex < recordObjectValuesArray.length; currentIndex++) {
+
+        console.debug("Record Object values ( " + currentIndex + " ) :=> " +
+            HelperUtilsModule.returnObjectString(recordObjectValuesArray[currentIndex]));
+    }
+
+    var expenseRecordObjectsArray = ExpTextClassificationUtilsModule.classifyAndBuildExpenseRecordObjects(recordObjectValuesArray,
+        inputFileColumnKeys);
+    ExcelJSHelperUtilsModule.addMultipleRecordsToDB(addRecordsToDatabase, addRecordCallbackParams, expenseRecordObjectsArray);
 
 }
 
@@ -409,7 +459,7 @@ exports.sortImageContentLines = function (textContentArr, lineMarkingsArray) {
 
 function sortCurrentLineColumnsWise(currentLineContents) {
 
-    for (var currentIndex = 0; currentIndex < currentLineContents; currentIndex++) {
+    for (var currentIndex = 0; currentIndex < currentLineContents.length; currentIndex++) {
 
         currentLineContents = sortVerticesOfCurrentContentColumnWise(currentLineContents, currentIndex);
     }
@@ -443,12 +493,19 @@ function sortCurrentLineColumnsWise(currentLineContents) {
 
 function sortVerticesOfCurrentContentColumnWise(textContentArr, currentIndex) {
 
+    if (GlobalsForServiceModule.bDebug == true) {
+
+        console.debug("ImageJSHelperUtils.sortVerticesOfCurrentContentColumnWise => Before sorting the vertices of current Content");
+        ImageJSHelperUtilsModule.printImageLineContent(textContentArr[currentIndex]);
+    }
+
     for (var i = 0; i < textContentArr[currentIndex].boundingPoly.vertices.length; i++) {
 
         for (var j = i + 1; j < textContentArr[currentIndex].boundingPoly.vertices.length; j++) {
 
             if (textContentArr[currentIndex].boundingPoly.vertices[i].x > textContentArr[currentIndex].boundingPoly.vertices[j].x) {
 
+                // To Do : Exchange at CoOrdinate level instead of Vertice Level
                 var tempHolder = textContentArr[currentIndex].boundingPoly.vertices[i];
                 textContentArr[currentIndex].boundingPoly.vertices[i] = textContentArr[currentIndex].boundingPoly.vertices[j];
                 textContentArr[currentIndex].boundingPoly.vertices[j] = tempHolder;
@@ -458,30 +515,63 @@ function sortVerticesOfCurrentContentColumnWise(textContentArr, currentIndex) {
 
     }
 
+    if (GlobalsForServiceModule.bDebug == true) {
+
+        console.debug("ImageJSHelperUtils.sortVerticesOfCurrentContentColumnWise => After sorting the vertices of current Content");
+        ImageJSHelperUtilsModule.printImageLineContent(textContentArr[currentIndex]);
+    }
+
     return textContentArr;
 }
 
 
 /**
  * 
- * @param {Array} sortedImageFileLines  : Array of sorted lines of the image content
+ * @param {Array} printImageLines  : Array of sorted lines of the image content
  *
 */
 
-function printImageLines(sortedImageFileLines) {
+exports.printImageLines = function (sortedImageFileLines) {
 
-    for (var currentLine of sortedImageFileLines) {
+    for (var currentIndex = 0; currentIndex < sortedImageFileLines.length; currentIndex++) {
 
-        var currentLineText = "New Line : ";
+        ImageJSHelperUtilsModule.printImageLine(sortedImageFileLines, currentIndex);
+    }
+}
 
-        for (var curreLineContent of currentLine) {
+/**
+ * 
+ * @param {Object} printImageLine  : Single line of sorted image content
+ *
+*/
 
-            currentLineText += curreLineContent.description;
-            currentLineText += "   ,";
-        }
+exports.printImageLine = function (sortedImageFileLines, currentIndex) {
 
-        console.debug(currentLineText);
+    var currentLineText = "New Line : ";
+
+    for (var currentLineContent of sortedImageFileLines[currentIndex]) {
+
+        currentLineText += currentLineContent.description;
+        currentLineText += " ,";
     }
 
+    console.debug(currentLineText);
 }
+
+/**
+ * 
+ * @param {Object} currentLineContent  : Current Line content object
+ *
+*/
+
+exports.printImageLineContent = function (currentLineContent) {
+
+    console.log(currentLineContent.description);
+
+    for (var currentObject of currentLineContent.boundingPoly.vertices) {
+
+        console.log(HelperUtilsModule.returnObjectString(currentObject));
+    }
+}
+
 

@@ -468,7 +468,7 @@ exports.isFloatingNumber = function (inputFloatValue) {
         return false;
     }
 
-    var inputFloatValueArray = inputFloatValue.split(".");
+    var inputFloatValueArray = String(inputFloatValue).split(".");
 
     if (inputFloatValueArray.length == 2 && Number.isInteger(parseInt(inputFloatValueArray[0])) &&
         Number.isInteger(parseInt(inputFloatValueArray[1]))) {
@@ -498,6 +498,24 @@ exports.isNumberOrFloat = function (inputValue) {
     }
 
     return false;
+}
+
+/**
+ * 
+ * @param {String} inputValue : Value to be checked for number
+ * 
+ * @returns {boolean}  true/false  : True if value is number, false otherwise
+ * 
+*/
+
+exports.isNumber = function (inputValue) {
+
+    if (!HelperUtilsModule.valueDefined(inputValue)) {
+
+        return false;
+    }
+
+    return Number.isInteger(parseInt(inputValue));
 }
 
 /**
@@ -685,4 +703,29 @@ exports.returnUniqueIdBasedOnCurrentTime = function () {
 
     return uniqueIdBasedOnCurrentTime;
 }
+
+
+/**
+ *
+ * @param {Array} inputArray  : Array of Input elements
+ * @param {Number/Character/String} element  : Element to be added if not found
+ *
+ * @returns {Array} inputArray: Returns array with input element addition if not found
+ *
+*/
+
+exports.addIfNotFound = function (inputArray, element) {
+
+    for (var currentElement of inputArray) {
+
+        if (currentElement == element) {
+
+            return inputArray;
+        }
+    }
+
+    inputArray.push(element);
+    return inputArray;
+}
+
 

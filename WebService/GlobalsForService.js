@@ -72,7 +72,7 @@ var expenseDataFileTypes = ["xls", "pdf", "jpeg"];
 
 // Global variables
 
-var bDebug = true;
+var bDebug = false;
 
 
 /**************************************************************************
