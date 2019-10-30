@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * CopyRight Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 'use strict';
 
 /*************************************************************************
@@ -74,6 +81,9 @@ var expenseDataFileTypes = ["xls", "pdf", "jpeg"];
 
 var bDebug = false;
 
+// Google Cloud ML Related Parameters
+
+var minReqTokens = 22;
 
 /**************************************************************************
  **************************************************************************
@@ -126,3 +136,4 @@ exports.budgetLevelAnalyticsRecord_RequiredFields = budgetLevelAnalyticsRecord_R
 exports.expenseFileDataColumnKeys = expenseFileDataColumnKeys;
 exports.expenseDataFileTypes = expenseDataFileTypes;
 
+exports.minReqTokens = minReqTokens;

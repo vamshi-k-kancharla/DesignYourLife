@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * CopyRight Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 'use strict';
 
 /*************************************************************************
@@ -9,6 +16,9 @@
 
 var HelperUtilsModule = require('./HelperUtils');
 var ExpTextClassificationUtilsModule = require('./ExpenseTextClassificationUtils');
+var GlobalsForServiceModule = require('./GlobalsForService');
+
+var GoogleCloud_MLLanguage_APIModule = require('@google-cloud/language');
 
 // PDF Helper Records
 
@@ -17,6 +27,44 @@ var rawTextClassificationCategories = ["Noun", "Pronoun", "Verb", "Adjective", "
 
 exports.expenseTextClassificationCategories = expenseTextClassificationCategories;
 exports.rawTextClassificationCategories = rawTextClassificationCategories;
+
+/**
+ * 
+ * @returns {Array} googleCloudLanguageAPIClient  : Google Cloud ML Language Service Client
+ *
+*/
+
+exports.retrieveGoogleCloudMLLanguageParser = function () {
+
+    var googleCloudLanguageAPIClient = new GoogleCloud_MLLanguage_APIModule.LanguageServiceClient();
+
+    var newStrValue = 'Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks';
+
+    var currentDocument = {
+        content: newStrValue,
+        type: 'PLAIN_TEXT',
+    };
+
+    googleCloudLanguageAPIClient.classifyText({ currentDocument }, function (err, result) {
+
+        console.log("Input String Content => " + currentDocument.content + " , Categories => : ");
+
+        if (err) {
+
+            console.error("ExpTextClassificationUtilsModule.retrieveGoogleCloudMLLanguageParser: Error while classifying text through googleCloud Language API => "
+                + err.toString() + " ,result " + result);
+            return;
+        }
+
+        for (var currentCategory of result.categories) {
+
+            console.log("Category Name : " + currentCategory.name + " , Confidence : " + currentCategory.confidence);
+        }
+
+    });
+
+    return googleCloudLanguageAPIClient;
+}
 
 
 /**
@@ -213,15 +261,51 @@ exports.isPlace = function (inputStrValue) {
 
 /**
  * 
+ * @param {Object} googleCloudLanguageAPIClient  : Google Cloud ML Language API Client
  * @param {String} inputStrValue  : Input string value ( Potential Merchant Name )
  *
  * @returns {Boolean} true/false  : true if merchant input; false otherwise
  *
 */
 
-exports.isMerchant = function (inputStrValue) {
+exports.isMerchant = function (googleCloudLanguageAPIClient, inputStrValue) {
 
-    // ToDo : Classify and check if Input is place
+    inputStrValue = HelperUtilsModule.buildInputStrWithMinReqTokens(inputStrValue, GlobalsForServiceModule.minReqTokens);
+
+    var newStrValue = 'Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks Starbucks';
+
+    var currentDocument = {
+        content: newStrValue,
+        type: 'PLAIN_TEXT',
+    };
+
+    googleCloudLanguageAPIClient.classifyText({currentDocument}, function (err, result) {
+
+        console.log("Input String Content => " + currentDocument.content + " , Categories => : ");
+
+        if (err) {
+
+            console.error("ExpTextClassificationUtilsModule.isMerchant: Error while classifying text through googleCloud Language API => "
+                + err.toString() + " ,result " + result);
+            return;
+        }
+
+        for (var currentCategory of result.categories) {
+
+            console.log("Category Name : " + currentCategory.name + " , Confidence : " + currentCategory.confidence);
+        }
+
+    });
+
+    /*
+    console.log("Input String Content => " + currentDocument.content + " , Categories => : ");
+
+    var [classificationResultArr] = await googleCloudLanguageAPIClient.classifyText({ currentDocument });
+
+    for (var currentCategory of classificationResultArr.categories) {
+
+        console.log("Category Name : " + currentCategory.name + " , Confidence : " + currentCategory.confidence);
+    }*/
 
     return false;
 }

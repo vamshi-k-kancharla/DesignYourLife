@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * Copy Rights Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 var WebClientRequestHelperModule = (function () {
 
     /**

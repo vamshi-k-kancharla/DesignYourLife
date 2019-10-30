@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * CopyRight Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 'use strict';
 
 /*************************************************************************
@@ -727,5 +734,43 @@ exports.addIfNotFound = function (inputArray, element) {
     inputArray.push(element);
     return inputArray;
 }
+
+/**
+ *
+ * @param {String} inputStrValue  : Input string to be built
+ * @param {Number} minReqTokens  : Minimum no of tokens required
+ *
+ * @returns {String} inputStrValue: Returns String with min Required tokens
+ *
+*/
+
+exports.buildInputStrWithMinReqTokens = function (inputStrValue, minReqTokens) {
+
+    var tokenArray = String(inputStrValue).split(" ");
+
+    if (!HelperUtilsModule.valueDefined(inputStrValue)) {
+
+        return null;
+    }
+
+    if (tokenArray.length >= minReqTokens) {
+
+        return inputStrValue;
+    }
+
+    for (var currentIndex = 0; String(inputStrValue).split(" ").length < minReqTokens; currentIndex++) {
+
+        if (currentIndex == tokenArray.length) {
+
+            currentIndex = 0;
+        }
+
+        inputStrValue += " ";
+        inputStrValue += tokenArray[currentIndex];
+    }
+
+    return inputStrValue;
+}
+
 
 

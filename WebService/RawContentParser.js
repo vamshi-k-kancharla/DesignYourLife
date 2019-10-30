@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * Copy Rights Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 'use strict';
 
 /*************************************************************************
@@ -32,6 +39,8 @@ exports.processRawContentForExpenseRecord = function (currentLineContents, input
     var currentRecord_Merchant = "BigBasket";
     var currentRecord_Expense = "";
 
+    var googleMLCloudLanguageClient = ExpTextClassificationUtilsModule.retrieveGoogleCloudMLLanguageParser();
+
     for (var currentContentObject of currentLineContents) {
 
         var currentContent = currentContentObject.description;
@@ -54,7 +63,7 @@ exports.processRawContentForExpenseRecord = function (currentLineContents, input
 
             currentRecord_Place += currentContent;
 
-        } else if (ExpTextClassificationUtilsModule.isMerchant(currentContent)) {
+        } else if (ExpTextClassificationUtilsModule.isMerchant(googleMLCloudLanguageClient, currentContent)) {
 
             currentRecord_Merchant += currentContent;
 

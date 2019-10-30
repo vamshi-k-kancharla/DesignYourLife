@@ -1,4 +1,11 @@
 
+/*************************************************************************
+ * 
+ * Author : Vamshi Krishna Kancharla
+ * Copy Rights Holder : ThinkTalk Software Solutions Pvt Ltd
+ * 
+ *************************************************************************/
+
 'use strict';
 
 /*************************************************************************
@@ -11,6 +18,7 @@ var ImageJSHelperUtilsModule = require('./ImageJSHelperUtils');
 var GlobalsForServiceModule = require('./GlobalsForService');
 var RawContentParserModule = require('./RawContentParser');
 var HelperUtilsModule = require('./HelperUtils');
+
 
 /**
  * 
